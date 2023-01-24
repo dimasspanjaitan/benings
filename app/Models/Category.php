@@ -9,5 +9,10 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $timestamps = false;
+    public $timestamps = false;
+
+    public function product_category()
+    {
+        return $this->belongsTo(ProductCategory::class);
+    }
 }

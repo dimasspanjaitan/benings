@@ -9,5 +9,10 @@ class ProductDetail extends Model
 {
     use HasFactory;
 
-    protected $timestamps = false;
+    public $timestamps = false;
+
+    public function product()
+    {
+        return $this->belongsToMany(Product::class, 'product_group_id');
+    }
 }
