@@ -3,14 +3,25 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
+use App\Models\{
+    Category
+};
+
 
 class FrontendController extends Controller
 {
+    public function index(Request $request){
+        return redirect()->route($request->user()->role);
+    }
+    
     public function home(){
         $banners = [];
         $product_lists = [];
         $featured = [];
-        return view('frontend.index', compact('banners', 'product_lists', 'featured'));
+
+        $category_lists = Category::where('status',1)->limit(3)->get();
+
+        return view('frontend.index', compact('banners', 'product_lists', 'featured', 'category_lists'));
     }
 
     public function register(){

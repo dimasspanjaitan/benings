@@ -21,19 +21,31 @@
                     <!-- Top Right -->
                     <div class="right-content">
                         <ul class="list-main">
-                        {{-- <li><i class="ti-location-pin"></i> <a href="{{route('order.track')}}">Track Order</a></li> --}}
-                            {{-- <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> --}}
-                            {{-- @auth 
-                                @if(Auth::user()->role=='admin')
+                        <li><i class="ti-location-pin"></i> <a href="#">Track Order</a></li>
+                            <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
+                            @auth 
+                                @if(Auth::user()->role==1)
                                     <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">Dashboard</a></li>
                                 @else 
                                     <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Dashboard</a></li>
                                 @endif
-                                <li><i class="ti-power-off"></i> <a href="{{route('user.logout')}}">Logout</a></li>
+                                
+                                <li><i class="ti-power-off"></i>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+
+                                
 
                             @else
                                 <li><i class="ti-power-off"></i><a href="{{route('login')}}">Login /</a> <a href="{{route('register.form')}}">Register</a></li>
-                            @endauth --}}
+                            @endauth
                         </ul>
                     </div>
                     <!-- End Top Right -->

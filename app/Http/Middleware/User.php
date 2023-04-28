@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-// use Auth;
 
-class Admin
+class User
 {
     /**
      * Handle an incoming request.
@@ -16,12 +15,11 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->role==1){
-            return $next($request);
+        if(empty(session('user'))){
+            return redirect()->route('login');
         }
         else{
-            request()->session()->flash('error','You do not have any permission to access this page');
-            return redirect()->route($request->user()->role);
+            return $next($request);
         }
     }
 }

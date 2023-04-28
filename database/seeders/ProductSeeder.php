@@ -34,22 +34,22 @@ class ProductSeeder extends Seeder
                 'note' => ''
             ],
             [
-                'id' => 4,
+                'id' => 2,
                 'name' => 'Serum',
                 'note' => ''
             ],
             [
-                'id' => 5,
+                'id' => 3,
                 'name' => 'Body Care',
                 'note' => ''
             ],
             [
-                'id' => 6,
+                'id' => 4,
                 'name' => 'Mother Edition',
                 'note' => ''
             ],
             [
-                'id' => 7,
+                'id' => 5,
                 'name' => 'Item Satuan',
                 'note' => ''
             ],

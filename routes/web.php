@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AdminController,
     AuthController,
-    FrontendController
+    FrontendController,
+    HomeController,
+    ProductController
 };
 
 /*
@@ -32,15 +34,43 @@ Route::post('/register',[FrontendController::class, 'registerSubmit'])->name('re
 Route::get('login/{provider}/', [AuthController::class, 'redirect'])->name('login.redirect');
 Route::get('login/{provider}/callback/', [AuthController::class, 'callback'])->name('login.callback');
 
+Route::get('/', [FrontendController::class, 'home'])->name('home');
+
+// Route::group(['middleware'=>['auth']],function(){
+//     Route::get('/', [FrontendController::class, 'home'])->name('home');
+// });
 
 
-Route::group(['middleware'=>['auth']],function(){
-    Route::get('/', [FrontendController::class, 'home'])->name('home');
-});
+
+
+
+
+
+// Frontend Routes
+Route::get('/home', [FrontendController::class, 'index']);
+
+
+
+
+
+
+
 
 // Backend section start
-
-Route::group(['prefix'=>'/admin','middleware'=>['admin']],function(){
+Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin');
-    // Route::get('/','AdminController@index')->name('admin');
+});
+
+
+
+
+
+
+
+
+// User section start
+Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
+    Route::get('/', [HomeController::class, 'index'])->name('user');
+
+    Route::resource('/product', ProductController::class);
 });
