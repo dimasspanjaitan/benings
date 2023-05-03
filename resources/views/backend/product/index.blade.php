@@ -26,7 +26,7 @@
               <th>Category</th>
               <th>Price</th>
               <th>Stock</th>
-              <th>Size</th>
+              <th>Weight</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -40,7 +40,7 @@
               <th>Category</th>
               <th>Price</th>
               <th>Stock</th>
-              <th>Size</th>
+              <th>Weight</th>
               <th>Action</th>
             </tr>
           </tfoot>
@@ -72,7 +72,7 @@
                     <td>{{$product->category_id}}</td>
                     <td>Rp. /-</td>
                     {{-- <td>  {{$product->discount}}% OFF</td> --}}
-                    {{-- <td>{{$product->size}}</td> --}}
+                    {{-- <td>{{$product->weight}}</td> --}}
                     {{-- <td>{{$product->condition}}</td> --}}
                     {{-- <td> {{ucfirst($product->brand->title)}}</td> --}}
                     <td>0
@@ -82,7 +82,7 @@
                         <span class="badge badge-danger">{{$product->stock}}</span>
                         @endif --}}
                     </td>
-                    <td>{{$product->size}}</td>                    
+                    <td>{{$product->weight}}</td>                    
                     <td>
                         <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                     <form method="POST" action="{{route('product.destroy',[$product->id])}}">

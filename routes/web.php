@@ -59,6 +59,8 @@ Route::get('/home', [FrontendController::class, 'index']);
 // Backend section start
 Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin');
+
+    Route::resource('/product', ProductController::class);
 });
 
 
@@ -72,5 +74,5 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
 Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::get('/', [HomeController::class, 'index'])->name('user');
 
-    Route::resource('/product', ProductController::class);
+    
 });

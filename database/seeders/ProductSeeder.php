@@ -57,138 +57,29 @@ class ProductSeeder extends Seeder
         $product = array(
             [  
                 'id' => 1,
+                'status' => 1,
                 'name' => 'Facial Wash Brightening',
+                'slug' => 'facial-wash-brightening',
+                'summary' => 'ringkasan facial wash brightening',
+                'photo' => '',
                 'product_type' => 1,
                 'category_id' => 7,
                 'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
+                'weight' => 10,
+                'description' => 'testing deskripsi'
             ],
             [  
                 'id' => 2,
+                'status' => 1,
                 'name' => 'Facial Wash Acne',
+                'slug' => 'facial-wash-acne',
+                'summary' => 'ringkasan facial wash acne',
+                'photo' => '',
                 'product_type' => 1,
                 'category_id' => 7,
                 'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 3,
-                'name' => 'Facial Wash Exclusive',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 4,
-                'name' => 'Toner Brightening',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 5,
-                'name' => 'Toner Acne',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 6,
-                'name' => 'Toner Exclusive',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 7,
-                'name' => 'Day Cream Brightening',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 8,
-                'name' => 'Day Cream Acne',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 9,
-                'name' => 'Day Cream Exclusive',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 10,
-                'name' => 'Night Cream Brightening',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 11,
-                'name' => 'Night Cream Acne',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 12,
-                'name' => 'Night Cream Exclusive',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 13,
-                'name' => 'Night Cream Brightening (BPOM)',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 14,
-                'name' => 'Night Cream Acne (BPOM)',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
-            ],
-            [  
-                'id' => 15,
-                'name' => 'Night Cream Exclusive (BPOM)',
-                'product_type' => 1,
-                'category_id' => 7,
-                'min_order' => 1,
-                'unit_height' => 10,
-                'note' => 'testing'
+                'weight' => 10,
+                'description' => 'testing deskripsi'
             ],
         );
 

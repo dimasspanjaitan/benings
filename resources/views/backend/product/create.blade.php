@@ -32,8 +32,8 @@
         </div>
 
         <div class="form-group">
-          <label for="cat_id">Category <span class="text-danger">*</span></label>
-          <select name="cat_id" id="cat_id" class="form-control">
+          <label for="category_id">Category <span class="text-danger">*</span></label>
+          <select name="category_id" id="category_id" class="form-control">
               <option value="">--Select any category--</option>
               @foreach($categories as $key=>$cat_data)
                   <option value='{{$cat_data->id}}'>{{$cat_data->name}}</option>
@@ -58,13 +58,9 @@
         </div> --}}
 
         <div class="form-group">
-          <label for="size">Size</label>
-        </div>
-
-        <div class="form-group">
-          <label for="stock">Quantity <span class="text-danger">*</span></label>
-          <input id="quantity" type="number" name="stock" min="0" placeholder="Enter quantity"  value="{{old('stock')}}" class="form-control">
-          @error('stock')
+          <label for="weight">Weight</label>
+          <input id="weight" type="number" name="weight" placeholder="Enter weight"  value="{{old('weight')}}" class="form-control">
+          @error('weight')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
@@ -88,8 +84,8 @@
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
           </select>
           @error('status')
           <span class="text-danger">{{$message}}</span>
@@ -137,16 +133,16 @@
 </script>
 
 <script>
-  $('#cat_id').change(function(){
-    var cat_id=$(this).val();
-    // alert(cat_id);
-    if(cat_id !=null){
+  $('#category_id').change(function(){
+    var category_id=$(this).val();
+    // alert(category_id);
+    if(category_id !=null){
       // Ajax call
       $.ajax({
-        url:"/admin/category/"+cat_id+"/child",
+        url:"/admin/category/"+category_id+"/child",
         data:{
           _token:"{{csrf_token()}}",
-          id:cat_id
+          id:category_id
         },
         type:"POST",
         success:function(response){
@@ -170,7 +166,7 @@
           else{
             $('#child_cat_div').addClass('d-none');
           }
-          $('#child_cat_id').html(html_option);
+          $('#child_category_id').html(html_option);
         }
       });
     }

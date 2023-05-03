@@ -29,9 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // $categories=Category::where('is_parent',1)->get();
-        $categories=[];
-        // return $category;
+        $categories=Category::where('status',1)->get();
         return view('backend.product.create', compact('categories'));
     }
 
@@ -41,53 +39,46 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     // return $request->all();
-    //     $this->validate($request,[
-    //         'title'=>'string|required',
-    //         'summary'=>'string|required',
-    //         'description'=>'string|nullable',
-    //         'photo'=>'string|required',
-    //         'size'=>'nullable',
-    //         'stock'=>"required|numeric",
-    //         'cat_id'=>'required|exists:categories,id',
-    //         'brand_id'=>'nullable|exists:brands,id',
-    //         'child_cat_id'=>'nullable|exists:categories,id',
-    //         'is_featured'=>'sometimes|in:1',
-    //         'status'=>'required|in:active,inactive',
-    //         'condition'=>'required|in:default,new,hot',
-    //         'price'=>'required|numeric',
-    //         'discount'=>'nullable|numeric'
-    //     ]);
+    public function store(Request $request)
+    {
+        // return $request->all();
+        $this->validate($request,[
+            'status'=>'required|in:1,0',
+            'name'=>'string|required',
+            'summary'=>'string|required',
+            'description'=>'string|nullable',
+            'photo'=>'string|nullable',
+            'product_type'=>'integer\|nullable',
+            'category_id'=>'required|exists:categories,id',
+            'min_order'=>'integer|nullable',
+            'weight' => 'integer|nullable',
+        ]);
 
-    //     $data=$request->all();
-    //     $slug=Str::slug($request->title);
-    //     $count=Product::where('slug',$slug)->count();
-    //     if($count>0){
-    //         $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
-    //     }
-    //     $data['slug']=$slug;
-    //     $data['is_featured']=$request->input('is_featured',0);
-    //     $size=$request->input('size');
-    //     if($size){
-    //         $data['size']=implode(',',$size);
-    //     }
-    //     else{
-    //         $data['size']='';
-    //     }
-    //     // return $size;
-    //     // return $data;
-    //     $status=Product::create($data);
-    //     if($status){
-    //         request()->session()->flash('success','Product Successfully added');
-    //     }
-    //     else{
-    //         request()->session()->flash('error','Please try again!!');
-    //     }
-    //     return redirect()->route('product.index');
+        $data=$request->all();
+        $slug=Str::slug($request->name);
+        $count=Product::where('slug',$slug)->count();
+        if($count>0){
+            $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
+        }
+        $data['slug']=$slug;
+        // $weight=$request->input('weight');
+        // if($weight){
+        //     $data['weight']=implode(',',$weight);
+        // }
+        // else{
+        //     $data['weight']='';
+        // }
 
-    // }
+        $status=Product::create($data);
+        if($status){
+            request()->session()->flash('success','Product Successfully added');
+        }
+        else{
+            request()->session()->flash('error','Please try again!!');
+        }
+        return redirect()->route('product.index');
+
+    }
 
     /**
      * Display the specified resource.
@@ -106,16 +97,15 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-    //     $product=Product::findOrFail($id);
-    //     $category=Category::where('is_parent',1)->get();
-    //     $items=Product::where('id',$id)->get();
-    //     // return $items;
-    //     return view('backend.product.edit')->with('product',$product)
-    //                 ->with('brands',$brand)
-    //                 ->with('categories',$category)->with('items',$items);
-    // }
+    public function edit($id)
+    {
+        $product=Product::findOrFail($id);
+        $category=Category::get();
+        $items=Product::where('id',$id)->get();
+        // return $items;
+        return view('backend.product.edit')->with('product',$product)
+                    ->with('categories',$category)->with('items',$items);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -124,44 +114,39 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, $id)
-    // {
-    //     $product=Product::findOrFail($id);
-    //     $this->validate($request,[
-    //         'title'=>'string|required',
-    //         'summary'=>'string|required',
-    //         'description'=>'string|nullable',
-    //         'photo'=>'string|required',
-    //         'size'=>'nullable',
-    //         'stock'=>"required|numeric",
-    //         'cat_id'=>'required|exists:categories,id',
-    //         'child_cat_id'=>'nullable|exists:categories,id',
-    //         'is_featured'=>'sometimes|in:1',
-    //         'status'=>'required|in:active,inactive',
-    //         'condition'=>'required|in:default,new,hot',
-    //         'price'=>'required|numeric',
-    //         'discount'=>'nullable|numeric'
-    //     ]);
+    public function update(Request $request, $id)
+    {
+        $product=Product::findOrFail($id);
+        $this->validate($request,[
+            'status'=>'required|in:1,0',
+            'name'=>'string|required',
+            'summary'=>'string|required',
+            'description'=>'string|nullable',
+            'photo'=>'string|nullable',
+            'product_type'=>'integer\|nullable',
+            'category_id'=>'required|exists:categories,id',
+            'min_order'=>'integer|nullable',
+            'weight' => 'integer|nullable',
+        ]);
 
-    //     $data=$request->all();
-    //     $data['is_featured']=$request->input('is_featured',0);
-    //     $size=$request->input('size');
-    //     if($size){
-    //         $data['size']=implode(',',$size);
-    //     }
-    //     else{
-    //         $data['size']='';
-    //     }
-    //     // return $data;
-    //     $status=$product->fill($data)->save();
-    //     if($status){
-    //         request()->session()->flash('success','Product Successfully updated');
-    //     }
-    //     else{
-    //         request()->session()->flash('error','Please try again!!');
-    //     }
-    //     return redirect()->route('product.index');
-    // }
+        $data=$request->all();
+        $slug=Str::slug($request->name);
+        $count=Product::where('slug',$slug)->count();
+        if($count>0){
+            $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
+        }
+        $data['slug']=$slug;
+        
+        // return $data;
+        $status=$product->fill($data)->save();
+        if($status){
+            request()->session()->flash('success','Product Successfully updated');
+        }
+        else{
+            request()->session()->flash('error','Please try again!!');
+        }
+        return redirect()->route('product.index');
+    }
 
     /**
      * Remove the specified resource from storage.

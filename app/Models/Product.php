@@ -12,6 +12,8 @@ class Product extends Model
 
     public $timestamps = false;
 
+    protected $fillable=['name','slug','summary','description','category_id','status','photo','weight'];
+
     public function product_detail()
     {
         return $this->hasMany(ProductDetail::class, 'product_group_id');

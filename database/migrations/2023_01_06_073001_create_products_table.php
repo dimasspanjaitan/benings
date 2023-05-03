@@ -17,13 +17,14 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->boolean('status')->default(1);
             $table->string('name');
+            $table->string('slug');
             $table->longText('summary')->nullable();
             $table->longText('photo')->nullable();
             $table->tinyInteger('product_type')->default(1);
             $table->tinyInteger('category_id')->index();
             $table->integer('min_order')->default(1);
             $table->integer('weight')->nullable();
-            $table->text('note')->nullable();
+            $table->text('description')->nullable();
         });
     }
 
