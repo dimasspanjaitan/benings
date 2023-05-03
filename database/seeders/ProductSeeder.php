@@ -30,28 +30,33 @@ class ProductSeeder extends Seeder
         $categories = array(
             [
                 'id' => 1,
-                'name' => 'Paket Dasar',
-                'note' => ''
+                'title' => 'Paket Dasar',
+                'slug' => 'paket-dasar',
+                'description' => ''
             ],
             [
                 'id' => 2,
-                'name' => 'Serum',
-                'note' => ''
+                'title' => 'Serum',
+                'slug' => 'serum',
+                'description' => ''
             ],
             [
                 'id' => 3,
-                'name' => 'Body Care',
-                'note' => ''
+                'title' => 'Body Care',
+                'slug' => 'body-care',
+                'description' => ''
             ],
             [
                 'id' => 4,
-                'name' => 'Mother Edition',
-                'note' => ''
+                'title' => 'Mother Edition',
+                'slug' => 'mother-edition',
+                'description' => ''
             ],
             [
                 'id' => 5,
-                'name' => 'Item Satuan',
-                'note' => ''
+                'title' => 'Item Satuan',
+                'slug' => 'item-satuan',
+                'description' => ''
             ],
         );
         $product = array(

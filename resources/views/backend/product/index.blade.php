@@ -18,7 +18,7 @@
         <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
+              <th width='10px'>S.N.</th>
               <th>Status</th>
               <th>Name</th>
               <th>Summary</th>
@@ -26,7 +26,7 @@
               <th>Category</th>
               <th>Price</th>
               <th>Stock</th>
-              <th>Weight</th>
+              {{-- <th>Weight</th> --}}
               <th>Action</th>
             </tr>
           </thead>
@@ -40,7 +40,7 @@
               <th>Category</th>
               <th>Price</th>
               <th>Stock</th>
-              <th>Weight</th>
+              {{-- <th>Weight</th> --}}
               <th>Action</th>
             </tr>
           </tfoot>
@@ -69,7 +69,7 @@
                             <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
                         @endif
                     </td>
-                    <td>{{$product->category_id}}</td>
+                    <td>{{$product->category->name}}</td>
                     <td>Rp. /-</td>
                     {{-- <td>  {{$product->discount}}% OFF</td> --}}
                     {{-- <td>{{$product->weight}}</td> --}}
@@ -82,7 +82,7 @@
                         <span class="badge badge-danger">{{$product->stock}}</span>
                         @endif --}}
                     </td>
-                    <td>{{$product->weight}}</td>                    
+                    {{-- <td>{{$product->weight}}</td>                     --}}
                     <td>
                         <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                     <form method="POST" action="{{route('product.destroy',[$product->id])}}">

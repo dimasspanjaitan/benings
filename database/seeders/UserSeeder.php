@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
                 'city' => 'Medan',
                 'address' => 'Jl. Medan',
                 'bank_number' => '08080088',
-                'level_id' => 1,
+                'level_id' => 6,
                 'region_id' => 1,
             ],
             [
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
                 'address' => 'Jl. Medan',
                 'bank_number' => '08080088',
                 'level_id' => 1,
-                'region_id' => 1,
+                'region_id' => 2,
             ]
         );
 

@@ -42,8 +42,8 @@
         <div id="categoryCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Category Options:</h6>
-            {{-- <a class="collapse-item" href="{{route('category.index')}}">Category</a>
-            <a class="collapse-item" href="{{route('category.create')}}">Add Category</a> --}}
+            <a class="collapse-item" href="{{route('category.index')}}">Category</a>
+            <a class="collapse-item" href="{{route('category.create')}}">Add Category</a>
           </div>
         </div>
     </li>
@@ -94,7 +94,7 @@
     </li>
      <!-- Users -->
      <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('users.index')}}">
             <i class="fas fa-users"></i>
             <span>Users</span></a>
     </li>

@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AdminController,
     AuthController,
+    CategoryController,
     FrontendController,
     HomeController,
-    ProductController
+    ProductController,
+    UsersController
 };
 
 /*
@@ -61,6 +63,8 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin');
 
     Route::resource('/product', ProductController::class);
+    Route::resource('/category', CategoryController::class);
+    Route::resource('/users', UsersController::class);
 });
 
 

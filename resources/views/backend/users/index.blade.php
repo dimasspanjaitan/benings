@@ -18,24 +18,30 @@
           <thead>
             <tr>
               <th>S.N.</th>
+              <th>Status</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Phone</th>
+              <th>Level</th>
+              <th>Region</th>
               <th>Photo</th>
               <th>Join Date</th>
               <th>Role</th>
-              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
                 <th>S.N.</th>
+                <th>Status</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Phone</th>
+                <th>Level</th>
+                <th>Region</th>
                 <th>Photo</th>
                 <th>Join Date</th>
                 <th>Role</th>
-                <th>Status</th>
                 <th>Action</th>
               </tr>
           </tfoot>
@@ -43,8 +49,18 @@
             @foreach($users as $user)   
                 <tr>
                     <td>{{$user->id}}</td>
+                    <td>
+                        @if($user->status==1)
+                            <span class="badge badge-success">Active</span>
+                        @else
+                            <span class="badge badge-warning">Inactive</span>
+                        @endif
+                    </td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
+                    <td>{{$user->phone}}</td>
+                    <td>{{$user->levels->name}}</td>
+                    <td>{{$user->regions->name}}</td>
                     <td>
                         @if($user->photo)
                             <img src="{{$user->photo}}" class="img-fluid rounded-circle" style="max-width:50px" alt="{{$user->photo}}">
@@ -53,14 +69,7 @@
                         @endif
                     </td>
                     <td>{{(($user->created_at)? $user->created_at->diffForHumans() : '')}}</td>
-                    <td>{{$user->role}}</td>
-                    <td>
-                        @if($user->status=='active')
-                            <span class="badge badge-success">{{$user->status}}</span>
-                        @else
-                            <span class="badge badge-warning">{{$user->status}}</span>
-                        @endif
-                    </td>
+                    <td>{{ ($user->role==1) ? 'Admin' : 'User' }}</td>
                     <td>
                         <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                     <form method="POST" action="{{route('users.destroy',[$user->id])}}">

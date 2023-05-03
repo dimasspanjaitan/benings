@@ -17,8 +17,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products=Product::get();
-        // return $products;
+        $products = Product::with('category')->get();
+        // dd($products);
+
         return view('backend.product.index', compact('products'));
     }
 
@@ -136,7 +137,7 @@ class ProductController extends Controller
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
         }
         $data['slug']=$slug;
-        
+
         // return $data;
         $status=$product->fill($data)->save();
         if($status){
@@ -154,17 +155,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     $product=Product::findOrFail($id);
-    //     $status=$product->delete();
+    public function destroy($id)
+    {
+        $product=Product::findOrFail($id);
+        $status=$product->delete();
         
-    //     if($status){
-    //         request()->session()->flash('success','Product successfully deleted');
-    //     }
-    //     else{
-    //         request()->session()->flash('error','Error while deleting product');
-    //     }
-    //     return redirect()->route('product.index');
-    // }
+        if($status){
+            request()->session()->flash('success','Product successfully deleted');
+        }
+        else{
+            request()->session()->flash('error','Error while deleting product');
+        }
+        return redirect()->route('product.index');
+    }
 }

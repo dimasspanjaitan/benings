@@ -18,25 +18,21 @@
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
-              <th>Is Parent</th>
-              <th>Parent Category</th>
-              <th>Photo</th>
+              <th width='10px'>S.N.</th>
               <th>Status</th>
+              <th>Title</th>
+              {{-- <th>Slug</th> --}}
+              <th>Description</th>
               <th>Action</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
-              <th>Is Parent</th>
-              <th>Parent Category</th>
-              <th>Photo</th>
               <th>Status</th>
+              <th>Title</th>
+              {{-- <th>Slug</th> --}}
+              <th>Description</th>
               <th>Action</th>
             </tr>
           </tfoot>
@@ -47,26 +43,16 @@
               @endphp
                 <tr>
                     <td>{{$category->id}}</td>
+                    <td>
+                        @if($category->status==1)
+                            <span class="badge badge-success">Active</span>
+                        @else
+                            <span class="badge badge-warning">Inactive</span>
+                        @endif
+                    </td>
                     <td>{{$category->title}}</td>
-                    <td>{{$category->slug}}</td>
-                    <td>{{(($category->is_parent==1)? 'Yes': 'No')}}</td>
-                    <td>
-                        {{$category->parent_info->title ?? ''}}
-                    </td>
-                    <td>
-                        @if($category->photo)
-                            <img src="{{$category->photo}}" class="img-fluid" style="max-width:80px" alt="{{$category->photo}}">
-                        @else
-                            <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
-                        @endif
-                    </td>
-                    <td>
-                        @if($category->status=='active')
-                            <span class="badge badge-success">{{$category->status}}</span>
-                        @else
-                            <span class="badge badge-warning">{{$category->status}}</span>
-                        @endif
-                    </td>
+                    {{-- <td>{{$category->slug}}</td> --}}
+                    <td>{{$category->description}}</td>
                     <td>
                         <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                     <form method="POST" action="{{route('category.destroy',[$category->id])}}">
@@ -79,7 +65,7 @@
             @endforeach
           </tbody>
         </table>
-        <span style="float:right">{{$categories->links()}}</span>
+        {{-- <span style="float:right">{{$categories->links()}}</span> --}}
         @else
           <h6 class="text-center">No Categories found!!! Please create Category</h6>
         @endif

@@ -8,8 +8,8 @@
       <form method="post" action="{{route('users.store')}}">
         {{csrf_field()}}
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Name</label>
-        <input id="inputTitle" type="text" name="name" placeholder="Enter name"  value="{{old('name')}}" class="form-control">
+          <label for="inputName" class="col-form-label">Name</label>
+        <input id="inputName" type="text" name="name" placeholder="Enter name"  value="{{old('name')}}" class="form-control">
         @error('name')
         <span class="text-danger">{{$message}}</span>
         @enderror
@@ -32,6 +32,34 @@
         </div>
 
         <div class="form-group">
+            <label for="inputPhone" class="col-form-label">Phone</label>
+          <input id="inputPhone" type="number" name="phone" placeholder="Enter phone"  value="{{old('phone')}}" class="form-control">
+          @error('password')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="level">Level <span class="text-danger">*</span></label>
+          <select name="level_id" class="form-control">
+              <option value="">--Select any level--</option>
+              @foreach($levels as $key=>$data)
+                  <option value='{{$data->id}}'>{{$data->name}}</option>
+              @endforeach
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="region">Region <span class="text-danger">*</span></label>
+          <select name="region_id" class="form-control">
+              <option value="">--Select any region--</option>
+              @foreach($regions as $key=>$data)
+                  <option value='{{$data->id}}'>{{$data->name}}</option>
+              @endforeach
+          </select>
+        </div>
+
+        <div class="form-group">
         <label for="inputPhoto" class="col-form-label">Photo</label>
         <div class="input-group">
             <span class="input-group-btn">
@@ -46,31 +74,28 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        @php 
-        $roles=DB::table('users')->select('role')->get();
-        @endphp
+        
         <div class="form-group">
-            <label for="role" class="col-form-label">Role</label>
-            <select name="role" class="form-control">
-                <option value="">-----Select Role-----</option>
-                @foreach($roles as $role)
-                    <option value="{{$role->role}}">{{$role->role}}</option>
-                @endforeach
-            </select>
+          <label for="role" class="col-form-label">Role</label>
+          <select name="role" class="form-control">
+              <option value="1">Admin</option>
+              <option value="2">User</option>
+          </select>
           @error('role')
           <span class="text-danger">{{$message}}</span>
           @enderror
-          </div>
-          <div class="form-group">
-            <label for="status" class="col-form-label">Status</label>
-            <select name="status" class="form-control">
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-            </select>
-          @error('status')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="status" class="col-form-label">Status</label>
+          <select name="status" class="form-control">
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
+          </select>
+        @error('status')
+        <span class="text-danger">{{$message}}</span>
+        @enderror
+        </div>
         <div class="form-group mb-3">
           <button type="reset" class="btn btn-warning">Reset</button>
            <button class="btn btn-success" type="submit">Submit</button>
@@ -81,9 +106,9 @@
 
 @endsection
 
-@push('scripts')
+{{-- @push('scripts')
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
     $('#lfm').filemanager('image');
 </script>
-@endpush
+@endpush --}}
