@@ -26,6 +26,20 @@
         Banner
     </div>
 
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-image"></i>
+        <span>Banners</span>
+      </a>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Banner Options:</h6>
+          <a class="collapse-item" href="#">Banners</a>
+          <a class="collapse-item" href="#">Add Banners</a>
+        </div>
+      </div>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
         <!-- Heading -->
@@ -75,10 +89,36 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-      Posts
+      Others
     </div>
-
-
+    {{-- Levels --}}
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#levelCollapse" aria-expanded="true" aria-controls="levelCollapse">
+          <i class="fas fa-bars"></i>
+          <span>Levels</span>
+        </a>
+        <div id="levelCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Level Options:</h6>
+            <a class="collapse-item" href="{{ route('level.index') }}">Levels</a>
+            <a class="collapse-item" href="{{ route('level.create') }}">Add Level</a>
+          </div>
+        </div>
+    </li>
+    {{-- Origins --}}
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#regionCollapse" aria-expanded="true" aria-controls="regionCollapse">
+          <i class="fas fa-layer-group"></i>
+          <span>Regions</span>
+        </a>
+        <div id="regionCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Region Options:</h6>
+            <a class="collapse-item" href="{{ route('region.index') }}">Regions</a>
+            <a class="collapse-item" href="{{ route('region.create') }}">Add Region</a>
+          </div>
+        </div>
+    </li>
 
 
     <!-- Divider -->
@@ -87,11 +127,11 @@
     <div class="sidebar-heading">
         General Settings
     </div>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link" href="#">
           <i class="fas fa-table"></i>
           <span>Coupon</span></a>
-    </li>
+    </li> --}}
      <!-- Users -->
      <li class="nav-item">
         <a class="nav-link" href="{{route('users.index')}}">

@@ -9,5 +9,11 @@ class Region extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'status',
+        'name',
+        'description'
+    ];
+
     public $timestamps = false;
 }

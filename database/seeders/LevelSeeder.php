@@ -18,53 +18,63 @@ class LevelSeeder extends Seeder
         $level = array( 
             [
                 'id' => 1,
+                'status' => 1,
                 'name' => 'Newbie',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' => 2,
+                'status' => 1,
                 'name' => 'Junior Reseller',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' => 3,
+                'status' => 1,
                 'name' => 'Senior Reseller',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' => 4,
+                'status' => 1,
                 'name' => 'Junior Agen',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' => 5,
+                'status' => 1,
                 'name' => 'Senior Agen',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' => 6,
+                'status' => 1,
                 'name' => 'Distributor',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' => 7,
+                'status' => 1,
                 'name' => 'Distributor Plus',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' =>8,
+                'status' => 1,
                 'name' => 'Senior Distributor',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' => 9,
+                'status' => 1,
                 'name' => 'Master Distributor',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
             [
                 'id' => config('benings.customer_level_id'),
+                'status' => 1,
                 'name' => 'Customer',
-                'note' => 'Item Satuan'
+                'description' => '-'
             ],
         );
 

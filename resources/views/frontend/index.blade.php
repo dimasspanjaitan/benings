@@ -85,7 +85,7 @@
                                     @foreach($categories as $key=>$cat)
 
                                     <button class="btn" style="background:none;color:black;"data-filter=".{{$cat->id}}">
-                                        {{$cat->name}}
+                                        {{$cat->title}}
                                     </button>
                                     @endforeach
                                 @endif
