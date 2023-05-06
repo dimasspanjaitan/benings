@@ -15,7 +15,7 @@ class CreateSaleDetailsTable extends Migration
     {
         Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('purchase_id')->index();
+            $table->integer('sale_id')->index();
             $table->integer('product_id')->index();
             $table->string('unit');
             $table->integer('qty');

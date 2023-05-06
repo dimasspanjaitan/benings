@@ -15,10 +15,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->get();
-        // dd($products);
+        if(!isset($request['_page'])) $request['_page'] = 0;
+        $products = Product::with('category');
+        $products = $this->filter($products)->get();
+        // dd($products->toSql());
 
         return view('backend.product.index', compact('products'));
     }

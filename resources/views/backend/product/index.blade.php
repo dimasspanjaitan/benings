@@ -69,7 +69,7 @@
                             <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
                         @endif
                     </td>
-                    <td>{{$product->category->name}}</td>
+                    <td>{{$product->category->title}}</td>
                     <td>Rp. /-</td>
                     {{-- <td>  {{$product->discount}}% OFF</td> --}}
                     {{-- <td>{{$product->weight}}</td> --}}
@@ -105,12 +105,12 @@
 @endsection
 
 @push('styles')
-  <link href="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+  <link href="{{asset('backend/vendor/datatables/datatables.min.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
   <style>
-      div.dataTables_wrapper div.dataTables_paginate{
+      /* div.dataTables_wrapper div.dataTables_paginate{
           display: none;
-      }
+      } */
       .zoom {
         transition: transform .2s; /* Animation */
       }
@@ -125,22 +125,25 @@
 
   <!-- Page level plugins -->
   <script src="{{asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-  <script src="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('backend/vendor/datatables/datatables.min.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
+  {{-- <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script> --}}
   <script>
 
       $('#product-dataTable').DataTable( {
-        "scrollX": false
-            "columnDefs":[
-                {
-                    "orderable":false,
-                    "targets":[10,11,12]
-                }
-            ]
-        } );
+        // "scrollX": false
+        //     "columnDefs":[
+        //         {
+        //             "orderable":false,
+        //             "targets":[10,11,12]
+        //         }
+        //     ]
+        // },
+        "paging": true
+
+        });
 
         // Sweet alert
 

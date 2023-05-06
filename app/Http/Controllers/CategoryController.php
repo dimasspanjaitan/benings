@@ -46,12 +46,14 @@ class CategoryController extends Controller
             'description'=>'string|nullable'
         ]);
         $data= $request->all();
-        $slug=Str::slug($request->title);
+        $slug=Str::slug($request['title']);
         $count=Category::where('slug',$slug)->count();
         if($count>0){
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
         }
         $data['slug']=$slug;
+
+        // dd($data);
 
         $status=Category::create($data);
         if($status){

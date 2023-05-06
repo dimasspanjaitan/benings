@@ -16,9 +16,11 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('levels', 'regions')->orderBy('id','ASC')->paginate(10);
+        if(!isset($request['_page'])) $request['_page'] = 0;
+        $users = User::with('levels', 'regions')->orderBy('id','ASC');
+        $users = $this->filter($users)->get();
         // dd($users);
         
         return view('backend.users.index', compact('users'));

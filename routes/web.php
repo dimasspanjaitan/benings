@@ -11,7 +11,8 @@ use App\Http\Controllers\{
     ProductController,
     UsersController,
     LevelController,
-    RegionController
+    RegionController,
+    SaleController
 };
 
 /*
@@ -69,6 +70,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::resource('/users', UsersController::class);
     Route::resource('/level', LevelController::class);
     Route::resource('/region', RegionController::class);
+    Route::resource('/sale', SaleController::class);
 });
 
 

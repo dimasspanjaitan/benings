@@ -20,7 +20,7 @@ class CreateSalesTable extends Migration
             $table->integer('total');
             $table->dateTime('sale_date');
             $table->string('code')->nullable();
-            $table->text('note')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
