@@ -18,7 +18,7 @@
         <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th width='10px'>S.N.</th>
+              <th width='10px'>ID</th>
               <th>Status</th>
               <th>Name</th>
               <th>Summary</th>
@@ -32,7 +32,7 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
+              <th>ID</th>
               <th>Status</th>
               <th>Name</th>
               <th>Summary</th>
@@ -95,7 +95,9 @@
             @endforeach
           </tbody>
         </table>
-        {{-- <span style="float:right">{{$products->links()}}</span> --}}
+
+        @include('backend.layouts.pagination');
+        
         @else
           <h6 class="text-center">No Products found!!! Please create Product</h6>
         @endif
@@ -133,16 +135,8 @@
   <script>
 
       $('#product-dataTable').DataTable( {
-        // "scrollX": false
-        //     "columnDefs":[
-        //         {
-        //             "orderable":false,
-        //             "targets":[10,11,12]
-        //         }
-        //     ]
-        // },
-        "paging": true
-
+        "paging": false
+        "info" : false
         });
 
         // Sweet alert

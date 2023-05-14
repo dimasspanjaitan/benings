@@ -1,6 +1,8 @@
 @extends('backend.layouts.master')
 
 @section('main-content')
+
+{{-- {{ dd($pagination) }} --}}
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
      <div class="row">
@@ -10,7 +12,6 @@
      </div>
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary float-left">Sale Lists</h6>
-      <a href="{{route('product.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Product</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -51,11 +52,13 @@
                     {{-- <td>{{$sale->id}}</td> --}}
                     <td class="dt-control" data-data='{{ $sale->details }}'></td>
                     <td>
-                        @if($sale->status==1)
-                            <span class="badge badge-success">Active</span>
-                        @else
-                            <span class="badge badge-warning">Inactive</span>
-                        @endif
+                        <select class="form-control {{ $sale->class }} status-type" data-data="{{ $sale }}" name="status">
+                          <option value="1" {{ $sale->status==1 ? 'selected' : '' }}>Pending</option>
+                          <option value="2" {{ $sale->status==2 ? 'selected' : '' }}>Process</option>
+                          <option value="3" {{ $sale->status==3 ? 'selected' : '' }}>On Delivery</option>
+                          <option value="4" {{ $sale->status==4 ? 'selected' : '' }}>Finished</option>
+                          <option value="5" {{ $sale->status==5 ? 'selected' : '' }}>Cancel</option>
+                        </select>
                     </td>
                     <td>{{$sale->user->name}}</td>
                     <td>{{$sale->total}}</td>
@@ -67,6 +70,10 @@
             @endforeach
           </tbody>
         </table>
+        
+        {{-- Pagination --}}
+        @include('backend.layouts.pagination');
+
         {{-- <span style="float:right">{{$sales->links()}}</span> --}}
         @else
           <h6 class="text-center">No sales found!!! Please create sale</h6>
@@ -101,44 +108,51 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
   <!-- Page level custom scripts -->
-  {{-- <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script> --}}
   <script>
 
       var table = $('#product-dataTable').DataTable( {
-        // "scrollX": false
-        //     "columnDefs":[
-        //         {
-        //             "orderable":false,
-        //             "targets":[10,11,12]
-        //         }
-        //     ]
-        // },
-        "paging": true
+        "paging": false,
+        "info": false
+      });
 
-        });
+      function currency(number){
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number)
+      }
 
       function format(d) {
           // `d` is the original data object for the row
-          return (
-              '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-              '<tr>' +
-              '<td>Full name:</td>' +
-              '<td>' +
-              d.name +
-              '</td>' +
-              '</tr>' +
-              '<tr>' +
-              '<td>Extension number:</td>' +
-              '<td>' +
-              d.extn +
-              '</td>' +
-              '</tr>' +
-              '<tr>' +
-              '<td>Extra info:</td>' +
-              '<td>And any further details here (images etc)...</td>' +
-              '</tr>' +
-              '</table>'
-          );
+          // console.log(d);
+
+          let list = '<div class="table-responsive"> <table class="table"> <thead> <th style="text-align:center;">Product</th> <th style="text-align:center;">Price</th> <th style="text-align:center;">Qty</th> <th style="text-align:center;">Unit</th> <th style="text-align:center;">Total</th> </thead>';
+          let grandTotal = 0;
+          d.forEach((row) => {
+            console.log(row);
+              let total = parseInt(row.price) * parseInt(row.qty);
+              let r = '<tr>' +
+                '<td>' +
+                row.product.name +
+                '</td>' +
+                '<td style="text-align:right;">' +
+                currency(row.price) +
+                '</td>' +
+                '<td style="text-align:center;">' +
+                row.qty +
+                '</td>' +
+                '<td style="text-align:center;">' +
+                row.unit +
+                '</td>' +
+                '<td style="text-align:right;">' +
+                currency(total) +
+                '</td>' +
+              '</tr>';
+
+              list += r
+              grandTotal += total;
+          })
+
+          list +=`<tfoot> <th colspan="4" style="text-align: right; padding-right: 50px;">GRAND TOTAL</th> <th style="text-align:right;">${currency(grandTotal)}</th> </tfoot> </table> </div>`;
+
+          return list;
       }
 
       // Add event listener for opening and closing details
@@ -146,7 +160,7 @@
           var tr = $(this).closest('tr');
           var row = table.row(tr);
 
-          console.log($(this).data("data"));
+          // console.log($(this).data("data"));
 
           if (row.child.isShown()) {
               // This row is already open - close it
@@ -154,7 +168,7 @@
               tr.removeClass('shown');
           } else {
               // Open this row
-              row.child(format(row.data())).show();
+              row.child(format($(this).data("data"))).show();
               tr.addClass('shown');
           }
       });
@@ -165,25 +179,21 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-          $('.dltBtn').click(function(e){
-            var form=$(this).closest('form');
-              var dataID=$(this).data('id');
-              // alert(dataID);
-              e.preventDefault();
-              swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                       form.submit();
-                    } else {
-                        swal("Your data is safe!");
-                    }
-                });
+          $('.status-type').change(function(e){
+            let data = $(this).data('data');
+            let current_status = $(this).val();
+
+            $.ajax({
+              type: "POST",
+              url: '{{ route('api.sale.change-status') }}',
+              data: {
+                id: data.id,
+                status: current_status
+              },
+              dataType: 'aplication/json'
+            })
+
+            window.location.reload();
           })
       })
   </script>

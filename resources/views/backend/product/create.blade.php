@@ -5,7 +5,7 @@
 <div class="card">
     <h5 class="card-header">Add Product</h5>
     <div class="card-body">
-      <form method="post" action="{{route('product.store')}}">
+      <form method="post" enctype="multipart/form-data" action="{{route('product.store')}}">
         {{csrf_field()}}
         <div class="form-group">
           <label for="inputName" class="col-form-label">Name <span class="text-danger">*</span></label>
@@ -66,14 +66,9 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
+          <label for="photo" class="col-form-label">Photo <span class="text-danger">*</span></label>
             <div class="input-group">
-                <span class="input-group-btn">
-                    <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                    <i class="fa fa-picture-o"></i> Choose
-                    </a>
-                </span>
-              <input id="thumbnail" class="form-control" type="text" name="photo" value="{{old('photo')}}">
+                <input type="file" class="form-control-file" id="photo" name="photo">
             </div>
             <div id="holder" style="margin-top:15px;max-height:100px;"></div>
             @error('photo')
@@ -105,13 +100,13 @@
 <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 @endpush
+
 @push('scripts')
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 <script>
-    $('#lfm').filemanager('image');
 
     $(document).ready(function() {
       $('#summary').summernote({
@@ -128,8 +123,6 @@
           height: 150
       });
     });
-    // $('select').selectpicker();
-
 </script>
 
 <script>

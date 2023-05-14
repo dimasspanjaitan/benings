@@ -71,6 +71,13 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::resource('/level', LevelController::class);
     Route::resource('/region', RegionController::class);
     Route::resource('/sale', SaleController::class);
+
+    Route::get('settings', [AdminController::class, 'settings'])->name('settings');
+    Route::post('setting/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');
+
+    Route::group(['prefix'=>'/api'], function(){
+        Route::post('sale/change-status', [SaleController::class, 'changeStatus'])->name('api.sale.change-status');
+    });
 });
 
 

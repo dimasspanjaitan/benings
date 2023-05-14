@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\Category;
+use App\Models\{
+    Product,
+    Category
+};
+use App\Traits\UploadTrait;
 
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    use UploadTrait;
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +24,12 @@ class ProductController extends Controller
         if(!isset($request['_page'])) $request['_page'] = 0;
         $products = Product::with('category');
         $products = $this->filter($products)->get();
-        // dd($products->toSql());
 
-        return view('backend.product.index', compact('products'));
+        $total = Product::orderBy('created_at', 'ASC');
+        $total = $this->filter($total,false)->count();
+        $pagination = $this->pagination($total);
+
+        return view('backend.product.index', compact('products', 'pagination'));
     }
 
     /**
@@ -50,13 +57,13 @@ class ProductController extends Controller
             'name'=>'string|required',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
             'product_type'=>'integer\|nullable',
             'category_id'=>'required|exists:categories,id',
             'min_order'=>'integer|nullable',
             'weight' => 'integer|nullable',
         ]);
 
+        // dd($request->file('photo'));
         $data=$request->all();
         $slug=Str::slug($request->name);
         $count=Product::where('slug',$slug)->count();
@@ -71,8 +78,16 @@ class ProductController extends Controller
         // else{
         //     $data['weight']='';
         // }
+        $propImages = $this->uploadImage($request,[
+            'file' => 'photo',
+            'size' => [500,500],
+            'path' => 'uploads/products',
+            'permission' => 777
 
+        ]);
+        $data['photo'] = $propImages['path'];
         $status=Product::create($data);
+       
         if($status){
             request()->session()->flash('success','Product Successfully added');
         }

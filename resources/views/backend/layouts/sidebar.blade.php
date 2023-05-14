@@ -2,8 +2,9 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
-      <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-laugh-wink"></i>
+      <div>
+        {{-- <i class="fas fa-laugh-wink"></i> --}}
+        <img src="{{ config('benings.logo.logo2-small') }}" alt="">
       </div>
       <div class="sidebar-brand-text mx-3">Admin</div>
     </a>
@@ -80,7 +81,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('sale.index') }}">
             <i class="fas fa-hammer fa-chart-area"></i>
-            <span>Orders</span>
+            <span>Sales</span>
         </a>
     </li>
 
@@ -134,13 +135,13 @@
     </li> --}}
      <!-- Users -->
      <li class="nav-item">
-        <a class="nav-link" href="{{route('users.index')}}">
+        <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-users"></i>
             <span>Users</span></a>
     </li>
      <!-- General settings -->
      <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('settings') }}">
             <i class="fas fa-cog"></i>
             <span>Settings</span></a>
     </li>
