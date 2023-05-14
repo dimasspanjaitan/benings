@@ -18,7 +18,11 @@ class LevelController extends Controller
     {
         $levels = Level::get();
 
-        return view('backend.level.index', compact('levels'));
+        $total = Level::orderBy('created_at', 'ASC');
+        $total = $this->filter($total,false)->count();
+        $pagination = $this->pagination($total);
+
+        return view('backend.level.index', compact('levels', 'pagination'));
     }
 
     /**

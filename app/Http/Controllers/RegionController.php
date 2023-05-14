@@ -18,7 +18,11 @@ class RegionController extends Controller
     {
         $regions = Region::get();
 
-        return view('backend.region.index', compact('regions'));
+        $total = Region::orderBy('created_at', 'ASC');
+        $total = $this->filter($total,false)->count();
+        $pagination = $this->pagination($total);
+
+        return view('backend.region.index', compact('regions', 'pagination'));
     }
 
     /**

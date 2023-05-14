@@ -18,6 +18,8 @@ class CreateSettingsTable extends Migration
             $table->longText('description');
             $table->text('short_des');
             $table->string('logo');
+            $table->string('logo_admin');
+            $table->string('favicon');
             $table->string('photo');
             $table->string('address');
             $table->string('phone');

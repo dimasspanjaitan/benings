@@ -19,7 +19,7 @@
         <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th width='10px'>S.N.</th>
+              <th>Details</th>
               <th>Status</th>
               <th>Name</th>
               <th>Total</th>
@@ -33,7 +33,7 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
+              <th>Details</th>
               <th>Status</th>
               <th>Name</th>
               <th>Total</th>

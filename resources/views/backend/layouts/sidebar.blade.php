@@ -4,7 +4,7 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
       <div>
         {{-- <i class="fas fa-laugh-wink"></i> --}}
-        <img src="{{ config('benings.logo.logo2-small') }}" alt="">
+        <img src="{{ asset('backend/img/logo2-small.png') }}" alt="">
       </div>
       <div class="sidebar-brand-text mx-3">Admin</div>
     </a>
@@ -28,17 +28,10 @@
     </div>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-image"></i>
-        <span>Banners</span>
-      </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Banner Options:</h6>
-          <a class="collapse-item" href="#">Banners</a>
-          <a class="collapse-item" href="#">Add Banners</a>
-        </div>
-      </div>
+        <a class="nav-link" href="#">
+            <i class="fas fa-image"></i>
+            <span>Banners</span>
+        </a>
     </li>
 
     <!-- Divider -->
@@ -50,31 +43,17 @@
 
     <!-- Categories -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#categoryCollapse" aria-expanded="true" aria-controls="categoryCollapse">
-          <i class="fas fa-sitemap"></i>
-          <span>Category</span>
+        <a class="nav-link" href="{{ route('category.index') }}">
+            <i class="fas fa-sitemap"></i>
+            <span>Category</span>
         </a>
-        <div id="categoryCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Category Options:</h6>
-            <a class="collapse-item" href="{{route('category.index')}}">Category</a>
-            <a class="collapse-item" href="{{route('category.create')}}">Add Category</a>
-          </div>
-        </div>
     </li>
     {{-- Products --}}
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
-          <i class="fas fa-cubes"></i>
-          <span>Products</span>
+        <a class="nav-link" href="{{ route('product.index') }}">
+            <i class="fas fa-cubes"></i>
+            <span>Products</span>
         </a>
-        <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Product Options:</h6>
-            <a class="collapse-item" href="{{route('product.index')}}">Products</a>
-            <a class="collapse-item" href="{{route('product.create')}}">Add Product</a>
-          </div>
-        </div>
     </li>
 
     <!--Orders -->
@@ -108,17 +87,10 @@
     </li>
     {{-- Origins --}}
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#regionCollapse" aria-expanded="true" aria-controls="regionCollapse">
-          <i class="fas fa-layer-group"></i>
-          <span>Regions</span>
+        <a class="nav-link" href="{{ route('region.index') }}">
+            <i class="fas fa-layer-group"></i>
+            <span>Regions</span>
         </a>
-        <div id="regionCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Region Options:</h6>
-            <a class="collapse-item" href="{{ route('region.index') }}">Regions</a>
-            <a class="collapse-item" href="{{ route('region.create') }}">Add Region</a>
-          </div>
-        </div>
     </li>
 
 

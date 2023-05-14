@@ -16,7 +16,7 @@ class SaleFactory extends Factory
     {
         return [
             'user_id' => $this->faker->numberBetween(1,5),
-            'status' => 1,
+            'status' => $this->faker->numberBetween(1,5),
             'total' => $this->faker->numberBetween(5000, 100000),
             'sale_date' => now(), // password
             'code' => Str::random(10),

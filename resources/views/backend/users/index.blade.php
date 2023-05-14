@@ -17,7 +17,7 @@
         <table class="table table-bordered" id="user-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
+              <th>ID</th>
               <th>Status</th>
               <th>Name</th>
               <th>Email</th>
@@ -32,7 +32,7 @@
           </thead>
           <tfoot>
             <tr>
-                <th>S.N.</th>
+                <th>ID</th>
                 <th>Status</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -102,7 +102,9 @@
             @endforeach
           </tbody>
         </table>
-        {{-- <span style="float:right">{{$users->links()}}</span> --}}
+
+        @include('backend.layouts.pagination');
+        
       </div>
     </div>
 </div>
@@ -130,19 +132,15 @@
   <script>
       
       $('#user-dataTable').DataTable( {
-            "columnDefs":[
-                {
-                    "orderable":false,
-                    "targets":[6,7]
-                }
-            ]
-        } );
+        "paging": false,
+        "info" : false
+      } );
 
         // Sweet alert
 
-        function deleteData(id){
-            
-        }
+      function deleteData(id){
+          
+      }
   </script>
   <script>
       $(document).ready(function(){

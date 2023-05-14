@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>E-SHOP || DASHBOARD</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{asset('backend/img/logo-benings.png')}}">
+    <link rel="icon" type="image/png" href="{{ asset('backend/img/favicon.png') }}">
   
     <!-- Custom fonts for this template-->
     <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">

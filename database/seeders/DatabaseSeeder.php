@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(PriceSeeder::class);
         // $this->call(UserSeeder::class);
         // $this->call(RegionSeeder::class);
-        // $this->call(SaleSeeder::class);
-        $this->call(SettingSeeder::class);
+        $this->call(SaleSeeder::class);
+        // $this->call(SettingSeeder::class);
     }
 }

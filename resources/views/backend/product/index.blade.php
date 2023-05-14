@@ -24,7 +24,7 @@
               <th>Summary</th>
               <th>Photo</th>
               <th>Category</th>
-              <th>Price</th>
+              {{-- <th>Price</th> --}}
               <th>Stock</th>
               {{-- <th>Weight</th> --}}
               <th>Action</th>
@@ -38,7 +38,7 @@
               <th>Summary</th>
               <th>Photo</th>
               <th>Category</th>
-              <th>Price</th>
+              {{-- <th>Price</th> --}}
               <th>Stock</th>
               {{-- <th>Weight</th> --}}
               <th>Action</th>
@@ -70,7 +70,7 @@
                         @endif
                     </td>
                     <td>{{$product->category->title}}</td>
-                    <td>Rp. /-</td>
+                    {{-- <td>Rp. /-</td> --}}
                     {{-- <td>  {{$product->discount}}% OFF</td> --}}
                     {{-- <td>{{$product->weight}}</td> --}}
                     {{-- <td>{{$product->condition}}</td> --}}
@@ -97,7 +97,7 @@
         </table>
 
         @include('backend.layouts.pagination');
-        
+
         @else
           <h6 class="text-center">No Products found!!! Please create Product</h6>
         @endif
@@ -135,15 +135,15 @@
   <script>
 
       $('#product-dataTable').DataTable( {
-        "paging": false
+        "paging": false,
         "info" : false
-        });
+      });
 
         // Sweet alert
 
-        function deleteData(id){
+      function deleteData(id){
 
-        }
+      }
   </script>
   <script>
       $(document).ready(function(){

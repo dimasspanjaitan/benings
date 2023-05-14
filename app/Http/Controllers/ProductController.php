@@ -71,13 +71,7 @@ class ProductController extends Controller
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
         }
         $data['slug']=$slug;
-        // $weight=$request->input('weight');
-        // if($weight){
-        //     $data['weight']=implode(',',$weight);
-        // }
-        // else{
-        //     $data['weight']='';
-        // }
+
         $propImages = $this->uploadImage($request,[
             'file' => 'photo',
             'size' => [500,500],
@@ -86,8 +80,8 @@ class ProductController extends Controller
 
         ]);
         $data['photo'] = $propImages['path'];
+
         $status=Product::create($data);
-       
         if($status){
             request()->session()->flash('success','Product Successfully added');
         }
@@ -140,7 +134,6 @@ class ProductController extends Controller
             'name'=>'string|required',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
             'product_type'=>'integer\|nullable',
             'category_id'=>'required|exists:categories,id',
             'min_order'=>'integer|nullable',
@@ -154,6 +147,15 @@ class ProductController extends Controller
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
         }
         $data['slug']=$slug;
+
+        $propImages = $this->uploadImage($request,[
+            'file' => 'photo',
+            'size' => [500,500],
+            'path' => 'uploads/products',
+            'permission' => 777
+
+        ]);
+        $data['photo'] = $propImages['path'];
 
         // return $data;
         $status=$product->fill($data)->save();

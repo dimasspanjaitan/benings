@@ -21,9 +21,12 @@ class UsersController extends Controller
         if(!isset($request['_page'])) $request['_page'] = 0;
         $users = User::with('levels', 'regions')->orderBy('id','ASC');
         $users = $this->filter($users)->get();
-        // dd($users);
+
+        $total = Level::orderBy('created_at', 'ASC');
+        $total = $this->filter($total,false)->count();
+        $pagination = $this->pagination($total);
         
-        return view('backend.users.index', compact('users'));
+        return view('backend.users.index', compact('users', 'pagination'));
     }
 
     /**

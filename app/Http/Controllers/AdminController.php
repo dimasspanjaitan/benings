@@ -60,8 +60,6 @@ class AdminController extends Controller
         $this->validate($request,[
             'short_des'=>'required|string',
             'description'=>'required|string',
-            'photo'=>'required',
-            'logo'=>'required',
             'address'=>'required|string',
             'email'=>'required|email',
             'phone'=>'required|string',
@@ -69,6 +67,39 @@ class AdminController extends Controller
         $data=$request->all();
         $settings = Settings::first();
         $status = $settings->fill($data)->save();
+
+        $propImages = $this->uploadImage($request,[
+            'file' => 'logo',
+            'size' => [500,500],
+            'path' => 'uploads/products',
+            'permission' => 777
+
+        ]);
+        $propImages = $this->uploadImage($request,[
+            'file' => 'logo_admin',
+            'size' => [500,500],
+            'path' => 'uploads/products',
+            'permission' => 777
+
+        ]);
+        $propImages = $this->uploadImage($request,[
+            'file' => 'favicon',
+            'size' => [500,500],
+            'path' => 'uploads/products',
+            'permission' => 777
+
+        ]);
+        $propImages = $this->uploadImage($request,[
+            'file' => 'photo',
+            'size' => [500,500],
+            'path' => 'uploads/products',
+            'permission' => 777
+
+        ]);
+        $data['logo'] = $propImages['path'];
+        $data['logo_admin'] = $propImages['path'];
+        $data['favicon'] = $propImages['path'];
+        $data['photo'] = $propImages['path'];
 
         if($status){
             request()->session()->flash('success','Setting successfully updated');

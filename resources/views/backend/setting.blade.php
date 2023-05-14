@@ -5,7 +5,7 @@
 <div class="card">
     <h5 class="card-header">Edit Post</h5>
     <div class="card-body">
-    <form method="post" action="{{ route('settings.update') }}">
+    <form method="post" enctype="multipart/form-data" action="{{ route('settings.update') }}">
         @csrf 
         {{-- @method('PATCH') --}}
         {{-- {{dd($data)}} --}}
@@ -25,37 +25,47 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Logo <span class="text-danger">*</span></label>
-          <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Choose
-                  </a>
-              </span>
-          <input id="thumbnail1" class="form-control" type="text" name="logo" value="{{$data->logo}}">
-        </div>
-        <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
-
-          @error('logo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+          <label for="logo" class="col-form-label">Logo Utama <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <input type="file" class="form-control-file" id="logo" name="logo" value="{{$data->logo}}">
+            </div>
+            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+            @error('logo')
+              <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
-          <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Choose
-                  </a>
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$data->photo}}">
+          <label for="logo_admin" class="col-form-label">Logo Admin</label>
+            <div class="input-group">
+                <input type="file" class="form-control-file" id="logo_admin" name="logo_admin" value="{{$data->logo_admin}}">
+            </div>
+            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+            @error('logo_admin')
+              <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
 
-          @error('photo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+        <div class="form-group">
+          <label for="favicon" class="col-form-label">Logo Favicon <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <input type="file" class="form-control-file" id="favicon" name="favicon" value="{{$data->favicon}}">
+            </div>
+            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+            @error('favicon')
+              <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="photo" class="col-form-label">Photo <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <input type="file" class="form-control-file" id="photo" name="photo" value="{{$data->photo}}">
+            </div>
+            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+            @error('photo')
+              <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
         <div class="form-group">

@@ -18,7 +18,7 @@
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th width='10px'>S.N.</th>
+              <th width='10px'>No.</th>
               <th>Status</th>
               <th>Name</th>
               {{-- <th>Slug</th> --}}
@@ -28,7 +28,7 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
+              <th>No.</th>
               <th>Status</th>
               <th>Name</th>
               {{-- <th>Slug</th> --}}
@@ -62,7 +62,9 @@
             @endforeach
           </tbody>
         </table>
-        {{-- <span style="float:right">{{$regions->links()}}</span> --}}
+
+        @include('backend.layouts.pagination');
+
         @else
           <h6 class="text-center">No Regions found!!! Please create Region</h6>
         @endif
@@ -93,19 +95,15 @@
   <script>
 
       $('#banner-dataTable').DataTable( {
-            "columnDefs":[
-                {
-                    "orderable":false,
-                    "targets":[3,4,5]
-                }
-            ]
-        } );
+        "paging": false,
+        "info" : false
+      } );
 
         // Sweet alert
 
-        function deleteData(id){
+      function deleteData(id){
 
-        }
+      }
   </script>
   <script>
       $(document).ready(function(){

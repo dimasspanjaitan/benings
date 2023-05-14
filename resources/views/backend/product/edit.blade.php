@@ -5,7 +5,7 @@
 <div class="card">
     <h5 class="card-header">Edit Product</h5>
     <div class="card-body">
-      <form method="post" action="{{route('product.update',$product->id)}}">
+      <form method="post" enctype="multipart/form-data" action="{{route('product.update',$product->id)}}">
         @csrf 
         @method('PATCH')
         <div class="form-group">
@@ -67,19 +67,14 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
-          <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
-                  <i class="fas fa-image"></i> Choose
-                  </a>
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$product->photo}}">
-        </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-          @error('photo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+          <label for="photo" class="col-form-label">Photo <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <input type="file" class="form-control-file" id="photo" name="photo" value="{{$product->photo}}">
+            </div>
+            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+            @error('photo')
+              <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
         
         <div class="form-group">

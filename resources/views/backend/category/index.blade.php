@@ -18,7 +18,7 @@
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th width='10px'>S.N.</th>
+              <th width='10px'>No.</th>
               <th>Status</th>
               <th>Title</th>
               {{-- <th>Slug</th> --}}
@@ -28,7 +28,7 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
+              <th>No.</th>
               <th>Status</th>
               <th>Title</th>
               {{-- <th>Slug</th> --}}
