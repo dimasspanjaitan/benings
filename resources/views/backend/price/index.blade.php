@@ -20,7 +20,6 @@
             <tr>
               <th width='10px'>Details</th>
               <th>Product</th>
-              <th>Price Type</th>
               <th>Price</th>
               <th>Action</th>
             </tr>
@@ -29,7 +28,6 @@
             <tr>
               <th>Details</th>
               <th>Product</th>
-              <th>Price Type</th>
               <th>Price</th>
               <th>Action</th>
             </tr>
@@ -42,13 +40,10 @@
                     {{-- <td>{{ $key }}</td> --}}
                     <td class="dt-control" data-data='{{ $price }}'></td>
                     <td>{{ $price[$key]['product']->name }}</td>
-                    <td>
-                        <span class="badge badge-info">Customer</span>
-                    </td>
-                    <td>
+                    <td>Rp
                         @foreach ($customer_prices as $cp)
                           @if ($key == $cp['product_id'])
-                              {{ $cp['price'] }}
+                              {{ number_format($cp['price'], 2, ",", ".") }}
                           @endif
                         @endforeach
                     </td>

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{
     Level,
-    PriceLevel
+    PriceLevel,
+    Product
 };
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PriceController extends Controller
 {
@@ -19,10 +21,11 @@ class PriceController extends Controller
      */
     public function index()
     {
-        $prices = PriceLevel::with('product', 'level')->get()->groupBy('product_id');
+        $prices = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC')->get()->groupBy('product_id');
         // dd($prices);
-        $customer_prices = PriceLevel::where('price_type', 1)->get();
-        // dd($customer_prices);
+        $customer_prices = PriceLevel::has('level')->whereHas('level', function($l){
+            return $l->where('type',1);
+        })->get();
 
         $total = $this->filter($prices,false)->count();
         $pagination = $this->pagination($total);
@@ -36,8 +39,11 @@ class PriceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('backend.price.create');
+    {   $assignedProducts = PriceLevel::select('product_id')->distinct()->get()->pluck('product_id');
+        $products = Product::select('id', 'name')->whereNotIn('id',$assignedProducts)->get();
+        $levels = Level::select('id', 'name')->where('status', 1)->get();
+
+        return view('backend.price.create', compact('products', 'levels'));
     }
 
     /**
@@ -48,22 +54,49 @@ class PriceController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
-        $this->validate($request,[
-            'status'=>'required|in:1,0',
-            'name'=>'string|required',
-            'description'=>'string|nullable',
-        ]);
-        $data= $request->all();
-
-        $status=Level::create($data);
-        if($status){
-            request()->session()->flash('success','Level Successfully added');
+       
+        $data = $request->all();
+        $data_levels = Level::select('id')->where('status',1)->get();
+        // dd($data_levels);
+        $fields = [
+            'product_id'=>'required',
+        ];
+        foreach ($data_levels as $key => $l) {
+           $fields['price_'.$l->id] = 'required|numeric';
         }
-        else{
+
+        $this->validate($request,$fields, [
+            'required' => 'This field cannot be null'
+        ]);
+
+        DB::beginTransaction();
+
+        /**
+         * Hapus dulus semua price level product
+         */
+
+         $priceLevels = [];
+
+         foreach ($data as $key => $v) {
+            if(str_contains($key, 'price_')) array_push($priceLevels,[
+                'product_id' => $data['product_id'],
+                'level_id' => explode('_',$key)[1],
+                'price' => $v
+            ]);
+         }
+
+        PriceLevel::where('product_id',$data['product_id'])->delete();
+        
+        if(PriceLevel::insert($priceLevels)){
+            DB::commit();
+            request()->session()->flash('success','Price Level Successfully updated');
+        } else {
+            DB::rollback();
             request()->session()->flash('error','Please try again!!');
         }
-        return redirect()->route('level.index');
+
+
+        return redirect()->route('price.index');
 
     }
 
@@ -86,9 +119,16 @@ class PriceController extends Controller
      */
     public function edit($id)
     {
-        $level = Level::findOrFail($id);
-        // return $items;
-        return view('backend.level.edit', compact('level'));
+        $prices = PriceLevel::with('level')->where('product_id',$id)->get();
+        $products = Product::where('status', 1)->get();
+
+        $data = [
+            'prices' => $prices,
+            'products' => $products,
+            'product_id' => $id
+        ];
+        
+        return view('backend.price.edit', compact('data'));
     }
 
     /**
@@ -100,22 +140,56 @@ class PriceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $level = Level::findOrFail($id);
-        $this->validate($request,[
-            'status'=>'required|in:1,0',
-            'name'=>'string|required',
-            'description'=>'string|nullable',
-        ]);
-        $data= $request->all();
-
-        $status=$level->fill($data)->save();
-        if($status){
-            request()->session()->flash('success','Level Successfully updated');
+        $data = $request->all();
+        $data_levels = Level::select('id')->where('status',1)->get();
+        // dd($data_levels);
+        $fields = [
+            'product_id'=>'required',
+        ];
+        foreach ($data_levels as $key => $l) {
+           $fields['price_'.$l->id] = 'required|numeric';
         }
-        else{
+
+        $this->validate($request,$fields, [
+            'required' => 'This field cannot be null'
+        ]);
+
+        DB::beginTransaction();
+
+        /**
+         * Hapus dulus semua price level product
+         */
+
+         $priceLevels = [];
+
+         foreach ($data as $key => $v) {
+            if(str_contains($key, 'price_')) array_push($priceLevels,[
+                'product_id' => $data['product_id'],
+                'level_id' => explode('_',$key)[1],
+                'price' => $v
+            ]);
+         }
+
+        PriceLevel::where('product_id',$data['product_id'])->delete();
+        
+        if(PriceLevel::insert($priceLevels)){
+            DB::commit();
+            request()->session()->flash('success','Price Level Successfully updated');
+        } else {
+            DB::rollback();
             request()->session()->flash('error','Please try again!!');
         }
-        return redirect()->route('level.index');
+
+        $prices = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC')->get()->groupBy('product_id');
+        // dd($prices);
+        $customer_prices = PriceLevel::has('level')->whereHas('level', function($l){
+            return $l->where('type',1);
+        })->get();
+
+        $total = $this->filter($prices,false)->count();
+        $pagination = $this->pagination($total);
+
+        return view('backend.price.index', compact('prices', 'customer_prices', 'pagination'));
     }
 
     /**

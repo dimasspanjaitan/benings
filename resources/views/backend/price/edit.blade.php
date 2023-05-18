@@ -2,40 +2,48 @@
 
 @section('main-content')
 
+<div class="row">
+  <div class="col-md-12">
+     @include('backend.layouts.notification')
+  </div>
+</div>
+
 <div class="card">
-    <h5 class="card-header">Edit Level</h5>
+    <h5 class="card-header">Edit Price Level</h5>
     <div class="card-body">
-      <form method="post" action="{{route('level.update',$level->id)}}">
+      <form method="post" action="{{route('price.update', $data['product_id'])}}">
         @csrf 
         @method('PATCH')
+
         <div class="form-group">
-          <label for="inputName" class="col-form-label">Name <span class="text-danger">*</span></label>
-          <input id="inputName" type="text" name="name" placeholder="Enter name"  value="{{$level->name}}" class="form-control">
-          @error('name')
-          <span class="text-danger">{{$message}}</span>
+          <label for="product_id">Product <span class="text-danger">*</span></label>
+          <select disabled name="product_id" id="product_id" class="form-control">
+              <option value="">--Select any product--</option>
+              @foreach($data['products'] as $product)
+                  <option value='{{$product->id}}' {{ $product->id == $data['product_id'] ? 'selected' : '' }}>{{$product->name}}</option>
+              @endforeach
+          </select>
+          @error('product_id')
+            <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
-        <div class="form-group">
-          <label for="description" class="col-form-label">Description</label>
-          <textarea class="form-control" id="description" name="description" value='{{ $level->description }}'>{{$level->description}}</textarea>
-          @error('description')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+        <div class="col-12 row">
+          @foreach ($data['prices'] as $level)
+              <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="{{ $level->level->name }}" class="col-form-label">{{ $level->level->name }} <span class="text-danger">*</span></label>
+                    <input id="{{ $level->level->id }}" type="number" name="price_{{ $level->level->id }}" placeholder="Enter price"  value="{{ $level->price }}" class="form-control">
+                    @error("price_".$level->level->id)
+                      <span class="text-danger">{{$message}}</span>
+                    @enderror
+                  </div>
+              </div>
+          @endforeach
         </div>
-        
-        <div class="form-group">
-          <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
-          <select name="status" class="form-control">
-              <option value="1" {{(($level->status==1)? 'selected' : '')}}>Active</option>
-              <option value="0" {{(($level->status==0)? 'selected' : '')}}>Inactive</option>
-          </select>
-          @error('status')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
+
         <div class="form-group mb-3">
-           <button class="btn btn-success" type="submit">Update</button>
+          <button class="btn btn-success" type="submit">Update</button>
         </div>
       </form>
     </div>

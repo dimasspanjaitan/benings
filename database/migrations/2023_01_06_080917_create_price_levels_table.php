@@ -15,7 +15,6 @@ class CreatePriceLevelsTable extends Migration
     {
         Schema::create('price_levels', function (Blueprint $table) {
             $table->id();
-            $table->integer('price_type');
             $table->integer('level_id');
             $table->integer('product_id')->index();
             $table->integer('price');

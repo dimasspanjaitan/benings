@@ -15,8 +15,10 @@ class CreateLevelsTable extends Migration
     {
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
+            $table->boolean('status');
             $table->string('name');
-            $table->text('note')->nullable();
+            $table->integer('type')->default(2)->index();
+            $table->text('description')->nullable();
         });
     }
 

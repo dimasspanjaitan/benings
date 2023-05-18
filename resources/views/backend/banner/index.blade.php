@@ -18,21 +18,21 @@
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
+              <th width="10px">ID</th>
               <th>Title</th>
               <th>Slug</th>
-              <th>Photo</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Photo</th>
+              <th width="65px">Action</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
+              <th>ID</th>
               <th>Title</th>
               <th>Slug</th>
-              <th>Photo</th>
               <th>Status</th>
+              <th>Photo</th>
               <th>Action</th>
               </tr>
           </tfoot>
@@ -43,17 +43,17 @@
                     <td>{{$banner->title}}</td>
                     <td>{{$banner->slug}}</td>
                     <td>
-                        @if($banner->photo)
-                            <img src="{{$banner->photo}}" class="img-fluid zoom" style="max-width:80px" alt="{{$banner->photo}}">
-                        @else
-                            <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid zoom" style="max-width:100%" alt="avatar.png">
-                        @endif
-                    </td>
-                    <td>
                         @if($banner->status==1)
                             <span class="badge badge-success">Active</span>
                         @else
                             <span class="badge badge-warning">Inactive</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($banner->photo)
+                            <img src="{{$banner->photo}}" class="img-fluid zoom" style="max-width:80px" alt="{{$banner->photo}}">
+                        @else
+                            <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid zoom" style="max-width:100%" alt="avatar.png">
                         @endif
                     </td>
                     <td>
