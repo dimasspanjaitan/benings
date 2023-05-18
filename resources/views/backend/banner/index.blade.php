@@ -50,10 +50,10 @@
                         @endif
                     </td>
                     <td>
-                        @if($banner->status=='active')
-                            <span class="badge badge-success">{{$banner->status}}</span>
+                        @if($banner->status==1)
+                            <span class="badge badge-success">Active</span>
                         @else
-                            <span class="badge badge-warning">{{$banner->status}}</span>
+                            <span class="badge badge-warning">Inactive</span>
                         @endif
                     </td>
                     <td>
@@ -88,7 +88,7 @@
             @endforeach
           </tbody>
         </table>
-        <span style="float:right">{{$banners->links()}}</span>
+        {{-- <span style="float:right">{{$banners->links()}}</span> --}}
         @else
           <h6 class="text-center">No banners found!!! Please create banner</h6>
         @endif

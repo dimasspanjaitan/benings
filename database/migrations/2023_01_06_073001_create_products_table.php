@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->boolean('status')->default(1);
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->longText('summary')->nullable();
             $table->longText('photo')->nullable();
             $table->tinyInteger('product_type')->default(1);

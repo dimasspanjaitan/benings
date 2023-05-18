@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AdminController,
     AuthController,
+    BannerController,
     CategoryController,
     FrontendController,
     HomeController,
@@ -73,6 +74,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::resource('/region', RegionController::class);
     Route::resource('/sale', SaleController::class);
     Route::resource('/price', PriceController::class);
+    Route::resource('/banner', BannerController::class);
 
     Route::get('settings', [AdminController::class, 'settings'])->name('settings');
     Route::post('setting/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');
