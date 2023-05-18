@@ -41,22 +41,7 @@
               @endforeach
           </select>
         </div>
-
-        <div class="form-group">
-          <label for="price" class="col-form-label">Price(NRS) <span class="text-danger">*</span></label>
-          <input id="price" type="number" name="price" placeholder="Enter price"  value="{{$product->price}}" class="form-control">
-          @error('price')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
-
-        {{-- <div class="form-group">
-          <label for="discount" class="col-form-label">Discount(%)</label>
-          <input id="discount" type="number" name="discount" min="0" max="100" placeholder="Enter discount"  value="{{$product->discount}}" class="form-control">
-          @error('discount')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div> --}}
+        
         <div class="form-group">
           <label for="weight">Weight</label>
           <input id="weight" type="number" name="weight" placeholder="Enter weight"  value="{{$product->weight}}" class="form-control">

@@ -148,6 +148,11 @@ class ProductController extends Controller
         }
         $data['slug']=$slug;
 
+        $old_image = explode('/', $product->photo)[count(explode('/',$product->photo)) -1];
+        if(file_exists(public_path('uploads/products').DIRECTORY_SEPARATOR.$old_image)){
+            unlink(public_path('uploads/products').DIRECTORY_SEPARATOR.$old_image);
+        }
+        
         $propImages = $this->uploadImage($request,[
             'file' => 'photo',
             'size' => [500,500],

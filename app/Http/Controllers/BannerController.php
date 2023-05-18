@@ -43,7 +43,7 @@ class BannerController extends Controller
         $this->validate($request,[
             'title'=>'string|required|max:50',
             'description'=>'string|nullable',
-            'photo'=>'string|required',
+            // 'photo'=>'string|required',
             'status'=>'required|in:1,0',
         ]);
         $data=$request->all();
