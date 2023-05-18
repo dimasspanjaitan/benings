@@ -48,6 +48,9 @@ class RegionController extends Controller
             'status'=>'required|in:1,0',
             'name'=>'string|required',
             'description'=>'string|nullable',
+        ],[
+            'required' => 'This :attribute cannot be null',
+            'string' => 'This :attribute must be a string'
         ]);
         $data = $request->all();
 
