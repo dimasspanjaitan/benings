@@ -81,7 +81,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Level Options:</h6>
             <a class="collapse-item" href="{{ route('level.index') }}">Levels</a>
-            <a class="collapse-item" href="{{ route('level.create') }}">Add Level</a>
+            <a class="collapse-item" href="{{ route('price.index') }}">Price Level</a>
           </div>
         </div>
     </li>
