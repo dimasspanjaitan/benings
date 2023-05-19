@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('sub_district')->nullable();
             $table->string('city')->nullable();
             $table->text('address')->nullable();
-            $table->integer('bank_name')->nullable();
+            $table->string('bank_name')->nullable();
             $table->string('bank_number')->nullable();
             $table->integer('level_id')->index();
             $table->integer('region_id')->index();
