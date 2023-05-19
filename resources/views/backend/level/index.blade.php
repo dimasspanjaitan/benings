@@ -19,11 +19,11 @@
           <thead>
             <tr>
               <th width='10px'>No.</th>
-              <th>Status</th>
+              <th width="10%">Status</th>
               <th>Name</th>
               {{-- <th>Slug</th> --}}
               <th>Description</th>
-              <th>Action</th>
+              <th width="65px">Action</th>
             </tr>
           </thead>
           <tfoot>

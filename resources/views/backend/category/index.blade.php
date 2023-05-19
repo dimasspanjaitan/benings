@@ -10,20 +10,19 @@
      </div>
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary float-left">Category Lists</h6>
-      <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Category</a>
+      <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Category</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
         @if(count($categories)>0)
-        <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="category-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th width='10px'>No.</th>
-              <th>Status</th>
+              <th width="10%">Status</th>
               <th>Title</th>
-              {{-- <th>Slug</th> --}}
               <th>Description</th>
-              <th>Action</th>
+              <th width="65px">Action</th>
             </tr>
           </thead>
           <tfoot>
@@ -31,7 +30,6 @@
               <th>No.</th>
               <th>Status</th>
               <th>Title</th>
-              {{-- <th>Slug</th> --}}
               <th>Description</th>
               <th>Action</th>
             </tr>
@@ -65,7 +63,10 @@
             @endforeach
           </tbody>
         </table>
-        {{-- <span style="float:right">{{$categories->links()}}</span> --}}
+        
+        {{-- Pagination --}}
+        @include('backend.layouts.pagination');
+
         @else
           <h6 class="text-center">No Categories found!!! Please create Category</h6>
         @endif
@@ -95,14 +96,10 @@
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
 
-      $('#banner-dataTable').DataTable( {
-            "columnDefs":[
-                {
-                    "orderable":false,
-                    "targets":[3,4,5]
-                }
-            ]
-        } );
+      $('#category-dataTable').DataTable( {
+        "paging": false,
+        "info": false
+      } );
 
         // Sweet alert
 

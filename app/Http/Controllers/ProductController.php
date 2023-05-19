@@ -54,13 +54,18 @@ class ProductController extends Controller
         // return $request->all();
         $this->validate($request,[
             'status'=>'required|in:1,0',
-            'name'=>'string|required',
-            'summary'=>'string|required',
-            'description'=>'string|nullable',
-            'product_type'=>'integer\|nullable',
+            'name'=>'required',
+            'summary'=>'required|string',
+            'description'=>'nullable|string',
+            'product_type'=>'integer|nullable',
             'category_id'=>'required|exists:categories,id',
             'min_order'=>'integer|nullable',
             'weight' => 'integer|nullable',
+            'photo' => 'required'
+        ],[
+            'required' => 'This :attribute cannot be null',
+            'string' => 'This :attribute must be string',
+            'max' => 'This :attribute maximal 50 character'
         ]);
 
         // dd($request->file('photo'));

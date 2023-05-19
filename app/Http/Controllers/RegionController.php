@@ -46,7 +46,7 @@ class RegionController extends Controller
         // return $request->all();
         $this->validate($request,[
             'status'=>'required|in:1,0',
-            'name'=>'string|required',
+            'name'=>'required|string',
             'description'=>'string|nullable',
         ],[
             'required' => 'This :attribute cannot be null',
@@ -101,7 +101,7 @@ class RegionController extends Controller
         $region = Region::findOrFail($id);
         $this->validate($request,[
             'status'=>'required|in:1,0',
-            'name'=>'string|required',
+            'name'=>'required|string',
             'description'=>'string|nullable',
         ]);
         $data = $request->all();

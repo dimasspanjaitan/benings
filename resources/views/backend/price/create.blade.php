@@ -14,7 +14,7 @@
       <form method="post" action="{{route('price.store')}}">
         {{csrf_field()}}
 
-        <div class="form-group">
+        <div class="form-group" style="padding-right:36px">
           <label for="product_id">Product <span class="text-danger">*</span></label>
           <select name="product_id" id="product_id" class="form-control">
               <option value="">--Select any product--</option>
@@ -29,7 +29,7 @@
 
         <div class="col-12 row">
           @foreach ($levels as $level)
-              <div class="col-md-6">
+              <div class="col-md-6 pl-0">
                   <div class="form-group">
                     <label for="{{ $level->name }}" class="col-form-label">{{ $level->name }} <span class="text-danger">*</span></label>
                     <input id="{{ $level->id }}" type="number" name="price_{{ $level->id }}" placeholder="Enter price"  value="{{old("price_".$level->id)}}" class="form-control">

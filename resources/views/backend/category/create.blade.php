@@ -5,21 +5,21 @@
 <div class="card">
     <h5 class="card-header">Add Category</h5>
     <div class="card-body">
-      <form method="post" action="{{route('category.store')}}">
+      <form method="post" action="{{ route('category.store') }}">
         {{csrf_field()}}
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-          <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{old('title')}}" class="form-control">
+          <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{ old('title') }}" class="form-control">
           @error('title')
-          <span class="text-danger">{{$message}}</span>
+            <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
 
         <div class="form-group">
           <label for="description" class="col-form-label">Description</label>
-          <textarea class="form-control" id="description" name="description">{{old('description')}}</textarea>
+          <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
           @error('description')
-          <span class="text-danger">{{$message}}</span>
+            <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
         
@@ -30,7 +30,7 @@
               <option value="0">Inactive</option>
           </select>
           @error('status')
-          <span class="text-danger">{{$message}}</span>
+          <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
         <div class="form-group mb-3">

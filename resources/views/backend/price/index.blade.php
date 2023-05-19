@@ -21,7 +21,7 @@
               <th width='10px'>Details</th>
               <th>Product</th>
               <th>Price</th>
-              <th>Action</th>
+              <th width="65px">Action</th>
             </tr>
           </thead>
           <tfoot>
@@ -40,7 +40,7 @@
                     {{-- <td>{{ $key }}</td> --}}
                     <td class="dt-control" data-data='{{ $price }}'></td>
                     <td>{{ $price[$key]['product']->name }}</td>
-                    <td>Rp
+                    <td style="text-align: right">Rp
                         @foreach ($customer_prices as $cp)
                           @if ($key == $cp['product_id'])
                               {{ number_format($cp['price'], 2, ",", ".") }}
@@ -74,10 +74,6 @@
   <link href="{{asset('backend/vendor/datatables/datatables.min.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
   <style>
-      /* div.dataTables_wrapper div.dataTables_paginate{
-          display: none;
-      } */
-
       .zoom {
         transition: transform .2s; /* Animation */
       }

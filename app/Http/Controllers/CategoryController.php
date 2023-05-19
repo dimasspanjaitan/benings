@@ -16,8 +16,12 @@ class CategoryController extends Controller
     public function index()
     {
         $categories=Category::get();
-        // return $category;
-        return view('backend.category.index', compact('categories'));
+
+        $total = Category::select('id')->orderBy('created_at', 'ASC');
+        $total = $this->filter($total,false)->count();
+        $pagination = $this->pagination($total);
+
+        return view('backend.category.index', compact('categories', 'pagination'));
     }
 
     /**
@@ -42,8 +46,12 @@ class CategoryController extends Controller
         // return $request->all();
         $this->validate($request,[
             'status'=>'required|in:1,0',
-            'title'=>'string|required',
+            'title'=>'required|string|max:50',
             'description'=>'string|nullable'
+        ],[
+            'required' => 'This :attribute cannot be null',
+            'string' => 'This :attribute must be string',
+            'max' => 'This :attribute maximal 50 character'
         ]);
         $data= $request->all();
         $slug=Str::slug($request['title']);
@@ -103,8 +111,12 @@ class CategoryController extends Controller
         $category=Category::findOrFail($id);
         $this->validate($request,[
             'status'=>'required|in:1,0',
-            'title'=>'string|required',
+            'title'=>'required|string|max:50',
             'description'=>'string|nullable'
+        ],[
+            'required' => 'This :attribute cannot be null',
+            'string' => 'This :attribute must be string',
+            'max' => 'This :attribute maximal 50 character'
         ]);
         $data= $request->all();
         $slug=Str::slug($request->title);

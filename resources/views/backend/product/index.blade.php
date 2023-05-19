@@ -19,7 +19,7 @@
           <thead>
             <tr>
               <th width='10px'>ID</th>
-              <th>Status</th>
+              <th width="10%">Status</th>
               <th>Name</th>
               <th>Summary</th>
               <th>Photo</th>
@@ -27,7 +27,7 @@
               {{-- <th>Price</th> --}}
               <th>Stock</th>
               {{-- <th>Weight</th> --}}
-              <th>Action</th>
+              <th width="65px">Action</th>
             </tr>
           </thead>
           <tfoot>

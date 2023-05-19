@@ -18,7 +18,7 @@ class LevelController extends Controller
     {
         $levels = Level::get();
 
-        $total = Level::orderBy('created_at', 'ASC');
+        $total = Level::select('id')->orderBy('created_at', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
 
@@ -46,8 +46,10 @@ class LevelController extends Controller
         // return $request->all();
         $this->validate($request,[
             'status'=>'required|in:1,0',
-            'name'=>'string|required',
+            'name'=>'required|string',
             'description'=>'string|nullable',
+        ],[
+            'required' => 'This :attribute cannot be null'
         ]);
         $data= $request->all();
 
@@ -98,8 +100,10 @@ class LevelController extends Controller
         $level = Level::findOrFail($id);
         $this->validate($request,[
             'status'=>'required|in:1,0',
-            'name'=>'string|required',
+            'name'=>'required|string',
             'description'=>'string|nullable',
+        ],[
+            'required' => 'This :attribute cannot be null'
         ]);
         $data= $request->all();
 

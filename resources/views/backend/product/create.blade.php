@@ -5,29 +5,29 @@
 <div class="card">
     <h5 class="card-header">Add Product</h5>
     <div class="card-body">
-      <form method="post" enctype="multipart/form-data" action="{{route('product.store')}}">
+      <form method="post" enctype="multipart/form-data" action="{{ route('product.store') }}">
         {{csrf_field()}}
         <div class="form-group">
           <label for="inputName" class="col-form-label">Name <span class="text-danger">*</span></label>
-          <input id="inputName" type="text" name="name" placeholder="Enter name"  value="{{old('name')}}" class="form-control">
-          @error('title')
-          <span class="text-danger">{{$message}}</span>
+          <input id="inputName" type="text" name="name" placeholder="Enter name"  value="{{ old('name') }}" class="form-control">
+          @error('name')
+            <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
 
         <div class="form-group">
           <label for="summary" class="col-form-label">Summary <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="summary" name="summary">{{old('summary')}}</textarea>
+          <textarea class="form-control" id="summary" name="summary">{{ old('summary') }}</textarea>
           @error('summary')
-          <span class="text-danger">{{$message}}</span>
+            <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
 
         <div class="form-group">
-          <label for="description" class="col-form-label">Description</label>
-          <textarea class="form-control" id="description" name="description">{{old('description')}}</textarea>
+          <label for="description" class="col-form-label">Description </label>
+          <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
           @error('description')
-          <span class="text-danger">{{$message}}</span>
+            <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
 
@@ -36,27 +36,40 @@
           <select name="category_id" id="category_id" class="form-control">
               <option value="">--Select any category--</option>
               @foreach($categories as $key=>$cat_data)
-                  <option value='{{$cat_data->id}}'>{{$cat_data->title}}</option>
+                  <option value='{{ $cat_data->id }}'>{{ $cat_data->title }}</option>
               @endforeach
           </select>
-        </div>
-
-        <div class="form-group">
-          <label for="weight">Weight</label>
-          <input id="weight" type="number" name="weight" placeholder="Enter weight"  value="{{old('weight')}}" class="form-control">
-          @error('weight')
-          <span class="text-danger">{{$message}}</span>
+          @error('category_id')
+            <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
 
+        {{-- <div class="form-group">
+          <label for="weight">Weight </label>
+          <input id="weight" type="number" name="weight" placeholder="Enter weight"  value="{{ old('weight') }}" class="form-control">
+          @error('weight')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+        </div> --}}
+
         <div class="form-group">
           <label for="photo" class="col-form-label">Photo <span class="text-danger">*</span></label>
-            <div class="input-group">
-                <input type="file" class="form-control-file" id="photo" name="photo">
+            <div class="col-12 row pl-0">
+              <div class="col-md-6">
+                <div class="input-group">
+                    {{-- <input type="file" class="form-control-file" id="photo" name="photo" value="{{ old('photo') }}"> --}}
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="photo"
+                        aria-describedby="photo" value="{{ old('photo') }}">
+                      <label class="custom-file-label" for="photo">Choose file</label>
+                    </div>
+                </div>
+                <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+              </div>
+              <div class="col-md-6"></div>
             </div>
-            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
             @error('photo')
-              <span class="text-danger">{{$message}}</span>
+              <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
         
@@ -67,7 +80,7 @@
               <option value="0">Inactive</option>
           </select>
           @error('status')
-          <span class="text-danger">{{$message}}</span>
+            <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
         <div class="form-group mb-3">
@@ -86,7 +99,7 @@
 @endpush
 
 @push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+{{-- <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script> --}}
 <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
@@ -109,7 +122,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
   $('#category_id').change(function(){
     var category_id=$(this).val();
     // alert(category_id);
@@ -150,5 +163,5 @@
     else{
     }
   })
-</script>
+</script> --}}
 @endpush

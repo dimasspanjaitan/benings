@@ -142,7 +142,7 @@ class PriceController extends Controller
     {
         $data = $request->all();
         $data_levels = Level::select('id')->where('status',1)->get();
-        // dd($data_levels);
+        
         $fields = [
             'product_id'=>'required',
         ];

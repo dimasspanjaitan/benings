@@ -27,10 +27,20 @@
 
         <div class="form-group">
           <label for="photo" class="col-form-label">Photo <span class="text-danger">*</span></label>
-            <div class="input-group">
-                <input type="file" class="form-control-file" id="photo" name="photo" value="{{ old('photo') }}">
+            <div class="col-12 row pl-0">
+              <div class="col-md-6">
+                <div class="input-group">
+                    {{-- <input type="file" class="form-control-file" id="photo" name="photo" value="{{ old('photo') }}"> --}}
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="photo"
+                        aria-describedby="photo" value="{{ old('photo') }}">
+                      <label class="custom-file-label" for="photo">Choose file</label>
+                    </div>
+                </div>
+                <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+              </div>
+              <div class="col-md-6"></div>
             </div>
-            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
             @error('photo')
               <span class="text-danger">{{$message}}</span>
             @enderror

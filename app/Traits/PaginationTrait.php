@@ -15,6 +15,7 @@ trait PaginationTrait {
         for ($i= (int)$request['_page'] -3; $i <= (int)$request['_page'] + 3 ; $i++) { 
             if($i >= 1 && $i <= $total/$request['_limit']) array_push($pages,$i);
         }
+
         $pagination = [
             'total' => $total,
             'pages' => $pages,
