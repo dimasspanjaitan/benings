@@ -6,7 +6,7 @@
     <h5 class="card-header">Add Product</h5>
     <div class="card-body">
       <form method="post" enctype="multipart/form-data" action="{{ route('product.store') }}">
-        {{csrf_field()}}
+        {{ csrf_field() }}
         <div class="form-group">
           <label for="inputName" class="col-form-label">Name <span class="text-danger">*</span></label>
           <input id="inputName" type="text" name="name" placeholder="Enter name"  value="{{ old('name') }}" class="form-control">
@@ -64,7 +64,6 @@
                       <label class="custom-file-label" for="photo">Choose file</label>
                     </div>
                 </div>
-                <div id="holder" style="margin-top:15px;max-height:100px;"></div>
               </div>
               <div class="col-md-6"></div>
             </div>

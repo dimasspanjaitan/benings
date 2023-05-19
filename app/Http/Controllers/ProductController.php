@@ -65,7 +65,8 @@ class ProductController extends Controller
         ],[
             'required' => 'This :attribute cannot be null',
             'string' => 'This :attribute must be string',
-            'max' => 'This :attribute maximal 50 character'
+            'max' => 'This :attribute maximal 50 character',
+
         ]);
 
         // dd($request->file('photo'));
