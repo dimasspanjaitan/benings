@@ -37,7 +37,6 @@
                       <label class="custom-file-label" for="photo">Choose file</label>
                     </div>
                 </div>
-                <div id="holder" style="margin-top:15px;max-height:100px;"></div>
               </div>
               <div class="col-md-6"></div>
             </div>
