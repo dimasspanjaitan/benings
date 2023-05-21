@@ -2,7 +2,8 @@
 
 @section('title',"Bening's || User Page")
 @section('main-content')
- <!-- DataTales Example -->
+
+ <!-- DataTales User -->
  <div class="card shadow mb-4">
      <div class="row">
          <div class="col-md-12">
@@ -15,7 +16,7 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        @if (count($user)>0)
+        @if (count($users)>0)
           <table class="table table-bordered" id="user-dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
@@ -141,13 +142,6 @@
         "info" : false
       } );
 
-        // Sweet alert
-
-      function deleteData(id){
-          
-      }
-  </script>
-  <script>
       $(document).ready(function(){
         $.ajaxSetup({
             headers: {

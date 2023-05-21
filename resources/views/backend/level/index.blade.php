@@ -94,19 +94,11 @@
   <!-- Page level custom scripts -->
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
-
       $('#banner-dataTable').DataTable( {
         "paging": false,
         "info" : false
       } );
-
-        // Sweet alert
-
-      function deleteData(id){
-
-      }
-  </script>
-  <script>
+      
       $(document).ready(function(){
         $.ajaxSetup({
             headers: {

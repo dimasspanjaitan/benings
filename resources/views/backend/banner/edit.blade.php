@@ -1,4 +1,5 @@
 @extends('backend.layouts.master')
+
 @section('title',"Bening's || Banner Edit")
 @section('main-content')
 
@@ -18,7 +19,7 @@
 
         <div class="form-group">
           <label for="inputDesc" class="col-form-label">Description</label>
-          <textarea class="form-control" id="description" name="description"> {{ $banner->description }} </textarea>
+          <textarea class="form-control" name="description" placeholder="Write detail description..... "> {{ $banner->description }} </textarea>
           @error('description')
           <span class="text-danger">{{ $message }}</span>
           @enderror
@@ -62,22 +63,3 @@
 </div>
 
 @endsection
-
-@push('styles')
-<link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">
-@endpush
-@push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-<script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
-<script>
-    $('#lfm').filemanager('image');
-
-    $(document).ready(function() {
-    $('#description').summernote({
-      placeholder: "Write short description.....",
-        tabsize: 2,
-        height: 150
-    });
-    });
-</script>
-@endpush

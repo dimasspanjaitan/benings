@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || Product Edit")
 @section('main-content')
 
 <div class="card">
@@ -18,7 +19,7 @@
 
         <div class="form-group">
           <label for="summary" class="col-form-label">Summary <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="summary" name="summary">{{ $product->summary }}</textarea>
+          <textarea class="form-control" name="summary" placeholder="Write short description.....">{{ $product->summary }}</textarea>
           @error('summary')
             <span class="text-danger">{{ $message }}</span>
           @enderror
@@ -26,7 +27,7 @@
 
         <div class="form-group">
           <label for="description" class="col-form-label">Description</label>
-          <textarea class="form-control" id="description" name="description">{{ $product->description }}</textarea>
+          <textarea class="form-control" name="description" placeholder="Write detail description.....">{{ $product->description }}</textarea>
           @error('description')
             <span class="text-danger">{{ $message }}</span>
           @enderror
@@ -95,81 +96,9 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 @endpush
 
 @push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-<script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
-<script>
-    $('#lfm').filemanager('image');
-
-    $(document).ready(function() {
-      $('#summary').summernote({
-        placeholder: "Write short description.....",
-          tabsize: 2,
-          height: 150
-      });
-    });
-
-    $(document).ready(function() {
-      $('#description').summernote({
-        placeholder: "Write detail Description.....",
-          tabsize: 2,
-          height: 150
-      });
-    });
-</script>
-
-{{-- <script>
-  var  child_cat_id='{{$product->child_cat_id}}';
-        // alert(child_cat_id);
-        $('#cat_id').change(function(){
-            var cat_id=$(this).val();
-
-            if(cat_id !=null){
-                // ajax call
-                $.ajax({
-                    url:"/admin/category/"+cat_id+"/child",
-                    type:"POST",
-                    data:{
-                        _token:"{{csrf_token()}}"
-                    },
-                    success:function(response){
-                        if(typeof(response)!='object'){
-                            response=$.parseJSON(response);
-                        }
-                        var html_option="<option value=''>--Select any one--</option>";
-                        if(response.status){
-                            var data=response.data;
-                            if(response.data){
-                                $('#child_cat_div').removeClass('d-none');
-                                $.each(data,function(id,title){
-                                    html_option += "<option value='"+id+"' "+(child_cat_id==id ? 'selected ' : '')+">"+title+"</option>";
-                                });
-                            }
-                            else{
-                                console.log('no response data');
-                            }
-                        }
-                        else{
-                            $('#child_cat_div').addClass('d-none');
-                        }
-                        $('#child_cat_id').html(html_option);
-
-                    }
-                });
-            }
-            else{
-
-            }
-
-        });
-        if(child_cat_id!=null){
-            $('#cat_id').change();
-        }
-</script> --}}
 @endpush

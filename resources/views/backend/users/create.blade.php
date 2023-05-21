@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || User Create")
 @section('main-content')
 
 <div class="card">
@@ -127,10 +128,3 @@
 </div>
 
 @endsection
-
-{{-- @push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-<script>
-    $('#lfm').filemanager('image');
-</script>
-@endpush --}}

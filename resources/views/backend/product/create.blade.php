@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || Product Create")
 @section('main-content')
 
 <div class="card">
@@ -17,7 +18,7 @@
 
         <div class="form-group">
           <label for="summary" class="col-form-label">Summary <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="summary" name="summary">{{ old('summary') }}</textarea>
+          <textarea class="form-control" name="summary" placeholder="Write short description.....">{{ old('summary') }}</textarea>
           @error('summary')
             <span class="text-danger">{{ $message }}</span>
           @enderror
@@ -25,7 +26,7 @@
 
         <div class="form-group">
           <label for="description" class="col-form-label">Description </label>
-          <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
+          <textarea class="form-control" name="description" placeholder="Write detail description.....">{{ old('description') }}</textarea>
           @error('description')
             <span class="text-danger">{{ $message }}</span>
           @enderror
@@ -93,74 +94,9 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 @endpush
 
 @push('scripts')
-{{-- <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script> --}}
-<script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
-<script>
-
-    $(document).ready(function() {
-      $('#summary').summernote({
-        placeholder: "Write short description.....",
-          tabsize: 2,
-          height: 100
-      });
-    });
-
-    $(document).ready(function() {
-      $('#description').summernote({
-        placeholder: "Write detail description.....",
-          tabsize: 2,
-          height: 150
-      });
-    });
-</script>
-
-{{-- <script>
-  $('#category_id').change(function(){
-    var category_id=$(this).val();
-    // alert(category_id);
-    if(category_id !=null){
-      // Ajax call
-      $.ajax({
-        url:"/admin/category/"+category_id+"/child",
-        data:{
-          _token:"{{csrf_token()}}",
-          id:category_id
-        },
-        type:"POST",
-        success:function(response){
-          if(typeof(response) !='object'){
-            response=$.parseJSON(response)
-          }
-          // console.log(response);
-          var html_option="<option value=''>----Select sub category----</option>"
-          if(response.status){
-            var data=response.data;
-            // alert(data);
-            if(response.data){
-              $('#child_cat_div').removeClass('d-none');
-              $.each(data,function(id,title){
-                html_option +="<option value='"+id+"'>"+title+"</option>"
-              });
-            }
-            else{
-            }
-          }
-          else{
-            $('#child_cat_div').addClass('d-none');
-          }
-          $('#child_category_id').html(html_option);
-        }
-      });
-    }
-    else{
-    }
-  })
-</script> --}}
 @endpush

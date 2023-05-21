@@ -101,14 +101,7 @@
         "paging": false,
         "info": false
       } );
-
-        // Sweet alert
-
-        function deleteData(id){
-
-        }
-  </script>
-  <script>
+      
       $(document).ready(function(){
         $.ajaxSetup({
             headers: {
