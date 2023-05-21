@@ -51,7 +51,10 @@ class AdminController extends Controller
 
     public function settings(){
         $data = Settings::first();
-        // dd($data);
+        $data->logo = explode('/', $data->logo)[count(explode('/',$data->logo)) -1];
+        $data->logo_admin = explode('/', $data->logo_admin)[count(explode('/',$data->logo_admin)) -1];
+        $data->favicon = explode('/', $data->favicon)[count(explode('/',$data->favicon)) -1];
+        $data->photo = explode('/', $data->photo)[count(explode('/',$data->photo)) -1];
 
         return view('backend.setting', compact('data'));
     }

@@ -103,6 +103,7 @@ class BannerController extends Controller
     public function edit($id)
     {
         $banner = Banner::findOrFail($id);
+        $banner->photo = explode('/', $banner->photo)[count(explode('/',$banner->photo)) -1];
 
         return view('backend.banner.edit', compact('banner'));
     }

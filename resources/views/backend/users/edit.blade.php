@@ -101,7 +101,11 @@
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="photo" name="photo"
                         value="{{ $user->photo }}">
-                      <label class="custom-file-label" for="photo">Choose file</label>
+                    @if (!empty($user->photo))
+                        <label class="custom-file-label" for="photo">{{ $user->photo }}</label>
+                      @else
+                        <label class="custom-file-label" for="photo">Choose file</label>
+                      @endif
                     </div>
                 </div>
               </div>

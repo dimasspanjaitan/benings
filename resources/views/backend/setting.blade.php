@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || Setting")
 @section('main-content')
 
 <div class="card">
@@ -26,45 +27,93 @@
 
         <div class="form-group">
           <label for="logo" class="col-form-label">Logo Utama <span class="text-danger">*</span></label>
-            <div class="input-group">
-                <input type="file" class="form-control-file" id="logo" name="logo" value="{{$data->logo}}">
+            <div class="col-12 row pl-0">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="logo"
+                        aria-describedby="logo" value="{{ $data->logo }}">
+                      @if (!empty($data->logo))
+                        <label class="custom-file-label" for="logo">{{ $data->logo }}</label>
+                      @else
+                        <label class="custom-file-label" for="logo">Choose file</label>
+                      @endif
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-6"></div>
             </div>
-            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
             @error('logo')
-              <span class="text-danger">{{$message}}</span>
+              <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
-          <label for="logo_admin" class="col-form-label">Logo Admin</label>
-            <div class="input-group">
-                <input type="file" class="form-control-file" id="logo_admin" name="logo_admin" value="{{$data->logo_admin}}">
+          <label for="logo_admin" class="col-form-label">Logo Admin <span class="text-danger">*</span></label>
+            <div class="col-12 row pl-0">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="logo_admin"
+                        aria-describedby="logo_admin" value="{{ $data->logo_admin }}">
+                      @if (!empty($data->logo_admin))
+                        <label class="custom-file-label" for="logo_admin">{{ $data->logo_admin }}</label>
+                      @else
+                        <label class="custom-file-label" for="logo_admin">Choose file</label>
+                      @endif
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-6"></div>
             </div>
-            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
             @error('logo_admin')
-              <span class="text-danger">{{$message}}</span>
+              <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
           <label for="favicon" class="col-form-label">Logo Favicon <span class="text-danger">*</span></label>
-            <div class="input-group">
-                <input type="file" class="form-control-file" id="favicon" name="favicon" value="{{$data->favicon}}">
+            <div class="col-12 row pl-0">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="favicon"
+                        aria-describedby="favicon" value="{{ $data->favicon }}">
+                      @if (!empty($data->favicon))
+                        <label class="custom-file-label" for="favicon">{{ $data->favicon }}</label>
+                      @else
+                        <label class="custom-file-label" for="favicon">Choose file</label>
+                      @endif
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-6"></div>
             </div>
-            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
             @error('favicon')
-              <span class="text-danger">{{$message}}</span>
+              <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
           <label for="photo" class="col-form-label">Photo <span class="text-danger">*</span></label>
-            <div class="input-group">
-                <input type="file" class="form-control-file" id="photo" name="photo" value="{{$data->photo}}">
+            <div class="col-12 row pl-0">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="photo"
+                        aria-describedby="photo" value="{{ $data->photo }}">
+                      @if (!empty($data->photo))
+                        <label class="custom-file-label" for="photo">{{ $data->photo }}</label>
+                      @else
+                        <label class="custom-file-label" for="photo">Choose file</label>
+                      @endif
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-6"></div>
             </div>
-            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
             @error('photo')
-              <span class="text-danger">{{$message}}</span>
+              <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
 

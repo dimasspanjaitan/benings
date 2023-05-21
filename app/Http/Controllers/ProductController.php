@@ -119,9 +119,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product=Product::findOrFail($id);
-        $category=Category::get();
-        $items=Product::where('id',$id)->get();
+        $product = Product::findOrFail($id);
+        $product->photo = explode('/', $product->photo)[count(explode('/',$product->photo)) -1];
+        $category = Category::get();
+        $items = Product::where('id',$id)->get();
         // return $items;
         return view('backend.product.edit')->with('product',$product)
                     ->with('categories',$category)->with('items',$items);

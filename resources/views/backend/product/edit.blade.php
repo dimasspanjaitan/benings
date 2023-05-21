@@ -64,7 +64,11 @@
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="photo" name="photo"
                         aria-describedby="photo" value="{{ $product->photo }}">
-                      <label class="custom-file-label" for="photo">Choose file</label>
+                      @if (!empty($product->photo))
+                        <label class="custom-file-label" for="photo">{{ $product->photo }}</label>
+                      @else
+                        <label class="custom-file-label" for="photo">Choose file</label>
+                      @endif
                     </div>
                 </div>
               </div>

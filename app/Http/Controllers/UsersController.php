@@ -129,6 +129,8 @@ class UsersController extends Controller
         $levels = Level::get();
         $regions = Region::get();
         $user = User::findOrFail($id);
+        $user->photo = explode('/', $user->photo)[count(explode('/',$user->photo)) -1];
+
         return view('backend.users.edit', compact('user', 'levels', 'regions'));
     }
 

@@ -16,7 +16,8 @@ class LevelController extends Controller
      */
     public function index()
     {
-        $levels = Level::get();
+        $levels = Level::select('*');
+        $levels = $this->filter($levels)->get();
 
         $total = Level::select('id')->orderBy('created_at', 'ASC');
         $total = $this->filter($total,false)->count();
