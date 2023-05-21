@@ -78,14 +78,16 @@ class ProductController extends Controller
         }
         $data['slug']=$slug;
 
-        $propImages = $this->uploadImage($request,[
-            'file' => 'photo',
-            'size' => [500,500],
-            'path' => 'uploads/products',
-            'permission' => 777
-
-        ]);
-        $data['photo'] = $propImages['path'];
+        if (isset($data['photo'])) {
+            $propImages = $this->uploadImage($request,[
+                'file' => 'photo',
+                'size' => [500,500],
+                'path' => 'uploads/products',
+                'permission' => 777
+    
+            ]);
+            $data['photo'] = $propImages['path'];
+        }
 
         $status=Product::create($data);
         if($status){
@@ -155,20 +157,22 @@ class ProductController extends Controller
         $data['slug']=$slug;
 
         $old_image = explode('/', $product->photo)[count(explode('/',$product->photo)) -1];
-        if(file_exists(public_path('uploads/products').DIRECTORY_SEPARATOR.$old_image)){
-            unlink(public_path('uploads/products').DIRECTORY_SEPARATOR.$old_image);
+        if (isset($data['photo'])) {
+            if (!empty($product->photo)) {
+                if(file_exists(public_path('uploads/products').DIRECTORY_SEPARATOR.$old_image)){
+                    unlink(public_path('uploads/products').DIRECTORY_SEPARATOR.$old_image);
+                } 
+            }
+            $propImages = $this->uploadImage($request,[
+                'file' => 'photo',
+                'size' => [500,500],
+                'path' => 'uploads/products',
+                'permission' => 777
+    
+            ]);
+            $data['photo'] = $propImages['path'];
         }
-        
-        $propImages = $this->uploadImage($request,[
-            'file' => 'photo',
-            'size' => [500,500],
-            'path' => 'uploads/products',
-            'permission' => 777
 
-        ]);
-        $data['photo'] = $propImages['path'];
-
-        // return $data;
         $status=$product->fill($data)->save();
         if($status){
             request()->session()->flash('success','Product Successfully updated');

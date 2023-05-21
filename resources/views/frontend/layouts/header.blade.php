@@ -25,7 +25,7 @@
                             <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
                             @auth 
                                 @if(Auth::user()->role==1)
-                                    <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">Dashboard</a></li>
+                                    <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">C-Panel</a></li>
                                 @else 
                                     <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Dashboard</a></li>
                                 @endif

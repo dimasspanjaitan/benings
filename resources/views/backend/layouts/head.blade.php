@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>E-SHOP || DASHBOARD</title>
+    <title>BENING'S || DASHBOARD</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('backend/img/favicon.png') }}">
   

@@ -82,9 +82,9 @@ class UsersController extends Controller
             'max' => 'This :attribute maximal 30 character',
             'string' => 'This :attribute must be string'
         ]);
-        $data=$request->all();
-        $data['password']=Hash::make($request->password);
-        // dd($data);
+        $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
+
         if(isset($data['photo'])){
             $propImages = $this->uploadImage($request,[
                 'file' => 'photo',
@@ -172,23 +172,26 @@ class UsersController extends Controller
             'string' => 'This :attribute must be string',
             'uploaded' => 'File size too big'
         ]);
-        $data=$request->all();
-        // dd($data);
+        $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
+
         $old_image = explode('/', $user->photo)[count(explode('/',$user->photo)) -1];
         // dd($old_image);
-        if(file_exists(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image)){
-            unlink(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image);
+        if (isset($data['photo'])) {
+            if (!empty($user->photo)) {
+                if(file_exists(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image)){
+                    unlink(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image);
+                }
+            }
+            $propImages = $this->uploadImage($request,[
+                'file' => 'photo',
+                'size' => [500,500],
+                'path' => 'uploads/users',
+                'permission' => 777
+    
+            ]);
+            $data['photo'] = $propImages['path'];
         }
-        
-        
-        $propImages = $this->uploadImage($request,[
-            'file' => 'photo',
-            'size' => [500,500],
-            'path' => 'uploads/users',
-            'permission' => 777
-
-        ]);
-        $data['photo'] = $propImages['path'];
         
         $status=$user->fill($data)->save();
         if($status){

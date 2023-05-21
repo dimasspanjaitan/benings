@@ -62,14 +62,16 @@ class BannerController extends Controller
         }
         $data['slug']=$slug;
 
-        $propImages = $this->uploadImage($request,[
-            'file' => 'photo',
-            'size' => [500,500],
-            'path' => 'uploads/banners',
-            'permission' => 777
-
-        ]);
-        $data['photo'] = $propImages['path'];
+        if (isset($data['photo'])) {
+            $propImages = $this->uploadImage($request,[
+                'file' => 'photo',
+                'size' => [500,500],
+                'path' => 'uploads/banners',
+                'permission' => 777
+    
+            ]);
+            $data['photo'] = $propImages['path'];
+        }
 
         $status=Banner::create($data);
         if($status){
@@ -128,17 +130,21 @@ class BannerController extends Controller
         $data=$request->all();
 
         $old_image = explode('/', $banner->photo)[count(explode('/',$banner->photo)) -1];
-        if(file_exists(public_path('uploads/banners').DIRECTORY_SEPARATOR.$old_image)){
-            unlink(public_path('uploads/banners').DIRECTORY_SEPARATOR.$old_image);
+        if (!empty($data['photo'])) {
+            if (!empty($banner->photo)) {
+                if(file_exists(public_path('uploads/banners').DIRECTORY_SEPARATOR.$old_image)){
+                    unlink(public_path('uploads/banners').DIRECTORY_SEPARATOR.$old_image);
+                }
+            }
+            $propImages = $this->uploadImage($request,[
+                'file' => 'photo',
+                'size' => [200,200],
+                'path' => 'uploads/banners',
+                'permission' => 777
+    
+            ]);
+            $data['photo'] = $propImages['path'];
         }
-        $propImages = $this->uploadImage($request,[
-            'file' => 'photo',
-            'size' => [200,200],
-            'path' => 'uploads/banners',
-            'permission' => 777
-
-        ]);
-        $data['photo'] = $propImages['path'];
 
         $status=$banner->fill($data)->save();
         if($status){
