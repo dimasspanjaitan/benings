@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || Sale Page")
 @section('main-content')
 
 {{-- {{ dd($pagination) }} --}}
