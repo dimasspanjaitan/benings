@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || User Page")
 @section('main-content')
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -14,24 +15,10 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-bordered" id="user-dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Status</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Level</th>
-              <th>Region</th>
-              <th>Photo</th>
-              <th>Join Date</th>
-              <th>Role</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
+        @if (count($user)>0)
+          <table class="table table-bordered" id="user-dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
                 <th>ID</th>
                 <th>Status</th>
                 <th>Name</th>
@@ -44,66 +31,84 @@
                 <th>Role</th>
                 <th>Action</th>
               </tr>
-          </tfoot>
-          <tbody>
-            @foreach($users as $user)   
-                <tr>
-                    <td>{{$user->id}}</td>
-                    <td>
-                        @if($user->status==1)
-                            <span class="badge badge-success">Active</span>
-                        @else
-                            <span class="badge badge-warning">Inactive</span>
-                        @endif
-                    </td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->phone}}</td>
-                    <td>{{$user->levels->name}}</td>
-                    <td>{{$user->regions->name}}</td>
-                    <td>
-                        @if($user->photo)
-                            <img src="{{$user->photo}}" class="img-fluid rounded-circle" style="max-width:50px" alt="{{$user->photo}}">
-                        @else
-                            <img src="{{asset('backend/img/avatar.png')}}" class="img-fluid rounded-circle" style="max-width:50px" alt="avatar.png">
-                        @endif
-                    </td>
-                    <td>{{(($user->created_at)? $user->created_at->diffForHumans() : '')}}</td>
-                    <td>{{ ($user->role==1) ? 'Admin' : 'User' }}</td>
-                    <td>
-                        <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                    <form method="POST" action="{{route('users.destroy',[$user->id])}}">
-                      @csrf 
-                      @method('delete')
-                          <button class="btn btn-danger btn-sm dltBtn" data-id={{$user->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                    </td>
-                    {{-- Delete Modal --}}
-                    {{-- <div class="modal fade" id="delModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$user->id}}Label" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="#delModal{{$user->id}}Label">Delete user</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <form method="post" action="{{ route('users.destroy',$user->id) }}">
-                                @csrf 
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Parmanent delete user</button>
-                              </form>
+            </thead>
+            <tfoot>
+              <tr>
+                  <th>ID</th>
+                  <th>Status</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Level</th>
+                  <th>Region</th>
+                  <th>Photo</th>
+                  <th>Join Date</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                </tr>
+            </tfoot>
+            <tbody>
+              @foreach($users as $user)   
+                  <tr>
+                      <td>{{$user->id}}</td>
+                      <td>
+                          @if($user->status==1)
+                              <span class="badge badge-success">Active</span>
+                          @else
+                              <span class="badge badge-warning">Inactive</span>
+                          @endif
+                      </td>
+                      <td>{{$user->name}}</td>
+                      <td>{{$user->email}}</td>
+                      <td>{{$user->phone}}</td>
+                      <td>{{$user->levels->name}}</td>
+                      <td>{{$user->regions->name}}</td>
+                      <td>
+                          @if($user->photo)
+                              <img src="{{$user->photo}}" class="img-fluid rounded-circle" style="max-width:50px" alt="{{$user->photo}}">
+                          @else
+                              <img src="{{asset('backend/img/avatar.png')}}" class="img-fluid rounded-circle" style="max-width:50px" alt="avatar.png">
+                          @endif
+                      </td>
+                      <td>{{(($user->created_at)? $user->created_at->diffForHumans() : '')}}</td>
+                      <td>{{ ($user->role==1) ? 'Admin' : 'User' }}</td>
+                      <td>
+                          <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                      <form method="POST" action="{{route('users.destroy',[$user->id])}}">
+                        @csrf 
+                        @method('delete')
+                            <button class="btn btn-danger btn-sm dltBtn" data-id={{$user->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                          </form>
+                      </td>
+                      {{-- Delete Modal --}}
+                      {{-- <div class="modal fade" id="delModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$user->id}}Label" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="#delModal{{$user->id}}Label">Delete user</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <form method="post" action="{{ route('users.destroy',$user->id) }}">
+                                  @csrf 
+                                  @method('delete')
+                                  <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Parmanent delete user</button>
+                                </form>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                    </div> --}}
-                </tr>  
-            @endforeach
-          </tbody>
-        </table>
+                      </div> --}}
+                  </tr>  
+              @endforeach
+            </tbody>
+          </table>
 
-        @include('backend.layouts.pagination');
+          @include('backend.layouts.pagination');
+        @else
+          <h6 class="text-center">No sales found!!! Please create sale</h6>
+        @endif
         
       </div>
     </div>

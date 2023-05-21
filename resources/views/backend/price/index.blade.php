@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || Price Page")
 @section('main-content')
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -15,52 +16,52 @@
     <div class="card-body">
       <div class="table-responsive">
         @if(count($prices)>0)
-        <table class="table table-bordered" id="price-dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th width='10px'>Details</th>
-              <th>Product</th>
-              <th>Price</th>
-              <th width="65px">Action</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <th>Details</th>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
-          <tbody>
+          <table class="table table-bordered" id="price-dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th width='10px'>Details</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th width="65px">Action</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Details</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </tfoot>
+            <tbody>
 
-            @foreach($prices as $key => $price)
-                {{-- {{ dd($price) }} --}}
-                <tr>
-                    {{-- <td>{{ $key }}</td> --}}
-                    <td class="dt-control" data-data='{{ $price }}'></td>
-                    <td>{{ $price[$key]['product']->name }}</td>
-                    <td style="text-align: right">Rp
-                        @foreach ($customer_prices as $cp)
-                          @if ($key == $cp['product_id'])
-                              {{ number_format($cp['price'], 2, ",", ".") }}
-                          @endif
-                        @endforeach
-                    </td>
-                    <td>
-                        <a href="{{route('price.edit',$key)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                        <form method="POST" action="{{route('price.destroy',[$key])}}">
-                          @csrf
-                          @method('delete')
-                          <button class="btn btn-danger btn-sm dltBtn" data-id={{$key}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-          </tbody>
-        </table>
+              @foreach($prices as $key => $price)
+                  {{-- {{ dd($price) }} --}}
+                  <tr>
+                      {{-- <td>{{ $key }}</td> --}}
+                      <td class="dt-control" data-data='{{ $price }}'></td>
+                      <td>{{ $price[$key]['product']->name }}</td>
+                      <td style="text-align: right">Rp
+                          @foreach ($customer_prices as $cp)
+                            @if ($key == $cp['product_id'])
+                                {{ number_format($cp['price'], 2, ",", ".") }}
+                            @endif
+                          @endforeach
+                      </td>
+                      <td>
+                          <a href="{{route('price.edit',$key)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                          <form method="POST" action="{{route('price.destroy',[$key])}}">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger btn-sm dltBtn" data-id={{$key}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                          </form>
+                      </td>
+                  </tr>
+              @endforeach
+            </tbody>
+          </table>
 
-        @include('backend.layouts.pagination');
+          @include('backend.layouts.pagination');
 
         @else
           <h6 class="text-center">No Prices found!!! Please create Price</h6>

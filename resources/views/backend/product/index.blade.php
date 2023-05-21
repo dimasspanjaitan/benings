@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || Product Page")
 @section('main-content')
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -15,88 +16,88 @@
     <div class="card-body">
       <div class="table-responsive">
         @if(count($products)>0)
-        <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th width='10px'>ID</th>
-              <th width="10%">Status</th>
-              <th>Name</th>
-              <th>Summary</th>
-              <th>Photo</th>
-              <th>Category</th>
-              {{-- <th>Price</th> --}}
-              <th>Stock</th>
-              {{-- <th>Weight</th> --}}
-              <th width="65px">Action</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <th>ID</th>
-              <th>Status</th>
-              <th>Name</th>
-              <th>Summary</th>
-              <th>Photo</th>
-              <th>Category</th>
-              {{-- <th>Price</th> --}}
-              <th>Stock</th>
-              {{-- <th>Weight</th> --}}
-              <th>Action</th>
-            </tr>
-          </tfoot>
-          <tbody>
+          <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th width='10px'>ID</th>
+                <th width="10%">Status</th>
+                <th>Name</th>
+                <th>Summary</th>
+                <th>Photo</th>
+                <th>Category</th>
+                {{-- <th>Price</th> --}}
+                <th>Stock</th>
+                {{-- <th>Weight</th> --}}
+                <th width="65px">Action</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Summary</th>
+                <th>Photo</th>
+                <th>Category</th>
+                {{-- <th>Price</th> --}}
+                <th>Stock</th>
+                {{-- <th>Weight</th> --}}
+                <th>Action</th>
+              </tr>
+            </tfoot>
+            <tbody>
 
-            @foreach($products as $product)
-                <tr>
-                    <td>{{$product->id}}</td>
-                    <td>
-                        @if($product->status==1)
-                            <span class="badge badge-success">Active</span>
-                        @else
-                            <span class="badge badge-warning">Inactive</span>
-                        @endif
-                    </td>
-                    <td>{{$product->name}}</td>
-                    <td>{{$product->summary}}</td>
-                    <td>
-                        @if($product->photo)
-                            @php
-                              $photo=explode(',',$product->photo);
-                              // dd($photo);
-                            @endphp
-                            <img src="{{$photo[0]}}" class="img-fluid zoom" style="max-width:80px" alt="{{$product->photo}}">
-                        @else
-                            <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
-                        @endif
-                    </td>
-                    <td>{{$product->category->title}}</td>
-                    {{-- <td>Rp. /-</td> --}}
-                    {{-- <td>  {{$product->discount}}% OFF</td> --}}
-                    {{-- <td>{{$product->weight}}</td> --}}
-                    {{-- <td>{{$product->condition}}</td> --}}
-                    {{-- <td> {{ucfirst($product->brand->title)}}</td> --}}
-                    <td>0
-                        {{-- @if($product->stock>0)
-                        <span class="badge badge-primary">{{$product->stock}}</span>
-                        @else
-                        <span class="badge badge-danger">{{$product->stock}}</span>
-                        @endif --}}
-                    </td>
-                    {{-- <td>{{$product->weight}}</td>                     --}}
-                    <td>
-                        <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                    <form method="POST" action="{{route('product.destroy',[$product->id])}}">
-                      @csrf
-                      @method('delete')
-                          <button class="btn btn-danger btn-sm dltBtn" data-id={{$product->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-          </tbody>
-        </table>
+              @foreach($products as $product)
+                  <tr>
+                      <td>{{$product->id}}</td>
+                      <td>
+                          @if($product->status==1)
+                              <span class="badge badge-success">Active</span>
+                          @else
+                              <span class="badge badge-warning">Inactive</span>
+                          @endif
+                      </td>
+                      <td>{{$product->name}}</td>
+                      <td>{{$product->summary}}</td>
+                      <td>
+                          @if($product->photo)
+                              @php
+                                $photo=explode(',',$product->photo);
+                                // dd($photo);
+                              @endphp
+                              <img src="{{$photo[0]}}" class="img-fluid zoom" style="max-width:80px" alt="{{$product->photo}}">
+                          @else
+                              <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
+                          @endif
+                      </td>
+                      <td>{{$product->category->title}}</td>
+                      {{-- <td>Rp. /-</td> --}}
+                      {{-- <td>  {{$product->discount}}% OFF</td> --}}
+                      {{-- <td>{{$product->weight}}</td> --}}
+                      {{-- <td>{{$product->condition}}</td> --}}
+                      {{-- <td> {{ucfirst($product->brand->title)}}</td> --}}
+                      <td>0
+                          {{-- @if($product->stock>0)
+                          <span class="badge badge-primary">{{$product->stock}}</span>
+                          @else
+                          <span class="badge badge-danger">{{$product->stock}}</span>
+                          @endif --}}
+                      </td>
+                      {{-- <td>{{$product->weight}}</td>                     --}}
+                      <td>
+                          <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                      <form method="POST" action="{{route('product.destroy',[$product->id])}}">
+                        @csrf
+                        @method('delete')
+                            <button class="btn btn-danger btn-sm dltBtn" data-id={{$product->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                          </form>
+                      </td>
+                  </tr>
+              @endforeach
+            </tbody>
+          </table>
 
-        @include('backend.layouts.pagination');
+          @include('backend.layouts.pagination');
 
         @else
           <h6 class="text-center">No Products found!!! Please create Product</h6>

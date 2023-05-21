@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 
+@section('title',"Bening's || Level Page")
 @section('main-content')
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -15,53 +16,53 @@
     <div class="card-body">
       <div class="table-responsive">
         @if(count($levels)>0)
-        <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th width='10px'>No.</th>
-              <th width="10%">Status</th>
-              <th>Name</th>
-              {{-- <th>Slug</th> --}}
-              <th>Description</th>
-              <th width="65px">Action</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <th>No.</th>
-              <th>Status</th>
-              <th>Name</th>
-              {{-- <th>Slug</th> --}}
-              <th>Description</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
-          <tbody>
+          <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th width='10px'>No.</th>
+                <th width="10%">Status</th>
+                <th>Name</th>
+                {{-- <th>Slug</th> --}}
+                <th>Description</th>
+                <th width="65px">Action</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>No.</th>
+                <th>Status</th>
+                <th>Name</th>
+                {{-- <th>Slug</th> --}}
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </tfoot>
+            <tbody>
 
-            @foreach($levels as $level)
-                <tr>
-                    <td>{{$level->id}}</td>
-                    <td>
-                        @if($level->status==1)
-                            <span class="badge badge-success">Active</span>
-                        @else
-                            <span class="badge badge-warning">Inactive</span>
-                        @endif
-                    </td>
-                    <td>{{$level->name}}</td>
-                    <td>{{$level->description}}</td>
-                    <td>
-                        <a href="{{route('level.edit',$level->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                    <form method="POST" action="{{route('level.destroy',[$level->id])}}">
-                      @csrf
-                      @method('delete')
-                          <button class="btn btn-danger btn-sm dltBtn" data-id={{$level->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-          </tbody>
-        </table>
+              @foreach($levels as $level)
+                  <tr>
+                      <td>{{$level->id}}</td>
+                      <td>
+                          @if($level->status==1)
+                              <span class="badge badge-success">Active</span>
+                          @else
+                              <span class="badge badge-warning">Inactive</span>
+                          @endif
+                      </td>
+                      <td>{{$level->name}}</td>
+                      <td>{{$level->description}}</td>
+                      <td>
+                          <a href="{{route('level.edit',$level->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                      <form method="POST" action="{{route('level.destroy',[$level->id])}}">
+                        @csrf
+                        @method('delete')
+                            <button class="btn btn-danger btn-sm dltBtn" data-id={{$level->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                          </form>
+                      </td>
+                  </tr>
+              @endforeach
+            </tbody>
+          </table>
 
         @include('backend.layouts.pagination');
 

@@ -1,4 +1,5 @@
 @extends('backend.layouts.master')
+
 @section('title',"Bening's || All Notifications")
 @section('main-content')
 <div class="card">
