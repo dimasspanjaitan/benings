@@ -16,7 +16,8 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::get();
+        $regions = Region::select("*");
+        $regions = $this->filter($regions)->get();
 
         $total = Region::orderBy('created_at', 'ASC');
         $total = $this->filter($total,false)->count();

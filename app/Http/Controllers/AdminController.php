@@ -71,38 +71,73 @@ class AdminController extends Controller
         $settings = Settings::first();
         $status = $settings->fill($data)->save();
 
-        $propImages = $this->uploadImage($request,[
-            'file' => 'logo',
-            'size' => [500,500],
-            'path' => 'uploads/products',
-            'permission' => 777
+        $old_logo = explode('/', $settings->logo)[count(explode('/',$settings->logo)) -1];
+        if (isset($data['logo'])) {
+            if (!empty($settings->logo)) {
+                if(file_exists(public_path('uploads/settingss').DIRECTORY_SEPARATOR.$old_logo)){
+                    unlink(public_path('uploads/settingss').DIRECTORY_SEPARATOR.$old_logo);
+                } 
+            }
+            $propImages = $this->uploadImage($request,[
+                'file' => 'logo',
+                'size' => [500,500],
+                'path' => 'uploads/settings',
+                'permission' => 777
+    
+            ]);
+            $data['logo'] = $propImages['path'];
+        }
 
-        ]);
-        $propImages = $this->uploadImage($request,[
-            'file' => 'logo_admin',
-            'size' => [500,500],
-            'path' => 'uploads/products',
-            'permission' => 777
+        $old_admin = explode('/', $settings->logo_admin)[count(explode('/',$settings->logo_admin)) -1];
+        if (isset($data['logo_admin'])) {
+            if (!empty($settings->logo_admin)) {
+                if(file_exists(public_path('uploads/settingss').DIRECTORY_SEPARATOR.$old_admin)){
+                    unlink(public_path('uploads/settingss').DIRECTORY_SEPARATOR.$old_admin);
+                } 
+            }
+            $propImages = $this->uploadImage($request,[
+                'file' => 'logo_admin',
+                'size' => [500,500],
+                'path' => 'uploads/settings',
+                'permission' => 777
+    
+            ]);
+            $data['logo_admin'] = $propImages['path'];
+        }
 
-        ]);
-        $propImages = $this->uploadImage($request,[
-            'file' => 'favicon',
-            'size' => [500,500],
-            'path' => 'uploads/products',
-            'permission' => 777
+        $old_favicon = explode('/', $settings->favicon)[count(explode('/',$settings->favicon)) -1];
+        if (isset($data['favicon'])) {
+            if (!empty($settings->favicon)) {
+                if(file_exists(public_path('uploads/settingss').DIRECTORY_SEPARATOR.$old_favicon)){
+                    unlink(public_path('uploads/settingss').DIRECTORY_SEPARATOR.$old_favicon);
+                } 
+            }
+            $propImages = $this->uploadImage($request,[
+                'file' => 'favicon',
+                'size' => [500,500],
+                'path' => 'uploads/settings',
+                'permission' => 777
+    
+            ]);
+            $data['favicon'] = $propImages['path'];
+        }
 
-        ]);
-        $propImages = $this->uploadImage($request,[
-            'file' => 'photo',
-            'size' => [500,500],
-            'path' => 'uploads/products',
-            'permission' => 777
-
-        ]);
-        $data['logo'] = $propImages['path'];
-        $data['logo_admin'] = $propImages['path'];
-        $data['favicon'] = $propImages['path'];
-        $data['photo'] = $propImages['path'];
+        $old_photo = explode('/', $settings->photo)[count(explode('/',$settings->photo)) -1];
+        if (isset($data['photo'])) {
+            if (!empty($settings->photo)) {
+                if(file_exists(public_path('uploads/settingss').DIRECTORY_SEPARATOR.$old_photo)){
+                    unlink(public_path('uploads/settingss').DIRECTORY_SEPARATOR.$old_photo);
+                } 
+            }
+            $propImages = $this->uploadImage($request,[
+                'file' => 'photo',
+                'size' => [500,500],
+                'path' => 'uploads/settings',
+                'permission' => 777
+    
+            ]);
+            $data['photo'] = $propImages['path'];
+        }
 
         if($status){
             request()->session()->flash('success','Setting successfully updated');

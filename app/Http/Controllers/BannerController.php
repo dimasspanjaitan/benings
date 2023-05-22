@@ -17,7 +17,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::orderBy('id','DESC')->get();
+        $banners = Banner::orderBy('id','DESC');
+        $banners = $this->filter($banners)->get();
 
         $total = Banner::select('id')->orderBy('created_at', 'ASC');
         $total = $this->filter($total,false)->count();
