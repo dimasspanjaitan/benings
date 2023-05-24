@@ -14,14 +14,14 @@
           <label for="short_des" class="col-form-label">Short Description <span class="text-danger">*</span></label>
           <textarea class="form-control" id="quote" name="short_des">{{ $data->short_des }}</textarea>
           @error('short_des')
-          <span class="text-danger">{{$message}}</span>
+            <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="form-group">
           <label for="description" class="col-form-label">Description <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="description" name="description">{{ $data->description }}</textarea>
+          <textarea class="form-control" id="description" name="description" rows="10">{{ $data->description }}</textarea>
           @error('description')
-          <span class="text-danger">{{$message}}</span>
+            <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
@@ -30,15 +30,15 @@
             <div class="col-12 row pl-0">
                 <div class="col-md-6">
                   <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="logo"
+                    <label class="custom-file">
+                      <input type="file" class="custom-file-logo" id="logo" name="logo"
                         aria-describedby="logo" value="{{ $data->logo }}">
                       @if (!empty($data->logo))
-                        <label class="custom-file-label" for="logo">{{ $data->logo }}</label>
+                        <span class="custom-file-label form-control-logo" for="logo">{{ $data->logo }}</span>
                       @else
-                        <label class="custom-file-label" for="logo">Choose file</label>
+                        <span class="custom-file-label form-control-logo" for="logo">Choose file</span>
                       @endif
-                    </div>
+                    </label>
                 </div>
               </div>
               <div class="col-md-6"></div>
@@ -49,19 +49,19 @@
         </div>
 
         <div class="form-group">
-          <label for="logo_admin" class="col-form-label">Logo Admin <span class="text-danger">*</span></label>
+          <label for="logo_admin" class="col-form-label">Logo Admin </label>
             <div class="col-12 row pl-0">
                 <div class="col-md-6">
                   <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="logo_admin"
+                    <label class="custom-file">
+                      <input type="file" class="custom-file-logo-admin" id="logo_admin" name="logo_admin"
                         aria-describedby="logo_admin" value="{{ $data->logo_admin }}">
                       @if (!empty($data->logo_admin))
-                        <label class="custom-file-label" for="logo_admin">{{ $data->logo_admin }}</label>
+                        <span class="custom-file-label form-control-logo-admin" for="logo_admin">{{ $data->logo_admin }}</span>
                       @else
-                        <label class="custom-file-label" for="logo_admin">Choose file</label>
+                        <span class="custom-file-label form-control-logo-admin" for="logo_admin">Choose file</span>
                       @endif
-                    </div>
+                    </label>
                 </div>
               </div>
               <div class="col-md-6"></div>
@@ -72,19 +72,19 @@
         </div>
 
         <div class="form-group">
-          <label for="favicon" class="col-form-label">Logo Favicon <span class="text-danger">*</span></label>
+          <label for="favicon" class="col-form-label">Logo Favicon </label>
             <div class="col-12 row pl-0">
                 <div class="col-md-6">
                   <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="favicon"
+                    <label class="custom-file">
+                      <input type="file" class="custom-file-favicon" id="favicon" name="favicon"
                         aria-describedby="favicon" value="{{ $data->favicon }}">
                       @if (!empty($data->favicon))
-                        <label class="custom-file-label" for="favicon">{{ $data->favicon }}</label>
+                        <span class="custom-file-label form-control-favicon" for="favicon">{{ $data->favicon }}</span>
                       @else
-                        <label class="custom-file-label" for="favicon">Choose file</label>
+                        <span class="custom-file-label form-control-favicon" for="favicon">Choose file</span>
                       @endif
-                    </div>
+                    </label>
                 </div>
               </div>
               <div class="col-md-6"></div>
@@ -95,19 +95,19 @@
         </div>
 
         <div class="form-group">
-          <label for="photo" class="col-form-label">Photo <span class="text-danger">*</span></label>
+          <label for="photo" class="col-form-label">Photo </label>
             <div class="col-12 row pl-0">
                 <div class="col-md-6">
                   <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="photo"
+                    <label class="custom-file">
+                      <input type="file" class="custom-file-photo" id="photo" name="photo"
                         aria-describedby="photo" value="{{ $data->photo }}">
                       @if (!empty($data->photo))
-                        <label class="custom-file-label" for="photo">{{ $data->photo }}</label>
+                        <span class="custom-file-label form-control-photo" for="photo">{{ $data->photo }}</span>
                       @else
-                        <label class="custom-file-label" for="photo">Choose file</label>
+                        <span class="custom-file-label form-control-photo" for="photo">Choose file</span>
                       @endif
-                    </div>
+                    </label>
                 </div>
               </div>
               <div class="col-md-6"></div>
@@ -159,29 +159,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 <script>
-    $('#lfm').filemanager('image');
-    $('#lfm1').filemanager('image');
-    $(document).ready(function() {
-    $('#summary').summernote({
-      placeholder: "Write short description.....",
-        tabsize: 2,
-        height: 150
-    });
-    });
-
-    $(document).ready(function() {
-      $('#quote').summernote({
-        placeholder: "Write short Quote.....",
-          tabsize: 2,
-          height: 100
-      });
-    });
-    $(document).ready(function() {
-      $('#description').summernote({
-        placeholder: "Write detail description.....",
-          tabsize: 2,
-          height: 150
-      });
-    });
+    $('.custom-file-logo').on('change',function(){
+      var fileLogo = document.getElementById("logo").files[0].name;
+      $(this).next('.form-control-logo').addClass("selected").html(fileLogo);
+    })
+    $('.custom-file-logo-admin').on('change',function(){
+      var fileLogoAdmin = document.getElementById("logo_admin").files[0].name;
+      $(this).next('.form-control-logo-admin').addClass("selected").html(fileLogoAdmin);
+    })
+    $('.custom-file-favicon').on('change',function(){
+      var fileFavicon = document.getElementById("favicon").files[0].name;
+      $(this).next('.form-control-favicon').addClass("selected").html(fileFavicon);
+    })
+    $('.custom-file-photo').on('change',function(){
+      var filePhoto = document.getElementById("photo").files[0].name;
+      $(this).next('.form-control-photo').addClass("selected").html(filePhoto);
+    })
 </script>
 @endpush

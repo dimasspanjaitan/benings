@@ -21,8 +21,8 @@ class PriceController extends Controller
      */
     public function index()
     {
-        $prices = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC');
-        $prices = $this->filter($prices)->get()->groupBy('product_id');
+        $prices = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC')->get()->groupBy('product_id');
+        $prices = $this->filter($prices);
         // dd($prices);
         $customer_prices = PriceLevel::has('level')->whereHas('level', function($l){
             return $l->where('type',1);

@@ -14,10 +14,11 @@ class Settings extends Model
         'description',
         'short_des',
         'logo',
+        'logo_admin',
+        'favicon',
         'photo',
         'address',
         'phone',
         'email',
-        'logo'
     ];
 }

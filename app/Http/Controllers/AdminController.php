@@ -8,9 +8,12 @@ use App\Models\{
     User,
     Settings
 };
+use App\Traits\UploadTrait;
 
 class AdminController extends Controller
 {
+    use UploadTrait;
+
     public function index(){
         $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
             ->where('created_at', '>', Carbon::today()->subDay(6))
@@ -69,7 +72,6 @@ class AdminController extends Controller
         ]);
         $data=$request->all();
         $settings = Settings::first();
-        $status = $settings->fill($data)->save();
 
         $old_logo = explode('/', $settings->logo)[count(explode('/',$settings->logo)) -1];
         if (isset($data['logo'])) {
@@ -80,7 +82,7 @@ class AdminController extends Controller
             }
             $propImages = $this->uploadImage($request,[
                 'file' => 'logo',
-                'size' => [500,500],
+                'size' => [225,225],
                 'path' => 'uploads/settings',
                 'permission' => 777
     
@@ -97,7 +99,7 @@ class AdminController extends Controller
             }
             $propImages = $this->uploadImage($request,[
                 'file' => 'logo_admin',
-                'size' => [500,500],
+                'size' => [73,56],
                 'path' => 'uploads/settings',
                 'permission' => 777
     
@@ -114,7 +116,7 @@ class AdminController extends Controller
             }
             $propImages = $this->uploadImage($request,[
                 'file' => 'favicon',
-                'size' => [500,500],
+                'size' => [32,32],
                 'path' => 'uploads/settings',
                 'permission' => 777
     
@@ -131,13 +133,15 @@ class AdminController extends Controller
             }
             $propImages = $this->uploadImage($request,[
                 'file' => 'photo',
-                'size' => [500,500],
+                'size' => [1000,1000],
                 'path' => 'uploads/settings',
                 'permission' => 777
     
             ]);
             $data['photo'] = $propImages['path'];
         }
+
+        $status = $settings->fill($data)->save();
 
         if($status){
             request()->session()->flash('success','Setting successfully updated');
