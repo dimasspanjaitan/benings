@@ -55,7 +55,7 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 
 // Frontend Routes
 Route::get('/home', [FrontendController::class, 'index']);
-
+Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
 
 
 

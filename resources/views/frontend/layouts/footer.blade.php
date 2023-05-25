@@ -8,12 +8,12 @@
 					<div class="col-lg-5 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer about">
-							<div class="logo">
-								<a href="{{ route('home') }}"><img src="{{ asset('backend/img/logo-benings.png') }}" alt="#"></a>
-							</div>
 							@php
 								$settings=DB::table('settings')->get();
 							@endphp
+							<div class="logo">
+								<a href="{{ route('home') }}"><img src="@foreach($settings as $setting) {{ $setting->logo_admin }} @endforeach" alt="#"></a>
+							</div>
 							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
 							<p class="call">Got Question? Whatsapp us 24/7<span><a href="https://wa.me/{{$data->phone}}" target="_blank">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
 						</div>
