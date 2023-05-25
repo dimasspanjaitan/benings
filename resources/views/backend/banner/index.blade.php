@@ -20,9 +20,10 @@
             <thead>
               <tr>
                 <th width="10px">ID</th>
+                <th width="10%">Status</th>
                 <th>Title</th>
                 <th>Slug</th>
-                <th width="10%">Status</th>
+                <th>Description</th>
                 <th>Photo</th>
                 <th width="65px">Action</th>
               </tr>
@@ -30,9 +31,10 @@
             <tfoot>
               <tr>
                 <th>ID</th>
+                <th>Status</th>
                 <th>Title</th>
                 <th>Slug</th>
-                <th>Status</th>
+                <th>Description</th>
                 <th>Photo</th>
                 <th>Action</th>
                 </tr>
@@ -40,9 +42,7 @@
             <tbody>
               @foreach($banners as $banner)   
                   <tr>
-                      <td>{{$banner->id}}</td>
-                      <td>{{$banner->title}}</td>
-                      <td>{{$banner->slug}}</td>
+                      <td>{{ $banner->id }}</td>
                       <td>
                           @if($banner->status==1)
                               <span class="badge badge-success">Active</span>
@@ -50,19 +50,22 @@
                               <span class="badge badge-warning">Inactive</span>
                           @endif
                       </td>
+                      <td>{{ $banner->title }}</td>
+                      <td>{{ $banner->slug }}</td>
+                      <td>{{ $banner->description }}</td>
                       <td>
                           @if($banner->photo)
-                              <img src="{{$banner->photo}}" class="img-fluid zoom" style="max-width:80px" alt="{{$banner->photo}}">
+                              <img src="{{ $banner->photo }}" class="img-fluid zoom" style="max-width:80px" alt="{{ $banner->photo }}">
                           @else
-                              <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid zoom" style="max-width:100%" alt="avatar.png">
+                              <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="img-fluid zoom" style="max-width:100%" alt="avatar.png">
                           @endif
                       </td>
                       <td>
-                          <a href="{{route('banner.edit',$banner->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                          <form method="POST" action="{{route('banner.destroy',[$banner->id])}}">
+                          <a href="{{ route('banner.edit',$banner->id) }}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                          <form method="POST" action="{{ route('banner.destroy',[$banner->id]) }}">
                             @csrf 
                             @method('delete')
-                                <button class="btn btn-danger btn-sm dltBtn" data-id={{$banner->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-danger btn-sm dltBtn" data-id={{ $banner->id }} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                           </form>
                       </td>
                   </tr>  

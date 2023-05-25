@@ -31,15 +31,15 @@
               <div class="col-md-6">
                 <div class="input-group">
                     {{-- <input type="file" class="form-control-file" id="photo" name="photo" value="{{ old('photo') }}"> --}}
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="photo"
+                    <label class="custom-file">
+                      <input type="file" class="custom-file-input" id="photo" name="photo"
                         aria-describedby="photo" value="{{ $banner->photo }}">
                       @if (!empty($banner->photo))
-                        <label class="custom-file-label" for="photo">{{ $banner->photo }}</label>
+                        <span class="custom-file-label form-control-input" for="photo">{{ $banner->photo }}</span>
                       @else
-                        <label class="custom-file-label" for="photo">Choose file</label>
+                        <span class="custom-file-label form-control-input" for="photo">Choose file</span>
                       @endif
-                    </div>
+                    </label>
                 </div>
               </div>
               <div class="col-md-6"></div>
@@ -67,3 +67,12 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    $('.custom-file-input').on('change',function(){
+      var filePhoto = document.getElementById("photo").files[0].name;
+      $(this).next('.form-control-input').addClass("selected").html(filePhoto);
+    })
+</script>
+@endpush

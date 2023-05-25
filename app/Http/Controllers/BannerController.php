@@ -66,7 +66,7 @@ class BannerController extends Controller
         if (isset($data['photo'])) {
             $propImages = $this->uploadImage($request,[
                 'file' => 'photo',
-                'size' => [500,500],
+                'size' => [1200,809],
                 'path' => 'uploads/banners',
                 'permission' => 777
     
@@ -122,7 +122,6 @@ class BannerController extends Controller
         $this->validate($request,[
             'title'=>'required|string|max:50',
             'description'=>'string|nullable',
-            'photo'=>'required',
             'status'=>'required|in:1,0',
         ],[
             'required' => 'This :attribute cannot be null',
@@ -140,12 +139,14 @@ class BannerController extends Controller
             }
             $propImages = $this->uploadImage($request,[
                 'file' => 'photo',
-                'size' => [200,200],
+                'size' => [1200,809],
                 'path' => 'uploads/banners',
                 'permission' => 777
     
             ]);
             $data['photo'] = $propImages['path'];
+        } else {
+            $data['photo'] = $banner->photo;
         }
 
         $status=$banner->fill($data)->save();
