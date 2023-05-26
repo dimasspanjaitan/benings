@@ -97,11 +97,11 @@
               <div class="col-md-6">
                 <div class="input-group">
                     {{-- <input type="file" class="form-control-file" id="photo" name="photo" value="{{ old('photo') }}"> --}}
-                    <div class="custom-file">
+                    <label class="custom-file">
                       <input type="file" class="custom-file-input" id="photo" name="photo"
                          value="{{ old('photo') }}">
-                      <label class="custom-file-label" for="photo">Choose file</label>
-                    </div>
+                      <span class="custom-file-label form-control-input" for="photo">Choose file</span>
+                    </label>
                 </div>
               </div>
               <div class="col-md-6"></div>
@@ -128,3 +128,12 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+  $('.custom-file-input').on('change',function(){
+    var filePhoto = document.getElementById("photo").files[0].name;
+    $(this).next('.form-control-input').addClass("selected").html(filePhoto);
+  })
+</script>
+@endpush

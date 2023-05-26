@@ -145,8 +145,6 @@ class BannerController extends Controller
     
             ]);
             $data['photo'] = $propImages['path'];
-        } else {
-            $data['photo'] = $banner->photo;
         }
 
         $status=$banner->fill($data)->save();

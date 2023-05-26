@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\{
     Banner,
     Category,
+    PriceLevel,
     Product,
     ProductDetail
 };
@@ -18,9 +19,27 @@ class FrontendController extends Controller
     }
     
     public function home(){
+        $level = 0;
+        $user = auth()->user();
+        if(!empty($user)) {
+            $level = $user->level_id;
+        }
+        
         $banners = Banner::where('status',1)->limit(3)->orderBy('id','DESC')->get();
         $featured = Product::where('status',1)->orderBy('id','ASC')->limit(2)->get();
-        $products = Product::where('status',1)->orderBy('id','DESC')->limit(8)->get();
+        // dd($level);
+        // $products = Product::with('prices', 'category')->whereHas('prices', function($p) use ($level){
+        //     return $p->where('level_id', $level);
+        // })->where('status', 1)->orderBy('id','DESC')->limit(8)->get();
+        $products = PriceLevel::where('level_id', $level)->with('product', 'product.stock')->whereHas('product', function($s){
+            return $s->where('status',1)->orderBy('id','DESC')->limit(50);
+        })->get()->map(function($p){
+            $product = $p->product;
+            $product->price = $p->price;
+            $product->stock = !empty($product->stock) ? (int) $product->stock->stock : 0;
+            return $product;
+        })->sortByDesc('stock');
+        // dd($products);
 
         $categories = Category::where('status',1)->orderBy('title','ASC')->get();
 
@@ -51,8 +70,22 @@ class FrontendController extends Controller
         }
     }
     public function productGrids(){
-        $products=Product::query();
+        $level = 0;
+        $user = auth()->user();
+        if(!empty($user)) {
+            $level = $user->level_id;
+        }
         
+        $products = PriceLevel::where('level_id', $level)->with('product', 'product.stock')->whereHas('product', function($s){
+            return $s->where('status',1)->orderBy('id','DESC');
+        })->get()->map(function($p){
+            $product = $p->product;
+            $product->price = $p->price;
+            $product->stock = !empty($product->stock) ? (int) $product->stock->stock : 0;
+            return $product;
+        })->sortByDesc('stock');
+        // dd($products);
+
         if(!empty($_GET['category'])){
             $slug=explode(',',$_GET['category']);
             // dd($slug);
@@ -76,18 +109,10 @@ class FrontendController extends Controller
             // if(isset($price[0]) && is_numeric($price[0])) $price[0]=floor(Helper::base_amount($price[0]));
             // if(isset($price[1]) && is_numeric($price[1])) $price[1]=ceil(Helper::base_amount($price[1]));
             
-            $products->whereBetween('price',$price);
+            
         }
 
         $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-        // Sort by number
-        if(!empty($_GET['show'])){
-            $products=$products->where('status','active')->paginate($_GET['show']);
-        }
-        else{
-            $products=$products->where('status','active')->paginate(9);
-        }
-        // Sort by name , price, category
 
       
         return view('frontend.pages.product-grids', compact('products', 'recent_products'));

@@ -27,6 +27,14 @@ class Product extends Model
         return $this->hasMany(ProductDetail::class, 'product_group_id');
     }
 
+    public function prices(){
+        return $this->hasMany(PriceLevel::class);
+    }
+
+    public function stock(){
+        return $this->hasOne(StockView::class, 'id', 'id');
+    }
+
     public function product_discount(){
         return $this->belongsTo(ProductDiscount::class, 'product_id');
     }

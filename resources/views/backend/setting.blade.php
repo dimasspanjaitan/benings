@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-          <label for="logo" class="col-form-label">Logo Utama <span class="text-danger">*</span></label>
+          <label for="logo" class="col-form-label">Logo Utama </label>
             <div class="col-12 row pl-0">
                 <div class="col-md-6">
                   <div class="input-group">

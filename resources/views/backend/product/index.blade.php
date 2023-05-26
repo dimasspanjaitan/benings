@@ -23,8 +23,8 @@
                 <th width="10%">Status</th>
                 <th>Name</th>
                 <th>Summary</th>
-                <th>Photo</th>
                 <th>Category</th>
+                <th>Photo</th>
                 {{-- <th>Price</th> --}}
                 <th>Stock</th>
                 {{-- <th>Weight</th> --}}
@@ -37,8 +37,8 @@
                 <th>Status</th>
                 <th>Name</th>
                 <th>Summary</th>
-                <th>Photo</th>
                 <th>Category</th>
+                <th>Photo</th>
                 {{-- <th>Price</th> --}}
                 <th>Stock</th>
                 {{-- <th>Weight</th> --}}
@@ -59,6 +59,7 @@
                       </td>
                       <td>{{$product->name}}</td>
                       <td>{{$product->summary}}</td>
+                      <td>{{$product->category->title}}</td>
                       <td>
                           @if($product->photo)
                               @php
@@ -70,7 +71,6 @@
                               <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
                           @endif
                       </td>
-                      <td>{{$product->category->title}}</td>
                       {{-- <td>Rp. /-</td> --}}
                       {{-- <td>  {{$product->discount}}% OFF</td> --}}
                       {{-- <td>{{$product->weight}}</td> --}}

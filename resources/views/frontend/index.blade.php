@@ -33,29 +33,6 @@
 
 <!--/ End Slider Area -->
 
-<!-- Start Small Banner  -->
-<section class="small-banner section">
-    <div class="container-fluid">
-        <div class="row">
-            @if($categories)
-                @foreach($categories as $category)
-                    <!-- Single Banner  -->
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="single-banner">
-                            <div class="content">
-                                <h3>{{$category->title}}</h3>
-                                    {{-- <a href="{{route('product-cat',$cat->slug)}}">Discover Now</a> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /End Single Banner  -->
-                @endforeach
-            @endif
-        </div>
-    </div>
-</section>
-<!-- End Small Banner -->
-
 <!-- Start Product Area -->
 <div class="product-area section">
         <div class="container">
@@ -77,7 +54,7 @@
                                         All Products
                                     </button>
                                     @foreach($categories as $key=>$category)
-                                        <button class="btn" style="background:none;color:black;"data-filter=".{{$category->id}}">
+                                        <button class="btn" style="background:none;color:black;" data-filter=".{{$category->id}}">
                                             {{ $category->title }}
                                         </button>
                                     @endforeach
@@ -89,15 +66,15 @@
                              <!-- Start Single Tab -->
                             @if($products)
                                 @foreach($products as $key=>$product)
-                                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{$product->cat_id}}">
+                                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{ $product->category_id }}">
                                     <div class="single-product">
                                         <div class="product-img">
                                             <a href="#">
                                                 @php
                                                     $photo=explode(',',$product->photo);
                                                 @endphp
-                                                <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <img class="default-img" src="{{ $photo[0] }}" alt="{{ $photo[0] }}">
+                                                <img class="hover-img" src="{{ $photo[0] }}" alt="{{ $photo[0] }}">
                                                 @if($product->stock<=0)
                                                     <span class="out-of-stock">Sale out</span>
                                                 {{-- @elseif($product->condition=='new')
