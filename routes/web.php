@@ -14,7 +14,9 @@ use App\Http\Controllers\{
     LevelController,
     RegionController,
     SaleController,
-    PriceController
+    PriceController,
+    SupplierController,
+    CartController
 };
 
 /*
@@ -56,6 +58,15 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 // Frontend Routes
 Route::get('/home', [FrontendController::class, 'index']);
 Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
+Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
+
+Route::get('/wishlist',function(){
+    return view('frontend.pages.wishlist');
+})->name('wishlist');
+Route::get('/cart',function(){
+    return view('frontend.pages.cart');
+})->name('cart');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('user');
 
 
 
@@ -75,6 +86,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::resource('/sale', SaleController::class);
     Route::resource('/price', PriceController::class);
     Route::resource('/banner', BannerController::class);
+    Route::resource('/supplier', SupplierController::class);
 
     Route::get('settings', [AdminController::class, 'settings'])->name('settings');
     Route::post('setting/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');
