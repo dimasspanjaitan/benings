@@ -10,4 +10,18 @@ class Supplier extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $fillable=[
+        'status',
+        'name',
+        'level_id',
+        'phone',
+        'email',
+        'address',
+        'description'
+    ];
+
+    public function levels(){
+        return $this->hasOne(Level::class, 'id', 'level_id');
+    }
 }

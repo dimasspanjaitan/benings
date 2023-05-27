@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->longText('summary')->nullable();
             $table->longText('photo')->nullable();
-            $table->tinyInteger('product_type')->default(1);
-            $table->tinyInteger('category_id')->index();
+            $table->integer('product_type')->default(1);
+            $table->integer('category_id')->index();
             $table->integer('min_order')->default(1);
             $table->integer('weight')->nullable();
             $table->text('description')->nullable();
