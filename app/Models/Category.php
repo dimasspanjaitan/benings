@@ -18,8 +18,12 @@ class Category extends Model
 
     public $timestamps = false;
 
-    // public function product_category()
-    // {
-    //     return $this->belongsTo(ProductCategory::class);
-    // }
+    public function products(){
+        return $this->hasMany(Product::class,'category_id','id')->where('status', 1);
+    }
+
+    public static function getProductByCat($slug){
+        // dd($slug);
+        return Category::with('products')->where('slug',$slug)->first();
+    }
 }

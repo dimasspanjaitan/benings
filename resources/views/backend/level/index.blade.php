@@ -19,7 +19,7 @@
           <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th width='10px'>No.</th>
+                <th width='10px'>ID</th>
                 <th width="10%">Status</th>
                 <th>Name</th>
                 {{-- <th>Slug</th> --}}
@@ -29,7 +29,7 @@
             </thead>
             <tfoot>
               <tr>
-                <th>No.</th>
+                <th>ID</th>
                 <th>Status</th>
                 <th>Name</th>
                 {{-- <th>Slug</th> --}}

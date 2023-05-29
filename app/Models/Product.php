@@ -35,15 +35,8 @@ class Product extends Model
         return $this->hasOne(StockView::class, 'id', 'id');
     }
 
-    public function product_discount(){
-        return $this->belongsTo(ProductDiscount::class, 'product_id');
-    }
-
     public function category(){
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
-
-    public function images(){
-        return $this->hasMany(ProductImage::class, 'product_id');
-    }
+    
 }

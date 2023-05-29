@@ -1,5 +1,7 @@
 @extends('frontend.layouts.master')
 
+@section('title',"Bening's || CONTACT US")
+
 @section('main-content')
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs">
@@ -32,7 +34,7 @@
 									<h4>Get in touch</h4>
 									<h3>Write us a message @auth @else<span style="font-size:12px;" class="text-danger">[You need to login first]</span>@endauth</h3>
 								</div>
-								<form class="form-contact form contact_form" method="post" action="{{route('contact.store')}}" id="contactForm" novalidate="novalidate">
+								<form class="form-contact form contact_form" method="post" action="#" id="contactForm" novalidate="novalidate">
 									@csrf
 									<div class="row">
 										<div class="col-lg-6 col-12">

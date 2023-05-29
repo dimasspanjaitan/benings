@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title',"Bening's || About Us")
+@section('title',"Bening's || ABOUT US")
 
 @section('main-content')
 
@@ -30,11 +30,10 @@
 							@php
 								$settings=DB::table('settings')->get();
 							@endphp
-							<h3>Welcome To <span>Eshop</span></h3>
+							<h3>Welcome To <span>Bening's Distributor Medan</span></h3>
 							<p>@foreach($settings as $data) {{$data->description}} @endforeach</p>
 							<div class="button">
-								<a href="{{route('blog')}}" class="btn">Our Blog</a>
-								<a href="{{route('contact')}}" class="btn primary">Contact Us</a>
+								<a href="{{ route('contact') }}" class="btn primary">Contact Us</a>
 							</div>
 						</div>
 					</div>

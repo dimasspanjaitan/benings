@@ -32,24 +32,13 @@
                                 <div class="single-widget category">
                                     <h3 class="title">Categories</h3>
                                     <ul class="categor-list">
-										@php
-											// $category = new Category();
-											$menu=App\Models\Category::getAllParentWithChild();
+                                        @php
+											$menu = Helper::getAllCategory();
 										@endphp
 										@if($menu)
 										<li>
-											@foreach($menu as $cat_info)
-													@if($cat_info->child_cat->count()>0)
-														<li><a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a>
-															<ul>
-																@foreach($cat_info->child_cat as $sub_menu)
-																	<li><a href="{{route('product-sub-cat',[$cat_info->slug,$sub_menu->slug])}}">{{$sub_menu->title}}</a></li>
-																@endforeach
-															</ul>
-														</li>
-													@else
-														<li><a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a></li>
-													@endif
+											@foreach($menu as $category)
+                                                <li><a href="{{ route('product-cat',$category->slug) }}">{{$category->title}}</a></li>
 											@endforeach
 										</li>
 										@endif
@@ -66,17 +55,13 @@
                                         <h3 class="title">Shop by Price</h3>
                                         <div class="price-filter">
                                             <div class="price-filter-inner">
-                                                @php
-                                                    $max=DB::table('products')->max('price');
-                                                    // dd($max);
-                                                @endphp
-                                                <div id="slider-range" data-min="0" data-max="{{$max}}"></div>
+                                                <div id="slider-range" data-min="0" data-max="{{ max($prices) }}"></div>
                                                 <div class="product_filter">
                                                 <button type="submit" class="filter_button">Filter</button>
                                                 <div class="label-input">
                                                     <span>Range:</span>
                                                     <input style="" type="text" id="amount" readonly/>
-                                                    <input type="hidden" name="price_range" id="price_range" value="@if(!empty($_GET['price'])){{$_GET['price']}}@endif"/>
+                                                    <input type="hidden" name="price_range" id="price_range" value="@if(!empty($product->price)){{ $product->price }}@endif"/>
                                                 </div>
                                                 </div>
                                             </div>
@@ -98,29 +83,13 @@
                                                 <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                             </div>
                                             <div class="content">
-                                                <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
-                                                @php
-                                                    $org=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <p class="price"><del class="text-muted">Rp{{number_format($product->price,2)}}</del>   Rp{{number_format($org,2)}}  </p>
+                                                <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a></h5>
+                                                <p class="price">Rp{{number_format($product->price,2)}}</p>
 
                                             </div>
                                         </div>
                                         <!-- End Single Post -->
                                     @endforeach
-                                </div>
-                                <!--/ End Single Widget -->
-                                <!-- Single Widget -->
-                                <div class="single-widget category">
-                                    <h3 class="title">Brands</h3>
-                                    <ul class="categor-list">
-                                        @php
-                                            $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
-                                        @endphp
-                                        @foreach($brands as $brand)
-                                            <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
-                                        @endforeach
-                                    </ul>
                                 </div>
                                 <!--/ End Single Widget -->
                         </div>
@@ -173,27 +142,20 @@
                                                     @endphp
                                                     <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                                     <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                    @if($product->discount)
-                                                                <span class="price-dec">{{$product->discount}} % Off</span>
-                                                    @endif
                                                 </a>
                                                 <div class="button-head">
                                                     <div class="product-action">
                                                         <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                        <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                        {{-- <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a> --}}
                                                     </div>
-                                                    <div class="product-action-2">
+                                                    {{-- <div class="product-action-2">
                                                         <a title="Add to cart" href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                             <div class="product-content">
-                                                <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                                @php
-                                                    $after_discount=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <span>${{number_format($after_discount,2)}}</span>
-                                                <del style="padding-left:4%;">Rp{{number_format($product->price,2)}}</del>
+                                                <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a></h3>
+                                                <p>Rp{{number_format($product->price,2)}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -205,11 +167,11 @@
 
 
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md-12 justify-content-center d-flex">
                                 {{$products->appends($_GET)->links()}}
                             </div>
-                          </div>
+                          </div> --}}
 
                     </div>
                 </div>
@@ -222,149 +184,7 @@
 
 
     <!-- Modal -->
-    @if($products)
-        @foreach($products as $key=>$product)
-            <div class="modal fade" id="{{$product->id}}" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row no-gutters">
-                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                        <!-- Product Slider -->
-                                            <div class="product-gallery">
-                                                <div class="quickview-slider-active">
-                                                    @php
-                                                        $photo=explode(',',$product->photo);
-                                                    // dd($photo);
-                                                    @endphp
-                                                    @foreach($photo as $data)
-                                                        <div class="single-slider">
-                                                            <img src="{{$data}}" alt="{{$data}}">
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        <!-- End Product slider -->
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="quickview-content">
-                                            <h2>{{$product->title}}</h2>
-                                            <div class="quickview-ratting-review">
-                                                <div class="quickview-ratting-wrap">
-                                                    <div class="quickview-ratting">
-                                                        {{-- <i class="yellow fa fa-star"></i>
-                                                        <i class="yellow fa fa-star"></i>
-                                                        <i class="yellow fa fa-star"></i>
-                                                        <i class="yellow fa fa-star"></i>
-                                                        <i class="fa fa-star"></i> --}}
-                                                        @php
-                                                            $rate=DB::table('product_reviews')->where('product_id',$product->id)->avg('rate');
-                                                            $rate_count=DB::table('product_reviews')->where('product_id',$product->id)->count();
-                                                        @endphp
-                                                        @for($i=1; $i<=5; $i++)
-                                                            @if($rate>=$i)
-                                                                <i class="yellow fa fa-star"></i>
-                                                            @else
-                                                            <i class="fa fa-star"></i>
-                                                            @endif
-                                                        @endfor
-                                                    </div>
-                                                    <a href="#"> ({{$rate_count}} customer review)</a>
-                                                </div>
-                                                <div class="quickview-stock">
-                                                    @if($product->stock >0)
-                                                    <span><i class="fa fa-check-circle-o"></i> {{$product->stock}} in stock</span>
-                                                    @else
-                                                    <span><i class="fa fa-times-circle-o text-danger"></i> {{$product->stock}} out stock</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            @php
-                                                $after_discount=($product->price-($product->price*$product->discount)/100);
-                                            @endphp
-                                            <h3><small><del class="text-muted">Rp{{number_format($product->price,2)}}</del></small>    Rp{{number_format($after_discount,2)}}  </h3>
-                                            <div class="quickview-peragraph">
-                                                <p>{!! html_entity_decode($product->summary) !!}</p>
-                                            </div>
-                                            @if($product->size)
-                                                <div class="size">
-                                                    <h4>Size</h4>
-                                                    <ul>
-                                                        @php
-                                                            $sizes=explode(',',$product->size);
-                                                            // dd($sizes);
-                                                        @endphp
-                                                        @foreach($sizes as $size)
-                                                        <li><a href="#" class="one">{{$size}}</a></li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
-                                            <div class="size">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-12">
-                                                        <h5 class="title">Size</h5>
-                                                        <select>
-                                                            @php
-                                                            $sizes=explode(',',$product->size);
-                                                            // dd($sizes);
-                                                            @endphp
-                                                            @foreach($sizes as $size)
-                                                                <option>{{$size}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    {{-- <div class="col-lg-6 col-12">
-                                                        <h5 class="title">Color</h5>
-                                                        <select>
-                                                            <option selected="selected">orange</option>
-                                                            <option>purple</option>
-                                                            <option>black</option>
-                                                            <option>pink</option>
-                                                        </select>
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                            <form action="{{route('single-add-to-cart')}}" method="POST">
-                                                @csrf
-                                                <div class="quantity">
-                                                    <!-- Input Order -->
-                                                    <div class="input-group">
-                                                        <div class="button minus">
-                                                            <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                                <i class="ti-minus"></i>
-                                                            </button>
-                                                        </div>
-                                                        <input type="hidden" name="slug" value="{{$product->slug}}">
-                                                        <input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
-                                                        <div class="button plus">
-                                                            <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-                                                                <i class="ti-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <!--/ End Input Order -->
-                                                </div>
-                                                <div class="add-to-cart">
-                                                    <button type="submit" class="btn">Add to cart</button>
-                                                    <a href="{{route('add-to-wishlist',$product->slug)}}" class="btn min"><i class="ti-heart"></i></a>
-                                                </div>
-                                            </form>
-                                            <div class="default-social">
-                                            <!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        @endforeach
-    @endif
+        {{-- modal dihapus dari sini --}}
     <!-- Modal end -->
 
 @endsection
@@ -385,37 +205,6 @@
 @endpush
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    {{-- <script>
-        $('.cart').click(function(){
-            var quantity=1;
-            var pro_id=$(this).data('id');
-            $.ajax({
-                url:"{{route('add-to-cart')}}",
-                type:"POST",
-                data:{
-                    _token:"{{csrf_token()}}",
-                    quantity:quantity,
-                    pro_id:pro_id
-                },
-                success:function(response){
-                    console.log(response);
-					if(typeof(response)!='object'){
-						response=$.parseJSON(response);
-					}
-					if(response.status){
-						swal('success',response.msg,'success').then(function(){
-							document.location.href=document.location.href;
-						});
-					}
-                    else{
-                        swal('error',response.msg,'error').then(function(){
-							// document.location.href=document.location.href;
-						});
-                    }
-                }
-            })
-        });
-    </script> --}}
     <script>
         $(document).ready(function(){
         /*----------------------------------------------------*/

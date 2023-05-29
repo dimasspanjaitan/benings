@@ -57,8 +57,15 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 
 // Frontend Routes
 Route::get('/home', [FrontendController::class, 'index']);
+Route::get('/about-us',[FrontendController::class, 'aboutUs'])->name('about-us');
+Route::get('/contact',[FrontendController::class, 'contact'])->name('contact');
+Route::get('product-detail/{slug}',[FrontendController::class, 'productDetail'])->name('product-detail');
+
 Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
+Route::get('/product-lists',[FrontendController::class, 'productLists'])->name('product-lists');
 Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
+Route::match(['get','post'],'/filter',[FrontendController::class, 'productFilter'])->name('shop.filter');
+Route::get('/product-cat/{slug}',[FrontendController::class, 'productCat'])->name('product-cat');
 
 Route::get('/wishlist',function(){
     return view('frontend.pages.wishlist');

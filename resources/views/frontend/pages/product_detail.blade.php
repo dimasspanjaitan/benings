@@ -10,7 +10,7 @@
 	<meta name="description" content="{{$product_detail->summary}}">
 	<meta property="og:url" content="{{route('product-detail',$product_detail->slug)}}">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="{{$product_detail->title}}">
+	<meta property="og:title" content="{{$product_detail->name}}">
 	<meta property="og:image" content="{{$product_detail->photo}}">
 	<meta property="og:description" content="{{$product_detail->description}}">
 @endsection
@@ -65,7 +65,7 @@
 										<div class="product-des">
 											<!-- Description -->
 											<div class="short">
-												<h4>{{$product_detail->title}}</h4>
+												<h4>{{$product_detail->name}}</h4>
 												<div class="rating-main">
 													<ul class="rating">
 														@php
@@ -79,11 +79,8 @@
 																@endif
 															@endfor
 													</ul>
-													<a href="#" class="total-review">({{$product_detail['getReview']->count()}}) Review</a>
+													{{-- <a href="#" class="total-review">({{$product_detail['getReview']->count()}}) Review</a> --}}
                                                 </div>
-                                                @php 
-                                                    $after_discount=($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
-                                                @endphp
 												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>Rp{{number_format($product_detail->price,2)}}</s> </p>
 												<p class="description">{!!($product_detail->summary)!!}</p>
 											</div>
