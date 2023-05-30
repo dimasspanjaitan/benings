@@ -63,7 +63,7 @@
                         @php
                             $settings=DB::table('settings')->get();
                         @endphp                    
-                        <a href="{{route('home')}}"><img src="@foreach($settings as $data) {{asset($data->logo)}} @endforeach" alt="logo"></a>
+                        <a href="{{ route('home') }}"><img src="@foreach($settings as $data) {{ asset($data->logo) }} @endforeach" alt="logo"></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
@@ -101,15 +101,15 @@
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
-                        {{-- <div class="sinlge-bar shopping">
+                        <div class="sinlge-bar shopping">
                             @php 
-                                $total_prod=0;
+                                $total_product=0;
                                 $total_amount=0;
                             @endphp
                            @if(session('wishlist'))
                                 @foreach(session('wishlist') as $wishlist_items)
                                     @php
-                                        $total_prod+=$wishlist_items['quantity'];
+                                        $total_product+=$wishlist_items['qty'];
                                         $total_amount+=$wishlist_items['amount'];
                                     @endphp
                                 @endforeach
@@ -132,7 +132,7 @@
                                                         <a href="{{ route('wishlist-delete',$data->id) }}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
                                                         <a class="cart-img" href="#"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></a>
                                                         <h4><a href="{{ route('product-detail',$data->product['slug']) }}" target="_blank">{{ $data->product['name'] }}</a></h4>
-                                                        <p class="quantity">{{ $data->quantity }} x - <span class="amount">${{ number_format($data->price,2) }}</span></p>
+                                                        <p class="quantity">{{ $data->qty }} x - <span class="amount">${{ number_format($data->price,2) }}</span></p>
                                                     </li>
                                             @endforeach
                                     </ul>
@@ -141,14 +141,14 @@
                                             <span>Total</span>
                                             <span class="total-amount">${{ number_format(Helper::totalWishlistPrice(),2) }}</span>
                                         </div>
-                                        <a href="{{route('cart')}}" class="btn animate">Cart</a>
+                                        <a href="{{ route('cart') }}" class="btn animate">Cart</a>
                                     </div>
                                 </div>
                             @endauth
                             
-                        </div> --}}
+                        </div>
                         
-                        {{-- <div class="sinlge-bar shopping">
+                        <div class="sinlge-bar shopping">
                             <a href="{{ route('cart') }}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{ Helper::cartCount() }}</span></a>
                             
                             @auth
@@ -166,7 +166,7 @@
                                                         <a href="{{ route('cart-delete',$data->id) }}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
                                                         <a class="cart-img" href="#"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></a>
                                                         <h4><a href="{{ route('product-detail',$data->product['slug']) }}" target="_blank">{{ $data->product['title'] }}</a></h4>
-                                                        <p class="quantity">{{ $data->quantity }} x - <span class="amount">${{ number_format($data->price,2) }}</span></p>
+                                                        <p class="quantity">{{ $data->qty }} x - <span class="amount">${{ number_format($data->price,2) }}</span></p>
                                                     </li>
                                             @endforeach
                                     </ul>
@@ -179,7 +179,7 @@
                                     </div>
                                 </div>
                             @endauth
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>

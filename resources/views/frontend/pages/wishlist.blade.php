@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','Wishlist Page')
+@section('title',"Bening's || WISHLIST Page")
 @section('main-content')
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs">
@@ -8,7 +8,7 @@
 				<div class="col-12">
 					<div class="bread-inner">
 						<ul class="bread-list">
-							<li><a href="{{('home')}}">Home<i class="ti-arrow-right"></i></a></li>
+							<li><a href="{{ ('home') }}">Home<i class="ti-arrow-right"></i></a></li>
 							<li class="active"><a href="javascript:void(0);">Wishlist</a></li>
 						</ul>
 					</div>
@@ -30,6 +30,7 @@
 								<th>PRODUCT</th>
 								<th>NAME</th>
 								<th class="text-center">TOTAL</th> 
+								{{-- <th class="text-center w-25">QUANTITY</th> --}}
 								<th class="text-center">ADD TO CART</th> 
 								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
 							</tr>
@@ -41,20 +42,35 @@
 										@php 
 											$photo=explode(',',$wishlist->product['photo']);
 										@endphp
-										<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+										<td class="image" data-title="No"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></td>
 										<td class="product-des" data-title="Description">
-											<p class="product-name"><a href="{{route('product-detail',$wishlist->product['slug'])}}">{{$wishlist->product['title']}}</a></p>
-											<p class="product-des">{!!($wishlist['summary']) !!}</p>
+											<p class="product-name"><a href="{{ route('product-detail',$wishlist->product['slug']) }}">{{ $wishlist->product['name'] }}</a></p>
+											<p class="product-des">{{ ($wishlist->product['summary']) }}</p>
 										</td>
 										<td class="total-amount" data-title="Total"><span>Rp{{$wishlist['amount']}}</span></td>
-										<td><a href="{{route('add-to-cart',$wishlist->product['slug'])}}" class='btn text-white'>Add To Cart</a></td>
-										<td class="action" data-title="Remove"><a href="{{route('wishlist-delete',$wishlist->id)}}"><i class="ti-trash remove-icon"></i></a></td>
+										{{-- <td>
+											<div class="input-group">
+												<span class="input-group-prepend">
+													<button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-field="qty">
+														<span class="fa fa-minus"></span>
+													</button>
+												</span>
+												<input type="text" name="qty" class="form-control input-number text-center" value="1" min="1" max="10">
+												<span class="input-group-append">
+													<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="qty">
+														<span class="fa fa-plus"></span>
+													</button>
+												</span>
+											</div>
+										</td> --}}
+										<td><a href="{{ route('add-to-cart',$wishlist->product['slug']) }}" class='btn text-white'>Add To Cart</a></td>
+										<td class="action" data-title="Remove"><a href="{{ route('wishlist-delete',$wishlist->id) }}"><i class="ti-trash remove-icon"></i></a></td>
 									</tr>
 								@endforeach
 							@else 
 								<tr>
 									<td class="text-center">
-										There are no any wishlist available. <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
+										There are no any wishlist available. <a href="{{ route('product-grids') }}" style="color:blue;">Continue shopping</a>
 
 									</td>
 								</tr>
@@ -116,8 +132,6 @@
 	<!-- End Shop Newsletter -->
 	
 	@include('frontend.layouts.newsletter')
-	
-	
 	
 	<!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
@@ -196,13 +210,13 @@
 										<!-- Input Order -->
 										<div class="input-group">
 											<div class="button minus">
-												<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+												<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="qty">
 													<i class="ti-minus"></i>
 												</button>
 											</div>
-											<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
+											<input type="text" name="qty" class="input-number"  data-min="1" data-max="1000" value="1">
 											<div class="button plus">
-												<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+												<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="qty">
 													<i class="ti-plus"></i>
 												</button>
 											</div>
@@ -230,9 +244,83 @@
                 </div>
             </div>
         </div>
-        <!-- Modal end -->
+    <!-- Modal end -->
 	
 @endsection
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+	$('.btn-number').click(function(e){
+		e.preventDefault();
+		
+		fieldName = $(this).attr('data-field');
+		type      = $(this).attr('data-type');
+		var input = $("input[name='"+fieldName+"']");
+		var currentVal = parseInt(input.val());
+		if (!isNaN(currentVal)) {
+			if(type == 'minus') {
+				
+				if(currentVal > input.attr('min')) {
+					input.val(currentVal - 1).change();
+				} 
+				if(parseInt(input.val()) == input.attr('min')) {
+					$(this).attr('disabled', true);
+				}
+
+			} else if(type == 'plus') {
+
+				if(currentVal < input.attr('max')) {
+					input.val(currentVal + 1).change();
+				}
+				if(parseInt(input.val()) == input.attr('max')) {
+					$(this).attr('disabled', true);
+				}
+
+			}
+		} else {
+			input.val(0);
+		}
+	});
+
+	$('.input-number').focusin(function(){
+		$(this).data('oldValue', $(this).val());
+	});
+
+	$('.input-number').change(function() {
+		
+		minValue =  parseInt($(this).attr('min'));
+		maxValue =  parseInt($(this).attr('max'));
+		valueCurrent = parseInt($(this).val());
+		
+		name = $(this).attr('name');
+		if(valueCurrent >= minValue) {
+			$(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+		} else {
+			alert('Sorry, the minimum value was reached');
+			$(this).val($(this).data('oldValue'));
+		}
+		if(valueCurrent <= maxValue) {
+			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+		} else {
+			alert('Sorry, the maximum value was reached');
+			$(this).val($(this).data('oldValue'));
+		}
+	});
+
+	$(".input-number").keydown(function (e) {
+		// Allow: backspace, delete, tab, escape, enter and .
+		if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+			// Allow: Ctrl+A
+			(e.keyCode == 65 && e.ctrlKey === true) || 
+			// Allow: home, end, left, right
+			(e.keyCode >= 35 && e.keyCode <= 39)) {
+				// let it happen, don't do anything
+				return;
+		}
+		// Ensure that it is a number and stop the keypress
+		if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+			e.preventDefault();
+		}
+	});
+</script>
 @endpush

@@ -16,8 +16,10 @@ use App\Http\Controllers\{
     SaleController,
     PriceController,
     SupplierController,
-    CartController
+    CartController,
+    WishlistController
 };
+use App\Models\Wishlist;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,21 +61,28 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/home', [FrontendController::class, 'index']);
 Route::get('/about-us',[FrontendController::class, 'aboutUs'])->name('about-us');
 Route::get('/contact',[FrontendController::class, 'contact'])->name('contact');
+// Product section
 Route::get('product-detail/{slug}',[FrontendController::class, 'productDetail'])->name('product-detail');
-
 Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
 Route::get('/product-lists',[FrontendController::class, 'productLists'])->name('product-lists');
 Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
 Route::match(['get','post'],'/filter',[FrontendController::class, 'productFilter'])->name('shop.filter');
 Route::get('/product-cat/{slug}',[FrontendController::class, 'productCat'])->name('product-cat');
-
-Route::get('/wishlist',function(){
-    return view('frontend.pages.wishlist');
-})->name('wishlist');
+// Cart section
 Route::get('/cart',function(){
     return view('frontend.pages.cart');
 })->name('cart');
+Route::get('/add-to-cart/{slug}', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware('user');
+Route::post('/add-to-cart', [CartController::class, 'singleAddToCart'])->name('single-add-to-cart')->middleware('user');
+Route::get('cart-delete/{id}', [CartController::class, 'cartDelete'])->name('cart-delete');
+Route::post('cart-update', [CartController::class, 'cartUpdate'])->name('cart.update');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('user');
+// Wishlist section
+Route::get('/wishlist',function(){
+    return view('frontend.pages.wishlist');
+})->name('wishlist');
+Route::get('/wishlist/{slug}',[WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
+Route::get('wishlist-delete/{id}',[WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
 
 
 

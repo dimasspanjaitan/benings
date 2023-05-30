@@ -67,15 +67,11 @@ class Helper{
        
         if(Auth::check()){
             if($user_id=="") $user_id=auth()->user()->id;
-            return Cart::where('user_id',$user_id)->where('order_id',null)->sum('quantity');
+            return Cart::where('user_id',$user_id)->where('order_id',null)->sum('qty');
         }
         else{
             return 0;
         }
-    }
-    // relationship cart with product
-    public function product(){
-        return $this->hasOne('App\Models\Product','id','product_id');
     }
 
     public static function getAllProductFromCart($user_id=''){
@@ -102,7 +98,7 @@ class Helper{
        
         if(Auth::check()){
             if($user_id=="") $user_id=auth()->user()->id;
-            return Wishlist::where('user_id',$user_id)->where('cart_id',null)->sum('quantity');
+            return Wishlist::where('user_id',$user_id)->where('cart_id',null)->sum('qty');
         }
         else{
             return 0;
