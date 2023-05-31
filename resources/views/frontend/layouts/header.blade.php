@@ -21,31 +21,31 @@
                     <!-- Top Right -->
                     <div class="right-content">
                         <ul class="list-main">
-                        <li><i class="ti-location-pin"></i> <a href="#">Track Order</a></li>
-                            <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-                            @auth 
-                                @if(Auth::user()->role==1)
-                                    <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">C-Panel</a></li>
-                                @else 
-                                    <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Dashboard</a></li>
-                                @endif
-                                
-                                <li><i class="ti-power-off"></i>
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </li>
+                        {{-- <li><i class="ti-location-pin"></i> <a href="#">Track Order</a></li> --}}
+                        {{-- <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> --}}
+                        @auth 
+                            @if(Auth::user()->role==1)
+                                <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">C-Panel</a></li>
+                            @else 
+                                <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Dashboard</a></li>
+                            @endif
+                            
+                            <li><i class="ti-power-off"></i>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
 
-                                
+                            
 
-                            @else
-                                <li><i class="ti-power-off"></i><a href="{{route('login')}}">Login /</a> <a href="{{route('register.form')}}">Register</a></li>
-                            @endauth
+                        @else
+                            <li><i class="ti-power-off"></i><a href="{{route('login')}}">Login /</a> <a href="{{route('register.form')}}">Register</a></li>
+                        @endauth
                         </ul>
                     </div>
                     <!-- End Top Right -->
@@ -106,16 +106,16 @@
                                 $total_product=0;
                                 $total_amount=0;
                             @endphp
-                           @if(session('wishlist'))
-                                @foreach(session('wishlist') as $wishlist_items)
-                                    @php
-                                        $total_product+=$wishlist_items['qty'];
-                                        $total_amount+=$wishlist_items['amount'];
-                                    @endphp
-                                @endforeach
-                           @endif
-                            <a href="{{ route('wishlist') }}" class="single-icon"><i class="fa fa-heart-o"></i> <span class="total-count">{{ Helper::wishlistCount() }}</span></a>
-                            
+                            @if(session('wishlist'))
+                                    @foreach(session('wishlist') as $wishlist_items)
+                                        @php
+                                            $total_product+=$wishlist_items['qty'];
+                                            $total_amount+=$wishlist_items['amount'];
+                                        @endphp
+                                    @endforeach
+                            @endif
+
+                            <a href="{{ (!empty(auth()->user())) ? route('wishlist') : route('login') }}" class="single-icon"><i class="fa fa-heart-o"></i> <span class="total-count">{{ Helper::wishlistCount() }}</span></a>
                             @auth
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
@@ -123,18 +123,17 @@
                                         <a href="{{ route('wishlist') }}">View Wishlist</a>
                                     </div>
                                     <ul class="shopping-list">
-                                        
-                                            @foreach(Helper::getAllProductFromWishlist() as $data)
-                                                    @php
-                                                        $photo=explode(',',$data->product['photo']);
-                                                    @endphp
-                                                    <li>
-                                                        <a href="{{ route('wishlist-delete',$data->id) }}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                        <a class="cart-img" href="#"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></a>
-                                                        <h4><a href="{{ route('product-detail',$data->product['slug']) }}" target="_blank">{{ $data->product['name'] }}</a></h4>
-                                                        <p class="quantity">{{ $data->qty }} x - <span class="amount">${{ number_format($data->price,2) }}</span></p>
-                                                    </li>
-                                            @endforeach
+                                        @foreach(Helper::getAllProductFromWishlist() as $data)
+                                            @php
+                                                $photo=explode(',',$data->product['photo']);
+                                            @endphp
+                                            <li>
+                                                <a href="{{ route('wishlist-delete',$data->id) }}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+                                                <a class="cart-img" href="#"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></a>
+                                                <h4><a href="{{ route('product-detail',$data->product['slug']) }}" target="_blank">{{ $data->product['name'] }}</a></h4>
+                                                <p class="quantity">{{ $data->qty }} x - <span class="amount">${{ number_format($data->price,2) }}</span></p>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                     <div class="bottom">
                                         <div class="total">
@@ -149,8 +148,7 @@
                         </div>
                         
                         <div class="sinlge-bar shopping">
-                            <a href="{{ route('cart') }}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{ Helper::cartCount() }}</span></a>
-                            
+                            <a href="{{ (!empty(auth()->user())) ? route('cart') : route('login') }}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{ Helper::cartCount() }}</span></a>
                             @auth
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
@@ -165,7 +163,7 @@
                                                     <li>
                                                         <a href="{{ route('cart-delete',$data->id) }}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
                                                         <a class="cart-img" href="#"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></a>
-                                                        <h4><a href="{{ route('product-detail',$data->product['slug']) }}" target="_blank">{{ $data->product['title'] }}</a></h4>
+                                                        <h4><a href="{{ route('product-detail',$data->product['slug']) }}" target="_blank">{{ $data->product['name'] }}</a></h4>
                                                         <p class="quantity">{{ $data->qty }} x - <span class="amount">${{ number_format($data->price,2) }}</span></p>
                                                     </li>
                                             @endforeach

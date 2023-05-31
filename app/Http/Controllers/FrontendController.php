@@ -74,18 +74,18 @@ class FrontendController extends Controller
     }
 
     public function productDetail($slug){
-        $products = Product::getProductBySlug($slug);
+        $level = 0;
+        $user = auth()->user();
+        if(!empty($user)) {
+            $level = $user->level_id;
+        }
+        $product_detail = PriceLevel::where('level_id', $level)->with('product', 'product.stock', 'product.category')->whereHas('product', function($pd) use ($slug){
+            return $pd->where('status',1)->where('slug', $slug);
+        })->first();
+        $product_detail->product = $product_detail->product;
+        $product_detail->category = $product_detail->product->category;
+        $product_detail->stock = (!empty($product_detail->product->stock)) ? $product_detail->product->stock->stock : 0;
         // dd($product_detail);
-        $product_detail = PriceLevel::where('level_id', $product_detail->level_id)->with('product', 'product.stock')->whereHas('product', function($s){
-            return $s->where('status',1)->orderBy('id','DESC')->limit(50);
-        })->get()->map(function($p){
-            $product = $p->product;
-            $product->price = $p->price;
-            $product->stock = !empty($product->stock) ? (int) $product->stock->stock : 0;
-            return $product;
-        })->sortByDesc('stock');
-        dd($product_detail);
-
 
         return view('frontend.pages.product_detail', compact('product_detail'));
     }
