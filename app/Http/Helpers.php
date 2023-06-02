@@ -67,7 +67,7 @@ class Helper{
        
         if(Auth::check()){
             if($user_id=="") $user_id=auth()->user()->id;
-            return Cart::where('user_id',$user_id)->where('order_id',null)->sum('qty');
+            return Cart::where('user_id',$user_id)->where('sale_id',null)->sum('qty');
         }
         else{
             return 0;
@@ -77,7 +77,7 @@ class Helper{
     public static function getAllProductFromCart($user_id=''){
         if(Auth::check()){
             if($user_id=="") $user_id=auth()->user()->id;
-            return Cart::with('product')->where('user_id',$user_id)->where('order_id',null)->get();
+            return Cart::with('product')->where('user_id',$user_id)->where('sale_id',null)->get();
         }
         else{
             return 0;
@@ -87,7 +87,7 @@ class Helper{
     public static function totalCartPrice($user_id=''){
         if(Auth::check()){
             if($user_id=="") $user_id=auth()->user()->id;
-            return Cart::where('user_id',$user_id)->where('order_id',null)->sum('amount');
+            return Cart::where('user_id',$user_id)->where('sale_id',null)->sum('amount');
         }
         else{
             return 0;

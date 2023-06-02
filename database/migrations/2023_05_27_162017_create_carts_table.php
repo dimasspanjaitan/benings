@@ -17,6 +17,7 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->integer('product_id')->index();
             $table->integer('user_id')->index();
+            $table->integer('sale_id')->index();
             $table->double('price');
             $table->integer('qty');
             $table->double('amount');

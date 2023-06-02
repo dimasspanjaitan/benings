@@ -9,6 +9,18 @@ class Sale extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'user_id',
+        'name',
+        'email',
+        'phone',
+        'address',
+        'status',
+        'total',
+        'sale_date',
+        'code'
+    ];
+
     public function user(){
         return $this->hasOne(User::class, 'id', 'user_id');
     }

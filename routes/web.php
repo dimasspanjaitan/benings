@@ -76,13 +76,17 @@ Route::get('/add-to-cart/{slug}', [CartController::class, 'addToCart'])->name('a
 Route::post('/add-to-cart', [CartController::class, 'singleAddToCart'])->name('single-add-to-cart')->middleware('user');
 Route::get('cart-delete/{id}', [CartController::class, 'cartDelete'])->name('cart-delete');
 Route::post('cart-update', [CartController::class, 'cartUpdate'])->name('cart.update');
-Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('user');
+Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('user');
 // Wishlist section
 Route::get('/wishlist',function(){
     return view('frontend.pages.wishlist');
 })->name('wishlist');
 Route::get('/wishlist/{slug}',[WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
 Route::get('wishlist-delete/{id}',[WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
+// Order Section
+Route::post('process/checkout', [SaleController::class, 'process'])->name('process-checkout')->middleware('user');
+Route::get('shipping', [SaleController::class, 'shipping'])->name('shipping')->middleware('user');
+// Route::get('order/pdf/{id}','pdf')->name('order.pdf');
 
 
 

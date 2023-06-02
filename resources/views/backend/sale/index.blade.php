@@ -54,11 +54,11 @@
                     <td class="dt-control" data-data='{{ $sale->details }}'></td>
                     <td>
                         <select class="form-control {{ $sale->class }} status-type" data-data="{{ $sale }}" name="status">
-                          <option value="1" {{ $sale->status==1 ? 'selected' : '' }}>Pending</option>
-                          <option value="2" {{ $sale->status==2 ? 'selected' : '' }}>Process</option>
-                          <option value="3" {{ $sale->status==3 ? 'selected' : '' }}>On Delivery</option>
-                          <option value="4" {{ $sale->status==4 ? 'selected' : '' }}>Finished</option>
-                          <option value="5" {{ $sale->status==5 ? 'selected' : '' }}>Cancel</option>
+                          <option value="1" {{ $sale->status==1 ? 'selected' : '' }}>Confirm</option>
+                          <option value="2" {{ $sale->status==2 ? 'selected' : '' }}>Processed</option>
+                          <option value="3" {{ $sale->status==3 ? 'selected' : '' }}>Shipped</option>
+                          <option value="4" {{ $sale->status==4 ? 'selected' : '' }}>Succeed</option>
+                          <option value="5" {{ $sale->status==5 ? 'selected' : '' }}>Canceled</option>
                         </select>
                     </td>
                     <td>{{$sale->user->name}}</td>

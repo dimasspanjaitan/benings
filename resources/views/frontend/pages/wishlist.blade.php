@@ -29,8 +29,7 @@
 							<tr class="main-hading">
 								<th>PRODUCT</th>
 								<th>NAME</th>
-								<th class="text-center">TOTAL</th> 
-								{{-- <th class="text-center w-25">QUANTITY</th> --}}
+								<th class="text-center">PRICE</th> 
 								<th class="text-center">ADD TO CART</th> 
 								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
 							</tr>
@@ -47,23 +46,8 @@
 											<p class="product-name"><a href="{{ route('product-detail',$wishlist->product['slug']) }}">{{ $wishlist->product['name'] }}</a></p>
 											<p class="product-des">{{ ($wishlist->product['summary']) }}</p>
 										</td>
-										<td class="total-amount" data-title="Total"><span>Rp{{$wishlist['amount']}}</span></td>
-										{{-- <td>
-											<div class="input-group">
-												<span class="input-group-prepend">
-													<button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-field="qty">
-														<span class="fa fa-minus"></span>
-													</button>
-												</span>
-												<input type="text" name="qty" class="form-control input-number text-center" value="1" min="1" max="10">
-												<span class="input-group-append">
-													<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="qty">
-														<span class="fa fa-plus"></span>
-													</button>
-												</span>
-											</div>
-										</td> --}}
-										<td><a href="{{ route('add-to-cart',$wishlist->product['slug']) }}" class='btn text-white'>Add To Cart</a></td>
+										<td class="total-amount" data-title="Total"><span>Rp {{ number_format($wishlist['amount']) }}</span></td>
+										<td><a href="{{ route('add-to-cart',$wishlist->product['slug']) }}" class='btn d-flex justify-content-center text-white'>Add To Cart</a></td>
 										<td class="action" data-title="Remove"><a href="{{ route('wishlist-delete',$wishlist->id) }}"><i class="ti-trash remove-icon"></i></a></td>
 									</tr>
 								@endforeach

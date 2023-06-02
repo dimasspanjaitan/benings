@@ -17,7 +17,7 @@ class CreateSaleDetailsTable extends Migration
             $table->id();
             $table->integer('sale_id')->index();
             $table->integer('product_id')->index();
-            $table->string('unit');
+            $table->string('unit')->default('pcs');
             $table->integer('qty');
             $table->integer('price');
         });
