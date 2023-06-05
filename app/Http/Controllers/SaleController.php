@@ -116,8 +116,22 @@ class SaleController extends Controller
         $user = auth()->user();
         $sales = Sale::with('details', 'details.product')->where('user_id', $user->id)->orderBy('id', 'desc')->get();
         // dd($sales);
+        $confirms = [];
+        $processeds = [];
+        $shippeds = [];
+        $succeeds = [];
+        $canceleds = [];
+        
+        foreach ($sales as $sale) {
+            if($sale->status == 1) array_push($confirms, $sale);
+            if($sale->status == 2) array_push($processeds, $sale);
+            if($sale->status == 3) array_push($shippeds, $sale);
+            if($sale->status == 4) array_push($succeeds, $sale);
+            if($sale->status == 5) array_push($canceleds, $sale);
+        }
+        // dd($processeds);
 
-        return view('frontend.pages.shipping', compact('sales'));
+        return view('frontend.pages.shipping', compact('sales', 'confirms', 'processeds', 'shippeds', 'succeeds', 'canceleds'));
     }
 
 }
