@@ -17,6 +17,7 @@ use App\Http\Controllers\{
     PriceController,
     SupplierController,
     CartController,
+    PurchaseController,
     WishlistController
 };
 use App\Models\Wishlist;
@@ -107,6 +108,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::resource('/price', PriceController::class);
     Route::resource('/banner', BannerController::class);
     Route::resource('/supplier', SupplierController::class);
+    Route::resource('/purchase', PurchaseController::class);
 
     Route::get('settings', [AdminController::class, 'settings'])->name('settings');
     Route::post('setting/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');

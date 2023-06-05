@@ -50,10 +50,18 @@
     </li>
     {{-- Products --}}
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('product.index') }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
             <i class="fas fa-cubes"></i>
             <span>Products</span>
         </a>
+        <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Product Options:</h6>
+                <a class="collapse-item" href="{{ route('product.index') }}">Products</a>
+                <a class="collapse-item" href="{{ route('purchase.index') }}">Purchase Lists</a>
+                <a class="collapse-item" href="{{ route('purchase.create') }}">Product Purchase</a>
+            </div>
+        </div>
     </li>
 
     <!--Orders -->
