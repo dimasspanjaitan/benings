@@ -6,7 +6,8 @@ use App\Libraries\ApiResponse;
 use Illuminate\Http\Request;
 use App\Models\{
     Sale,
-    Cart
+    Cart,
+    SaleDetail
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;

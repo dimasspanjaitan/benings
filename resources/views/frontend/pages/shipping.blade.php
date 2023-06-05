@@ -52,14 +52,10 @@
                                             @php
                                                 $count = count($sale->details);
                                             @endphp
-                                            @if ($count > 1)
-                                                @foreach ($sale->details as $key => $detail)
-                                                    {{ $detail->product->name }}
-                                                    {{ ($count !== $key +1) ? '+' : '' }}
-                                                @endforeach
-                                            @else
+                                            @foreach ($sale->details as $key => $detail)
                                                 {{ $detail->product->name }}
-                                            @endif
+                                                {{ ($count !== $key +1) ? '+' : '' }}
+                                            @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                                         <a href="#" class="btn btn-primary">See details >></a>
@@ -97,14 +93,10 @@
                                             @php
                                                 $count = count($confirm->details);
                                             @endphp
-                                            @if ($count > 1)
-                                                @foreach ($confirm->details as $key => $detail)
-                                                    {{ $detail->product->name }}
-                                                    {{ ($count !== $key +1) ? '+' : '' }}
-                                                @endforeach
-                                            @else
+                                            @foreach ($confirm->details as $key => $detail)
                                                 {{ $detail->product->name }}
-                                            @endif
+                                                {{ ($count !== $key +1) ? '+' : '' }}
+                                            @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                                         <a href="#" class="btn btn-primary">See details >></a>
@@ -142,14 +134,10 @@
                                             @php
                                                 $count = count($processed->details);
                                             @endphp
-                                            @if ($count > 1)
-                                                @foreach ($processed->details as $key => $detail)
-                                                    {{ $detail->product->name }}
-                                                    {{ ($count !== $key +1) ? '+' : '' }}
-                                                @endforeach
-                                            @else
+                                            @foreach ($processed->details as $key => $detail)
                                                 {{ $detail->product->name }}
-                                            @endif
+                                                {{ ($count !== $key +1) ? '+' : '' }}
+                                            @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                                         <a href="#" class="btn btn-primary">See details >></a>
@@ -187,14 +175,10 @@
                                             @php
                                                 $count = count($shipped->details);
                                             @endphp
-                                            @if ($count > 1)
-                                                @foreach ($shipped->details as $key => $detail)
-                                                    {{ $detail->product->name }}
-                                                    {{ ($count !== $key +1) ? '+' : '' }}
-                                                @endforeach
-                                            @else
+                                            @foreach ($shipped->details as $key => $detail)
                                                 {{ $detail->product->name }}
-                                            @endif
+                                                {{ ($count !== $key +1) ? '+' : '' }}
+                                            @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                                         <a href="#" class="btn btn-primary">See details >></a>
@@ -232,14 +216,10 @@
                                             @php
                                                 $count = count($succeed->details);
                                             @endphp
-                                            @if ($count > 1)
-                                                @foreach ($succeed->details as $key => $detail)
-                                                    {{ $detail->product->name }}
-                                                    {{ ($count !== $key +1) ? '+' : '' }}
-                                                @endforeach
-                                            @else
+                                            @foreach ($succeed->details as $key => $detail)
                                                 {{ $detail->product->name }}
-                                            @endif
+                                                {{ ($count !== $key +1) ? '+' : '' }}
+                                            @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                                         <a href="#" class="btn btn-primary">See details >></a>
@@ -277,14 +257,10 @@
                                             @php
                                                 $count = count($canceled->details);
                                             @endphp
-                                            @if ($count > 1)
-                                                @foreach ($canceled->details as $key => $detail)
-                                                    {{ $detail->product->name }}
-                                                    {{ ($count !== $key +1) ? '+' : '' }}
-                                                @endforeach
-                                            @else
+                                            @foreach ($canceled->details as $key => $detail)
                                                 {{ $detail->product->name }}
-                                            @endif
+                                                {{ ($count !== $key +1) ? '+' : '' }}
+                                            @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                                         <a href="#" class="btn btn-primary">Go somewhere</a>

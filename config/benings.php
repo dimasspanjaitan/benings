@@ -9,25 +9,25 @@ return [
     'sale_types' => [
         '1' => [
             'value' => 1,
-            'name' => 'Pending',
-            'color' => 'text-warning',
-            'class' => 'font-weight-bold text-warning'
+            'name' => 'Confirm',
+            'color' => 'text-secondary',
+            'class' => 'font-weight-bold text-secondary'
         ],
         '2' => [
             'value' => 2,
             'name' => 'Processed',
-            'color' => 'text-primary',
-            'class' => 'font-weight-bold text-primary'
+            'color' => 'text-warning',
+            'class' => 'font-weight-bold text-warning'
         ],
         '3' => [
             'value' => 3,
-            'name' => 'Delivered',
-            'color' => 'text-secondary',
-            'class' => 'font-weight-bold text-secondary'
+            'name' => 'Shipped',
+            'color' => 'text-primary',
+            'class' => 'font-weight-bold text-primary'
         ],
         '4' => [
             'value' => 4,
-            'name' => 'Finished',
+            'name' => 'Succeed',
             'color' => 'text-success',
             'class' => 'font-weight-bold text-success'
         ],

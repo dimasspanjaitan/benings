@@ -20,107 +20,97 @@
 
 	<!-- Shopping Cart -->
 	<div class="shopping-cart section">
-		<div class="container" {{ (!empty(Helper::getAllProductFromCart())) ? 'hidden' : '' }}>
-			<div class="row">
-				<div class="col-12">
-					<!-- Shopping Summery -->
-					<table class="table shopping-summery">
-						<thead>
-							<tr class="main-hading">
-								<th>PRODUCT</th>
-								<th>NAME</th>
-								<th class="text-center">UNIT PRICE</th>
-								<th class="text-center">QUANTITY</th>
-								<th class="text-center">TOTAL</th>
-								<th class="text-center">DELETE</i></th>
-							</tr>
-						</thead>
-						<tbody id="cart_item_list">
-							<form action="{{ route('checkout') }}" method="POST">
-								@csrf
+		{{-- {{ dd(count(Helper::getAllProductFromCart())) }} --}}
+		@if (count(Helper::getAllProductFromCart())>0)
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Shopping Summery -->
+						<table class="table shopping-summery">
+							<thead>
+								<tr class="main-hading">
+									<th>PRODUCT</th>
+									<th>NAME</th>
+									<th class="text-center">UNIT PRICE</th>
+									<th class="text-center">QUANTITY</th>
+									<th class="text-center">TOTAL</th>
+									<th class="text-center">DELETE</i></th>
+								</tr>
+							</thead>
+							<tbody id="cart_item_list">
+								<form action="{{ route('checkout') }}" method="POST">
+									@csrf
 
-								@foreach(Helper::getAllProductFromCart() as $key=>$cart)
-									<tr>
-										@php
-											$photo=explode(',',$cart->product['photo']);
-										@endphp
-										<td class="image" data-title="No"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></td>
-										<td class="product-des" data-title="Description">
-											<p class="product-name"><a href="{{ route('product-detail',$cart->product['slug']) }}" target="_blank">{{ $cart->product['title'] }}</a></p>
-											<p class="product-des">{!!($cart->product['summary']) !!}</p>
-										</td>
-										<td class="price" data-title="Price"><span>Rp{{ number_format($cart['price'],2) }}</span></td>
-										<td class="qty" data-title="Qty"><!-- Input Order -->
-											<div class="input-group">
-												<div class="button minus">
-													<button type="button" class="btn btn-primary btn-number calc"  disabled="disabled" data-type="minus" data-field="qty[{{ $key }}]">
-														<i class="ti-minus"></i>
-													</button>
+									@foreach(Helper::getAllProductFromCart() as $key=>$cart)
+										<tr>
+											@php
+												$photo=explode(',',$cart->product['photo']);
+											@endphp
+											<td class="image" data-title="No"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></td>
+											<td class="product-des" data-title="Description">
+												<p class="product-name"><a href="{{ route('product-detail',$cart->product['slug']) }}" target="_blank">{{ $cart->product['title'] }}</a></p>
+												<p class="product-des">{!!($cart->product['summary']) !!}</p>
+											</td>
+											<td class="price" data-title="Price"><span>Rp{{ number_format($cart['price'],2) }}</span></td>
+											<td class="qty" data-title="Qty"><!-- Input Order -->
+												<div class="input-group">
+													<div class="button minus">
+														<button type="button" class="btn btn-primary btn-number calc"  disabled="disabled" data-type="minus" data-field="qty[{{ $key }}]">
+															<i class="ti-minus"></i>
+														</button>
+													</div>
+													<input type="text" name="qty[{{ $key }}]" data-data="{{ $cart }}" class="input-number quanty" data-min="1" data-max="100" value="{{ $cart->qty }}">
+													<input type="hidden" name="qty_id[]" value="{{ $cart->id }}">
+													<div class="button plus">
+														<button type="button" class="btn btn-primary btn-number calc"  data-type="plus" data-field="qty[{{ $key }}]">
+															<i class="ti-plus"></i>
+														</button>
+													</div>
 												</div>
-												<input type="text" name="qty[{{ $key }}]" data-data="{{ $cart }}" class="input-number quanty" data-min="1" data-max="100" value="{{ $cart->qty }}">
-												<input type="hidden" name="qty_id[]" value="{{ $cart->id }}">
-												<div class="button plus">
-													<button type="button" class="btn btn-primary btn-number calc"  data-type="plus" data-field="qty[{{ $key }}]">
-														<i class="ti-plus"></i>
-													</button>
+												<!--/ End Input Order -->
+											</td>
+											<td class="total-amount cart_single_price" id="product_price_{{ $cart->product_id }}" data-title="Total"><span class="money">Rp{{ number_format($cart['amount']) }}</span></td>
+
+											<td class="action" data-title="Remove"><a href="{{ route('cart-delete',$cart->id) }}"><i class="ti-trash remove-icon"></i></a></td>
+										</tr>
+									@endforeach
+									<tr>
+										<td colspan="3"></td>
+										<td class="float-right"><strong>TOTAL : </strong></td>
+										<td colspan="2" class="">
+											<span id="subTotal">
+												<strong>
+													<h5>Rp {{ number_format(Helper::totalCartPrice(),2) }}</h5>
+												</strong>
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<div class="left">
+												<div class="button5">
+													<a href="{{ route('product-grids') }}" class="btn text-light">Continue shopping</a>
 												</div>
 											</div>
-											<!--/ End Input Order -->
 										</td>
-										<td class="total-amount cart_single_price" id="product_price_{{ $cart->product_id }}" data-title="Total"><span class="money">Rp{{ number_format($cart['amount']) }}</span></td>
-
-										<td class="action" data-title="Remove"><a href="{{ route('cart-delete',$cart->id) }}"><i class="ti-trash remove-icon"></i></a></td>
+										<td colspan="2" class="">
+											<button class="btn " type="submit">Checkout</button>
+										</td>
 									</tr>
-								@endforeach
-								<tr>
-									<td colspan="3"></td>
-									<td class="float-right"><strong>TOTAL : </strong></td>
-									<td colspan="2" class="">
-										<span id="subTotal">
-											<strong>
-												<h5>Rp {{ number_format(Helper::totalCartPrice(),2) }}</h5>
-											</strong>
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="4"></td>
-									<td colspan="2" class="">
-										<button class="btn " type="submit">Checkout</button>
-									</td>
-								</tr>
-							</form>
-						</tbody>
-					</table>
-					<!--/ End Shopping Summery -->
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-12">
-					<div class="total-amount">
-						<div class="row">
-							<div class="col-lg-8 col-md-5 col-12">
-								<div class="left">
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-7 col-12">
-								<div class="right">
-									
-									<div class="button5">
-										<a href="{{ route('product-grids') }}" class="btn">Continue shopping</a>
-									</div>
-								</div>
-							</div>
-						</div>
+								</form>
+							</tbody>
+						</table>
+						<!--/ End Shopping Summery -->
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="d-flex justify-content-center" {{ empty(Helper::getAllProductFromCart()) ? 'hidden' : '' }}>
-			<span class="text-center">
-				There are no any carts available. <a href="{{ route('product-grids') }}" style="color:blue;">Continue shopping</a>
-			</span>
-		</div>
+		@else
+			<div class="d-flex justify-content-center">
+				<span class="text-center">
+					There are no any carts available. <a href="{{ route('product-grids') }}" style="color:blue;">Continue shopping</a>
+				</span>
+			</div>
+		@endif
 	</div>
 	<!--/ End Shopping Cart -->
 
