@@ -25,9 +25,7 @@
                 <th>Summary</th>
                 <th>Category</th>
                 <th>Photo</th>
-                {{-- <th>Price</th> --}}
                 <th>Stock</th>
-                {{-- <th>Weight</th> --}}
                 <th width="65px">Action</th>
               </tr>
             </thead>
@@ -39,9 +37,7 @@
                 <th>Summary</th>
                 <th>Category</th>
                 <th>Photo</th>
-                {{-- <th>Price</th> --}}
                 <th>Stock</th>
-                {{-- <th>Weight</th> --}}
                 <th>Action</th>
               </tr>
             </tfoot>
@@ -71,19 +67,7 @@
                               <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
                           @endif
                       </td>
-                      {{-- <td>Rp. /-</td> --}}
-                      {{-- <td>  {{$product->discount}}% OFF</td> --}}
-                      {{-- <td>{{$product->weight}}</td> --}}
-                      {{-- <td>{{$product->condition}}</td> --}}
-                      {{-- <td> {{ucfirst($product->brand->title)}}</td> --}}
-                      <td>0
-                          {{-- @if($product->stock>0)
-                          <span class="badge badge-primary">{{$product->stock}}</span>
-                          @else
-                          <span class="badge badge-danger">{{$product->stock}}</span>
-                          @endif --}}
-                      </td>
-                      {{-- <td>{{$product->weight}}</td>                     --}}
+                      <td>{{ (!empty($product->stock->stock)) ? $product->stock->stock : 0 }}</td>
                       <td>
                           <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                       <form method="POST" action="{{route('product.destroy',[$product->id])}}">

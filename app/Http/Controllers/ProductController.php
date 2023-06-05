@@ -22,10 +22,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if(!isset($request['_page'])) $request['_page'] = 0;
-        $products = Product::with('category');
+        $products = Product::with('category', 'stock');
         $products = $this->filter($products)->get();
+        // dd($products);
 
-        $total = Product::orderBy('created_at', 'ASC');
+        $total = Product::select('id')->orderBy('created_at', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
 
@@ -66,7 +67,7 @@ class ProductController extends Controller
             'required' => 'This :attribute cannot be null',
             'string' => 'This :attribute must be string',
             'max' => 'This :attribute maximal 50 character',
-
+            'exists' => 'This :attribute not exists in database'
         ]);
 
         // dd($request->file('photo'));
@@ -121,11 +122,10 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->photo = explode('/', $product->photo)[count(explode('/',$product->photo)) -1];
-        $category = Category::get();
+        $categories = Category::get();
         $items = Product::where('id',$id)->get();
         // return $items;
-        return view('backend.product.edit')->with('product',$product)
-                    ->with('categories',$category)->with('items',$items);
+        return view('backend.product.edit', compact('product', 'categories', 'items'));
     }
 
     /**
