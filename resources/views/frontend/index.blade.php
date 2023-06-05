@@ -92,12 +92,7 @@
                                         <div class="product-content">
                                             <h3><a href="{{ route('product-detail', $product->slug) }}">{{ $product->name }}</a></h3>
                                             <div class="product-price">
-                                                {{-- @php
-                                                    $after_discount=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <span>Rp{{number_format($after_discount,2)}}</span> --}}
                                                 <span>Rp{{ number_format($product->price,2) }}</span>
-                                                {{-- <del style="padding-left:4%;">Rp{{number_format($product->price,2)}}</del> --}}
                                             </div>
                                         </div>
                                     </div>

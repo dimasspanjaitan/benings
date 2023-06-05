@@ -6,8 +6,7 @@ use App\Libraries\ApiResponse;
 use Illuminate\Http\Request;
 use App\Models\{
     Sale,
-    Cart,
-    SaleDetail
+    Cart
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -114,8 +113,11 @@ class SaleController extends Controller
     }
 
     public function shipping(Request $request){
+        $user = auth()->user();
+        $sales = Sale::with('details', 'details.product')->where('user_id', $user->id)->orderBy('id', 'desc')->get();
+        // dd($sales);
 
-        return view('frontend.pages.shipping');
+        return view('frontend.pages.shipping', compact('sales'));
     }
 
 }

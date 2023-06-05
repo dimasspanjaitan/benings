@@ -24,6 +24,7 @@
                         {{-- <li><i class="ti-location-pin"></i> <a href="#">Track Order</a></li> --}}
                         {{-- <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> --}}
                         @auth 
+                            <li><i class="ti-shopping-cart"></i> <a href="{{ route('shipping') }}">Purchase</a></li>
                             @if(Auth::user()->role==1)
                                 <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">C-Panel</a></li>
                             @else 
@@ -138,7 +139,7 @@
                                     <div class="bottom">
                                         <div class="total">
                                             <span>Total</span>
-                                            <span class="total-amount">${{ number_format(Helper::totalWishlistPrice(),2) }}</span>
+                                            <span class="total-amount">Rp {{ number_format(Helper::totalWishlistPrice(),2) }}</span>
                                         </div>
                                         {{-- <a href="{{ route('cart') }}" class="btn animate">Cart</a> --}}
                                     </div>
