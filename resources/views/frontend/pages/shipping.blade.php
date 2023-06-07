@@ -58,7 +58,7 @@
                                             @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
-                                        <a href="#" class="btn btn-primary">See details >></a>
+                                        <a href="{{ route('invoice', $sale->id) }}" class="btn btn-primary text-light">See details >></a>
                                     </div>
                                     <div class="col col-md-3">
                                         <div class="pull-right mr-5">
@@ -99,7 +99,7 @@
                                             @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
-                                        <a href="#" class="btn btn-primary">See details >></a>
+                                        <a href="#" class="btn btn-primary text-light">See details >></a>
                                     </div>
                                     <div class="col col-md-3">
                                         <div class="pull-right mr-5">
@@ -140,7 +140,7 @@
                                             @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
-                                        <a href="#" class="btn btn-primary">See details >></a>
+                                        <a href="#" class="btn btn-primary text-light">See details >></a>
                                     </div>
                                     <div class="col col-md-3">
                                         <div class="pull-right mr-5">
@@ -181,7 +181,7 @@
                                             @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
-                                        <a href="#" class="btn btn-primary">See details >></a>
+                                        <a href="#" class="btn btn-primary text-light">See details >></a>
                                     </div>
                                     <div class="col col-md-3">
                                         <div class="pull-right mr-5">
@@ -222,7 +222,7 @@
                                             @endforeach
                                         </h5>
                                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
-                                        <a href="#" class="btn btn-primary">See details >></a>
+                                        <a href="#" class="btn btn-primary text-light">See details >></a>
                                     </div>
                                     <div class="col col-md-3">
                                         <div class="pull-right mr-5">

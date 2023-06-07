@@ -87,6 +87,7 @@ Route::get('wishlist-delete/{id}',[WishlistController::class, 'wishlistDelete'])
 // Order Section
 Route::post('process/checkout', [SaleController::class, 'process'])->name('process-checkout')->middleware('user');
 Route::get('shipping', [SaleController::class, 'shipping'])->name('shipping')->middleware('user');
+Route::get('invoice/{id}', [SaleController::class, 'invoice'])->name('invoice')->middleware('user');
 // Route::get('order/pdf/{id}','pdf')->name('order.pdf');
 
 

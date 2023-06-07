@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Btx\QueryFilter\BtxQueryFilterServiceProvider::class,
+        Btx\Common\BtxCommonServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class
 
     ],

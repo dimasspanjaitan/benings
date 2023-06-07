@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\{
     Sale,
     Cart,
-    SaleDetail
+    SaleDetail,
+    Settings
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Btx\Common\SpellNumber;
 
 class SaleController extends Controller
 {
@@ -134,5 +136,27 @@ class SaleController extends Controller
 
         return view('frontend.pages.shipping', compact('sales', 'confirms', 'processeds', 'shippeds', 'succeeds', 'canceleds'));
     }
+    
+    public function invoice(Request $request, $id)
+    {
+        $user = auth()->user();
+        $setting = Settings::where('id', 1)->first();
+        $sale = Sale::with('details', 'details.product')->where('user_id', $user->id)->where('id', $id)->first();
+        $sale->details = $sale->details->map(function($d){
+            return [
+                'product_name' => $d->product->name,
+                'summary' => $d->product->summary,
+                'qty' => $d->qty,
+                'unit' => $d->unit,
+                'price' => $d->price,
+                'sub_total' => (int) $d->qty * (double) $d->price
+            ];
+        });
+        $sale->status = config('benings.sale_types')[$sale->status];
+        $sale->terbilang = ucwords(SpellNumber::generate($sale->total));
+        
+        // dd($sale);
 
+        return view('frontend.pages.invoice', compact('sale', 'setting'));
+    }
 }
