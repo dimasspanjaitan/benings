@@ -11,6 +11,7 @@
                 <div class="bread-inner">
                     <ul class="bread-list">
                         <li><a href="{{ route('home') }}">Home<i class="ti-arrow-right"></i></a></li>
+                        <li><a href="{{ route('shipping') }}">Shipping<i class="ti-arrow-right"></i></a></li>
                         <li class="active"><a href="javascript:void(0);">Invoice</a></li>
                     </ul>
                 </div>
@@ -35,7 +36,7 @@
 
             </div>
             <div class="card-body">
-                <div class="{{ ($sale->status['value']) == 3 ? 'watermark' : '' }}"></div>
+                <div class="{{ ($sale->status['value']) == 4 ? 'watermark' : '' }}"></div>
                 <div class="row no-gutters mb-4">
                     <div class="col-md-6 mt-2">
                         <div class="row ml-1">
@@ -124,10 +125,10 @@
 <style>
     .watermark {
         content: "";
-        background:url(https://www.google.co.in/images/srpr/logo11w.png) no-repeat;
+        background:url("{{ asset('frontend/img/succeed.png') }}") no-repeat;
         opacity: 0.2;
-        top: 0;
-        left: 0;
+        top: -10%;
+        left: 20%;
         bottom: 0;
         right: 0;
         position: absolute;

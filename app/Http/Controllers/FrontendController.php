@@ -7,7 +7,8 @@ use App\Models\{
     Category,
     PriceLevel,
     Product,
-    ProductDetail
+    ProductDetail,
+    SaleDetail
 };
 
 
@@ -24,21 +25,27 @@ class FrontendController extends Controller
             $level = $user->level_id;
         }
         
+        $bests = SaleDetail::with('product', 'product.category')->groupBy('product_id')->selectRaw('sum(qty) as sum, product_id')->get()->map(function($f){
+            $f->sum = (int) $f->sum;
+            $f->product = $f->product;
+            $f->category = $f->product->category;
+            return $f;
+        })->sortByDesc('sum')->take(2);
         $banners = Banner::where('status',1)->limit(3)->orderBy('id','DESC')->get();
-        $featured = Product::where('status',1)->orderBy('id','ASC')->limit(2)->get();
         $products = PriceLevel::where('level_id', $level)->with('product', 'product.stock')->whereHas('product', function($s){
-            return $s->where('status',1)->orderBy('id','DESC')->limit(50);
+            return $s->where('status',1)->limit(20);
         })->get()->map(function($p){
             $product = $p->product;
             $product->price = $p->price;
             $product->stock = !empty($product->stock) ? (int) $product->stock->stock : 0;
             return $product;
         })->sortByDesc('stock');
-        // dd($products);
-
+        $latests = $products->sortByDesc('id')->take(6);
         $categories = Category::where('status',1)->orderBy('title','ASC')->get();
 
-        return view('frontend.index', compact('banners', 'products', 'featured', 'categories'));
+        // dd($latests);
+
+        return view('frontend.index', compact('banners', 'products', 'bests', 'categories', 'latests'));
     }
 
     public function aboutUs(){

@@ -118,20 +118,28 @@
 <section class="midium-banner">
     <div class="container">
         <div class="row">
-            @if($featured)
-                @foreach($featured as $data)
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Best Seller</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if($bests)
+                @foreach($bests as $best)
                     <!-- Single Banner  -->
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="single-banner">
                             @php
-                                $photo=explode(',',$data->photo);
-                                // dd($data);
+                                $photo=explode(',',$best->product->photo);
                             @endphp
                             <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
                             <div class="content">
-                                {{-- <p>{{$data->cat_info['title']}}</p> --}}
-                                <h3>{{$data->title}} <br>Up to<span> {{$data->discount}}%</span></h3>
-                                <a href="#">Shop Now</a>
+                                <div class="bg-light rounded p-2">
+                                    <h4>{{ $best->product->name }}</h4>
+                                    <span class="badge badge-warning">{{ $best->category->title }}</span>
+                                </div>
+                                <a href="{{ route('product-detail', $best->product->slug) }}">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -214,21 +222,24 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach($products as $product)
+                    @foreach($latests as $latest)
                         <div class="col-md-4">
                             <!-- Start Single List  -->
                             <div class="single-list">
                                 <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="list-image overlay">
-                                        {{-- <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                        <a href="{{route('add-to-cart',$product->slug)}}" class="buy"><i class="fa fa-shopping-bag"></i></a> --}}
+                                        @php
+                                            $photo=explode(',',$latest->photo);
+                                        @endphp
+                                        <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                        <a href="{{route('add-to-cart',$latest->slug)}}" class="buy"><i class="fa fa-shopping-bag"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 no-padding">
                                     <div class="content">
-                                        <h4 class="title"><a href="#">{{$product->name}}</a></h4>
-                                        <p class="price with-discount">Rp{{number_format($product->discount,2)}}</p>
+                                        <h4 class="title"><a href="#">{{$latest->name}}</a></h4>
+                                        <p class="price with-discount">Rp{{number_format($latest->price,2)}}</p>
                                     </div>
                                 </div>
                                 </div>
@@ -244,51 +255,7 @@
 </section>
 <!-- End Shop Home List  -->
 
-<!-- Start Shop Services Area -->
-<section class="shop-services section home">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-rocket"></i>
-                    <h4>Free shiping</h4>
-                    <p>Orders over Rp15000</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-reload"></i>
-                    <h4>Free Return</h4>
-                    <p>Within 30 days returns</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-lock"></i>
-                    <h4>Sucure Payment</h4>
-                    <p>100% secure payment</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="ti-tag"></i>
-                    <h4>Best Peice</h4>
-                    <p>Guaranteed price</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Shop Services Area -->
-
+@include('frontend.layouts.service')
 @include('frontend.layouts.newsletter')
 
 <!-- Modal -->
