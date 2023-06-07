@@ -20,8 +20,8 @@
             <thead>
               <tr>
                 <th width='10px'>No.</th>
-                <th width="10%">Status</th>
-                <th>Title</th>
+                <th width="10px">Status</th>
+                <th width="20%">Title</th>
                 <th>Description</th>
                 <th width="65px">Action</th>
               </tr>

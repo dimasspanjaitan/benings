@@ -20,7 +20,7 @@
             <thead>
               <tr>
                 <th width="10px">ID</th>
-                <th width="10%">Status</th>
+                <th width="10px">Status</th>
                 <th>Title</th>
                 <th>Slug</th>
                 <th>Description</th>

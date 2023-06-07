@@ -41,7 +41,7 @@
                     <select name="level_id" class="form-control">
                         <option value="">--Select any level--</option>
                         @foreach($levels as $key=>$data)
-                            <option value='{{ $data->id }}' {{ $user->region_id == $data->id ? 'selected' : '' }}>{{ $data->name }}</option>
+                            <option value='{{ $data->id }}' {{ $user->level_id == $data->id ? 'selected' : '' }}>{{ $data->name }}</option>
                         @endforeach
                     </select>
                     @error('level_id')
