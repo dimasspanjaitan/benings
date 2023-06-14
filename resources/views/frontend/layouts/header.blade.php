@@ -8,11 +8,10 @@
                     <div class="top-left">
                         <ul class="list-main">
                             @php
-                                $settings=DB::table('settings')->get();
-                                
+                                $settings=DB::table('settings')->first();
                             @endphp
-                            <li><i class="ti-headphone-alt"></i>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
-                            <li><i class="ti-email"></i> @foreach($settings as $data) {{$data->email}} @endforeach</li>
+                            <li><i class="ti-headphone-alt"></i> {{$settings->phone}} </li>
+                            <li><i class="ti-email"></i>  {{$settings->email}} </li>
                         </ul>
                     </div>
                     <!--/ End Top Left -->
@@ -26,7 +25,7 @@
                         @auth 
                             <li><i class="ti-shopping-cart"></i> <a href="{{ route('shipping') }}">Purchase</a></li>
                             @if(Auth::user()->role==1)
-                                <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">C-Panel</a></li>
+                                <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">CPanel</a></li>
                             @else 
                                 <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Dashboard</a></li>
                             @endif

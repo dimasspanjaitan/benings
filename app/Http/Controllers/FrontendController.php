@@ -25,11 +25,11 @@ class FrontendController extends Controller
             $level = $user->level_id;
         }
         
-        $bests = SaleDetail::with('product', 'product.category')->groupBy('product_id')->selectRaw('sum(qty) as sum, product_id')->get()->map(function($f){
-            $f->sum = (int) $f->sum;
-            $f->product = $f->product;
-            $f->category = $f->product->category;
-            return $f;
+        $bests = SaleDetail::with('product', 'product.category')->groupBy('product_id')->selectRaw('sum(qty) as sum, product_id')->get()->map(function($b){
+            $b->sum = (int) $b->sum;
+            $b->product = $b->product;
+            $b->category = $b->product->category;
+            return $b;
         })->sortByDesc('sum')->take(2);
         $banners = Banner::where('status',1)->limit(3)->orderBy('id','DESC')->get();
         $products = PriceLevel::where('level_id', $level)->with('product', 'product.stock')->whereHas('product', function($s){
@@ -43,7 +43,7 @@ class FrontendController extends Controller
         $latests = $products->sortByDesc('id')->take(6);
         $categories = Category::where('status',1)->orderBy('title','ASC')->get();
 
-        // dd($latests);
+        // dd($products);
 
         return view('frontend.index', compact('banners', 'products', 'bests', 'categories', 'latests'));
     }

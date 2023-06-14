@@ -60,7 +60,10 @@
 								</ul>
 							</div>
 							<!-- End Single Widget -->
+
+							<!-- ShareThis BEGIN -->
 							<div class="sharethis-inline-follow-buttons"></div>
+							<!-- ShareThis END -->
 						</div>
 						<!-- End Single Widget -->
 					</div>

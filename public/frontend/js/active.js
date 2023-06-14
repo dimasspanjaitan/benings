@@ -1,8 +1,8 @@
 /* =====================================
-Template Name: Eshop
-Author Name: Naimur Rahman
-Author URI: http://www.wpthemesgrid.com/
-Description: Eshop - eCommerce HTML5 Template.
+Template Name: Bening's
+Author Name: Dimas S Panjaitan
+Author URI: http://www.bataxdev.com/
+Description: Bening's - eCommerce HTML5 Template.
 Version:1.0
 ========================================*/
 /*=======================================

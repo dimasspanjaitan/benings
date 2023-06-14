@@ -55,7 +55,7 @@
                                         <h3 class="title">Shop by Price</h3>
                                         <div class="price-filter">
                                             <div class="price-filter-inner">
-                                                <div id="slider-range" data-min="0" data-max="{{ max($prices) }}"></div>
+                                                <div id="slider-range" data-min="0" data-max="{{ (!empty($prices)) ? max($prices) : 0 }}"></div>
                                                 <div class="product_filter">
                                                 <button type="submit" class="filter_button">Filter</button>
                                                 <div class="label-input">
