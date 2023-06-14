@@ -28,4 +28,12 @@ class Sale extends Model
     public function details(){
         return $this->hasMany(SaleDetail::class, 'sale_id', 'id');
     }
+
+    public static function countSale(){
+        $data = Sale::count();
+        if($data){
+            return $data;
+        }
+        return 0;
+    }
 }

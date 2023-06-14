@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::get();
+        $categories = Category::get();
 
-        $total = Category::select('id')->orderBy('created_at', 'ASC');
+        $total = Category::select('id')->orderBy('id', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
 

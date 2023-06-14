@@ -62,7 +62,7 @@
                         </select>
                     </td>
                     <td>{{$sale->user->name}}</td>
-                    <td>{{$sale->total}}</td>
+                    <td>Rp{{ number_format($sale->total, 2, ",", ".") }}</td>
                     <td>{{$sale->sale_date}}</td>
                     <td>{{$sale->code}}</td>
                     <td>{{$sale->description}}</td>

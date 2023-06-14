@@ -25,7 +25,7 @@ class UsersController extends Controller
         $users = User::with('levels', 'regions')->orderBy('id','ASC');
         $users = $this->filter($users)->get();
 
-        $total = User::select('id')->orderBy('created_at', 'ASC');
+        $total = User::select('id')->orderBy('id', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
         

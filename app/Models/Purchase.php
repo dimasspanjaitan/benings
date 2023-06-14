@@ -21,4 +21,12 @@ class Purchase extends Model
     public function supplier(){
         return $this->hasOne(Supplier::class, 'id', 'supplier_id');
     }
+
+    public static function countPurchase(){
+        $data = Purchase::count();
+        if($data){
+            return $data;
+        }
+        return 0;
+    }
 }

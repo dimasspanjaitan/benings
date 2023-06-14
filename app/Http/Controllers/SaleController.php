@@ -24,7 +24,7 @@ class SaleController extends Controller
             return $row;
         });
 
-        $total = Sale::orderBy('created_at', 'ASC');
+        $total = Sale::selec('id')->orderBy('id', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
 

@@ -20,7 +20,7 @@ class BannerController extends Controller
         $banners = Banner::orderBy('id','DESC');
         $banners = $this->filter($banners)->get();
 
-        $total = Banner::select('id')->orderBy('created_at', 'ASC');
+        $total = Banner::select('id')->orderBy('id', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
 

@@ -19,7 +19,7 @@ class LevelController extends Controller
         $levels = Level::select('*');
         $levels = $this->filter($levels)->get();
 
-        $total = Level::select('id')->orderBy('created_at', 'ASC');
+        $total = Level::select('id')->orderBy('id', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
 

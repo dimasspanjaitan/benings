@@ -38,5 +38,13 @@ class Product extends Model
     public function category(){
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
+
+    public static function countActiveProduct(){
+        $data = Product::where('status', 1)->count();
+        if($data){
+            return $data;
+        }
+        return 0;
+    }
     
 }

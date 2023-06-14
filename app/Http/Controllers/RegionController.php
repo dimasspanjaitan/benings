@@ -19,7 +19,7 @@ class RegionController extends Controller
         $regions = Region::select("*");
         $regions = $this->filter($regions)->get();
 
-        $total = Region::orderBy('created_at', 'ASC');
+        $total = Region::select('id')->orderBy('id', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
 

@@ -18,7 +18,7 @@ class CreatePurchasesTable extends Migration
             $table->integer('supplier_id')->index();
             $table->dateTime('purchase_date');
             $table->string('recipient');            
-            $table->integer('amount');            
+            $table->double('amount');            
             $table->string('code')->nullable();            
             $table->text('description')->nullable();            
             $table->timestamps();

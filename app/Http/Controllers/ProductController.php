@@ -24,9 +24,8 @@ class ProductController extends Controller
         if(!isset($request['_page'])) $request['_page'] = 0;
         $products = Product::with('category', 'stock');
         $products = $this->filter($products)->get();
-        // dd($products);
 
-        $total = Product::select('id')->orderBy('created_at', 'ASC');
+        $total = Product::select('id')->orderBy('id', 'ASC');
         $total = $this->filter($total,false)->count();
         $pagination = $this->pagination($total);
 

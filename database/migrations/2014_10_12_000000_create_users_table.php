@@ -32,13 +32,13 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->string('bank_name')->nullable();
             $table->string('bank_number')->nullable();
-            $table->integer('level_id')->index();
-            $table->integer('region_id')->index();
+            $table->integer('level_id')->index()->nullable();
+            $table->integer('region_id')->index()->nullable();
             $table->text('photo')->nullable();
             $table->text('id_card_photo')->nullable();
             $table->string('id_card_number')->nullable();
             $table->boolean('another_partner')->nullable();
-            $table->integer('role');
+            $table->integer('role')->default(2);
             $table->timestamps();
         });
     }

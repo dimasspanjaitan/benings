@@ -50,8 +50,8 @@
                       <td>{{$purchase->purchase->recipient}}</td>
                       <td>{{$purchase->product->name}}</td>
                       <td>{{$purchase->qty}}</td>
-                      <td>{{$purchase->price}}</td>
-                      <td>{{$purchase->purchase->amount}}</td>
+                      <td>Rp{{ number_format($purchase->price, 2, ",", ".") }}</td>
+                      <td>Rp{{ number_format($purchase->purchase->amount, 2, ",", ".") }}</td>
                       <td>{{$purchase->purchase->purchase_date}}</td>
                   </tr>
               @endforeach

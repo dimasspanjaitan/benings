@@ -8,7 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('backend/img/favicon.png') }}">
+    @php
+        $settings=DB::table('settings')->first();
+    @endphp
+    <link rel="icon" type="image/png" href="{{ $settings->favicon }}">
   
     <!-- Custom fonts for this template-->
     <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
