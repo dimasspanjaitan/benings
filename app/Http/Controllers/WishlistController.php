@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\{
     Product,
     Wishlist,
+    Cart,
     PriceLevel
 };
 class WishlistController extends Controller
@@ -33,17 +34,19 @@ class WishlistController extends Controller
         })->first();
         $product->product = $product->product;
         $product->stock = !empty($product->product->stock) ? (int) $product->product->stock->stock : 0;
-        // dd($product);
         
         if (empty($product)) {
             request()->session()->flash('error','Invalid Products');
             return back();
         }
 
-        $already_wishlist = Wishlist::where('user_id', $user_id)->where('cart_id',null)->where('product_id', $product->id)->first();
-        // return $already_wishlist;
+        $already_wishlist = Wishlist::where('user_id', $user_id)->where('cart_id', null)->where('product_id', $product->product_id)->first();
+        $already_cart = Cart::where('user_id', $user_id)->where('sale_id', null)->where('product_id', $product->product_id)->first();
         if($already_wishlist) {
             request()->session()->flash('error','You already placed in wishlist');
+            return back();
+        }elseif ($already_cart) {
+            request()->session()->flash('error','You already placed in cart');
             return back();
         }else{
             

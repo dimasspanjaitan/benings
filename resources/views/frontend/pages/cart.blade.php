@@ -48,7 +48,7 @@
 											@endphp
 											<td class="image" data-title="No"><img src="{{ $photo[0] }}" alt="{{ $photo[0] }}"></td>
 											<td class="product-des" data-title="Description">
-												<p class="product-name"><a href="{{ route('product-detail',$cart->product['slug']) }}" target="_blank">{{ $cart->product['title'] }}</a></p>
+												<p class="product-name"><a href="{{ route('product-detail',$cart->product['slug']) }}" target="_blank">{{ $cart->product['name'] }}</a></p>
 												<p class="product-des">{!!($cart->product['summary']) !!}</p>
 											</td>
 											<td class="price" data-title="Price"><span>Rp{{ number_format($cart['price'],2) }}</span></td>

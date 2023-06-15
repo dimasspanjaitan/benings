@@ -48,20 +48,6 @@ class Helper{
         }
         return Category::has('products')->orderBy('id','DESC')->get();
     }
-
-    public static function postTagList($option='all'){
-        if($option='all'){
-            return PostTag::orderBy('id','desc')->get();
-        }
-        return PostTag::has('posts')->orderBy('id','desc')->get();
-    }
-
-    public static function postCategoryList($option="all"){
-        if($option='all'){
-            return PostCategory::orderBy('id','DESC')->get();
-        }
-        return PostCategory::has('posts')->orderBy('id','DESC')->get();
-    }
     // Cart Count
     public static function cartCount($user_id=''){
        
@@ -106,7 +92,7 @@ class Helper{
     }
     public static function getAllProductFromWishlist($user_id=''){
         if(Auth::check()){
-            if($user_id=="") $user_id=auth()->user()->id;
+            if($user_id=="") $user_id = auth()->user()->id;
             return Wishlist::with('product')->where('user_id',$user_id)->where('cart_id',null)->get();
         }
         else{

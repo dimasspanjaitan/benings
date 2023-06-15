@@ -30,8 +30,8 @@
 								<tr class="main-hading">
 									<th>PRODUCT</th>
 									<th>NAME</th>
-									<th class="text-center">PRICE</th> 
-									<th class="text-center">ADD TO CART</th> 
+									<th class="text-center w-25">PRICE</th> 
+									<th class="text-center w-25">ADD TO CART</th> 
 									<th class="text-center"><i class="ti-trash remove-icon"></i></th>
 								</tr>
 							</thead>

@@ -25,9 +25,9 @@
                         @auth 
                             <li><i class="ti-shopping-cart"></i> <a href="{{ route('shipping') }}">Purchase</a></li>
                             @if(Auth::user()->role==1)
-                                <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">CPanel</a></li>
+                                <li><i class="ti-user"></i> <a href="{{ route('admin') }}"  target="_blank">CPanel</a></li>
                             @else 
-                                <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Dashboard</a></li>
+                                <li><i class="ti-user"></i> <a href="{{ route('home') }}">{{ auth()->user()->name }}</a></li>
                             @endif
                             
                             <li><i class="ti-power-off"></i>
