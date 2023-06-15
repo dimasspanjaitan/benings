@@ -4,6 +4,11 @@
 @section('main-content')
 
 <div class="card">
+    <div class="row">
+        <div class="col-md-12">
+           @include('backend.layouts.notification')
+        </div>
+    </div>
     <h5 class="card-header">Edit User</h5>
     <div class="card-body">
       <form method="post" enctype="multipart/form-data" action="{{route('users.update',$user->id)}}">
@@ -37,7 +42,7 @@
         <div class="col-12 row pl-0">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="level">Level <span class="text-danger">*</span></label>
+                    <label for="level">Level</label>
                     <select name="level_id" class="form-control">
                         <option value="">--Select any level--</option>
                         @foreach($levels as $key=>$data)
@@ -51,7 +56,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="region">Region <span class="text-danger">*</span></label>
+                    <label for="region">Region</label>
                     <select name="region_id" class="form-control">
                         <option value="">--Select any region--</option>
                         @foreach($regions as $key=>$data)

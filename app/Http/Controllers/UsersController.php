@@ -58,7 +58,7 @@ class UsersController extends Controller
             'status'=>'required|in:1,0',
             'name'=>'required|string|max:30',
             'email'=>'required|string|unique:users',
-            'password'=>'required|string',
+            'password'=>'required|confirmed|min:6|string',
             'upline'=>'integer|nullable',
             'phone'=>'required|string|nullable',
             'instagram'=>'string|nullable',
@@ -70,8 +70,8 @@ class UsersController extends Controller
             'address'=>'string|nullable',
             'bank_name'=>'string|nullable',
             'bank_number'=>'string|nullable',
-            'level_id'=>'required|integer',
-            'region_id'=>'required|integer',
+            'level_id'=>'nullable|integer',
+            'region_id'=>'nullable|integer',
             'photo'=>'nullable|file',
             'id_card_photo'=>'nullable|string',
             'id_card_number'=>'nullable|string',
@@ -79,7 +79,9 @@ class UsersController extends Controller
             'role'=>'required|in:1,2'
         ],[
             'required' => 'This :attribute cannot be null',
+            'confirmed' => ':attribute is not same',
             'max' => 'This :attribute maximal 30 character',
+            'min' => ':attribute minimal 6 character',
             'string' => 'This :attribute must be string'
         ]);
         $data = $request->all();
@@ -161,8 +163,8 @@ class UsersController extends Controller
             'address'=>'string|nullable',
             'bank_name'=>'string|nullable',
             'bank_number'=>'string|nullable',
-            'level_id'=>'required|integer',
-            'region_id'=>'required|integer',
+            'level_id'=>'nullable|integer',
+            'region_id'=>'nullable|integer',
             'photo'=>'nullable|file',
             'id_card_photo'=>'nullable|string',
             'id_card_number'=>'nullable|string',
@@ -175,35 +177,39 @@ class UsersController extends Controller
             'uploaded' => 'File size too big'
         ]);
         $data = $request->all();
-        $data['password'] = Hash::make($data['password']);
+        $check = Hash::check($request['password'], $user->password);
+        if($check){
+            $data['password'] = Hash::make($data['password']);
 
-        $old_image = explode('/', $user->photo)[count(explode('/',$user->photo)) -1];
-        // dd($old_image);
-        if (isset($data['photo'])) {
-            if (!empty($user->photo)) {
-                if(file_exists(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image)){
-                    unlink(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image);
+            $old_image = explode('/', $user->photo)[count(explode('/',$user->photo)) -1];
+            // dd($old_image);
+            if (isset($data['photo'])) {
+                if (!empty($user->photo)) {
+                    if(file_exists(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image)){
+                        unlink(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image);
+                    }
                 }
-            }
-            $propImages = $this->uploadImage($request,[
-                'file' => 'photo',
-                'size' => [500,500],
-                'path' => 'uploads/users',
-                'permission' => 777
-    
-            ]);
-            $data['photo'] = $propImages['path'];
-        }
+                $propImages = $this->uploadImage($request,[
+                    'file' => 'photo',
+                    'size' => [500,500],
+                    'path' => 'uploads/users',
+                    'permission' => 777
         
-        $status=$user->fill($data)->save();
-        if($status){
-            request()->session()->flash('success','Successfully updated');
+                ]);
+                $data['photo'] = $propImages['path'];
+            }
+            
+            $status=$user->fill($data)->save();
+            if($status){
+                request()->session()->flash('success','Successfully updated');
+            }
+            else{
+                request()->session()->flash('error','Error occured while updating');
+            }
+            return redirect()->route('users.index');
+        }else{
+            return redirect()->route('users.edit',$id)->with('error','Password not valid');
         }
-        else{
-            request()->session()->flash('error','Error occured while updating');
-        }
-        return redirect()->route('users.index');
-
     }
 
     /**

@@ -19,19 +19,21 @@ class PriceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $prices = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC')->get()->groupBy('product_id');
-        $prices = $this->filter($prices);
-        // dd($prices);
+        if(!isset($request['_page'])) $request['_page'] = 1;
+        if(!isset($request['_limit'])) $request['_limit'] = 10;
+        $raw_products = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC')->get()->groupBy('product_id');
+        $products = $raw_products->slice(((int)$request['_page'] * (int)$request['_limit']) - 10, (int)$request['_limit']);
+
         $customer_prices = PriceLevel::has('level')->whereHas('level', function($l){
             return $l->where('type',1);
         })->get();
 
-        $total = $this->filter($prices,false)->count();
+        $total = $raw_products->count();
         $pagination = $this->pagination($total);
 
-        return view('backend.price.index', compact('prices', 'customer_prices', 'pagination'));
+        return view('backend.price.index', compact('products', 'customer_prices', 'pagination'));
     }
 
     /**
@@ -181,16 +183,20 @@ class PriceController extends Controller
             request()->session()->flash('error','Please try again!!');
         }
 
-        $prices = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC')->get()->groupBy('product_id');
-        // dd($prices);
-        $customer_prices = PriceLevel::has('level')->whereHas('level', function($l){
-            return $l->where('type',1);
-        })->get();
+        // if(!isset($request['_page'])) $request['_page'] = 1;
+        // if(!isset($request['_limit'])) $request['_limit'] = 10;
+        // $raw_products = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC')->get()->groupBy('product_id');
+        // $products = $raw_products->slice(((int)$request['_page'] * (int)$request['_limit']) - 10, (int)$request['_limit']);
 
-        $total = $this->filter($prices,false)->count();
-        $pagination = $this->pagination($total);
+        // $customer_prices = PriceLevel::has('level')->whereHas('level', function($l){
+        //     return $l->where('type',1);
+        // })->get();
 
-        return view('backend.price.index', compact('prices', 'customer_prices', 'pagination'));
+        // $total = $raw_products->count();
+        // $pagination = $this->pagination($total);
+
+        // return view('backend.price.index', compact('products', 'customer_prices', 'pagination'));
+        return redirect()->route('price.index');
     }
 
     /**
@@ -201,8 +207,7 @@ class PriceController extends Controller
      */
     public function destroy($id)
     {
-        $level = Level::findOrFail($id);
-        $status=$level->delete();
+        $status = PriceLevel::where('product_id', $id)->delete($id);
         
         if($status){
             request()->session()->flash('success','Level successfully deleted');
@@ -210,6 +215,6 @@ class PriceController extends Controller
         else{
             request()->session()->flash('error','Error while deleting level');
         }
-        return redirect()->route('level.index');
+        return redirect()->route('price.index');
     }
 }

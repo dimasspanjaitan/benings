@@ -62,8 +62,8 @@
                       <td>{{ $user->name }}</td>
                       <td>{{ $user->email }}</td>
                       <td>{{ $user->phone }}</td>
-                      <td>{{ $user->levels->name }}</td>
-                      <td>{{ $user->regions->name }}</td>
+                      <td>{{ (!empty($user->levels->name)) ? $user->levels->name : '' }}</td>
+                      <td>{{ (!empty($user->regions->name)) ? $user->regions->name : '' }}</td>
                       <td>
                           @if($user->photo)
                               <img src="{{ $user->photo }}" class="img-fluid rounded-circle" style="max-width:50px" alt="{{ $user->photo }}">
