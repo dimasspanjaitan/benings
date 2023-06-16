@@ -4,7 +4,7 @@
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Edit Post</h5>
+    <h5 class="card-header">Edit Settings</h5>
     <div class="card-body">
     <form method="post" enctype="multipart/form-data" action="{{ route('settings.update') }}">
         @csrf 

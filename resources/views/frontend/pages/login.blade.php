@@ -35,7 +35,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Your Email<span>*</span></label>
-                                        <input type="email" name="email" placeholder="" required="required" value="{{old('email')}}">
+                                        <input type="email" name="email" placeholder="Enter your email" required="required" value="{{old('email')}}">
                                         @error('email')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
@@ -44,7 +44,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Your Password<span>*</span></label>
-                                        <input type="password" name="password" placeholder="" required="required" value="{{old('password')}}">
+                                        <input type="password" name="password" placeholder="Enter your password" required="required" value="{{old('password')}}">
                                         @error('password')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror

@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group ml-2">
                     <label for="region">Region</label>
                     <select name="region_id" class="form-control">
                         <option value="">--Select any region--</option>

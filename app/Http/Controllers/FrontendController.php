@@ -7,7 +7,6 @@ use App\Models\{
     Category,
     PriceLevel,
     Product,
-    ProductDetail,
     SaleDetail
 };
 
@@ -19,7 +18,7 @@ class FrontendController extends Controller
     }
     
     public function home(){
-        $level = 0;
+        $level = 1;
         $user = auth()->user();
         if(!empty($user)) {
             $level = $user->level_id;
@@ -43,7 +42,7 @@ class FrontendController extends Controller
         $latests = $products->sortByDesc('id')->take(6);
         $categories = Category::where('status',1)->orderBy('title','ASC')->get();
 
-        // dd($products);
+        // dd($level);
 
         return view('frontend.index', compact('banners', 'products', 'bests', 'categories', 'latests'));
     }
@@ -81,7 +80,7 @@ class FrontendController extends Controller
     }
 
     public function productDetail($slug){
-        $level = 0;
+        $level = 1;
         $user = auth()->user();
         if(!empty($user)) {
             $level = $user->level_id;
@@ -99,7 +98,7 @@ class FrontendController extends Controller
 
     public function productFilter(Request $request){
         $data= $request->all();
-        // return $data;
+        // dd($data);
         $showURL="";
         if(!empty($data['show'])){
             $showURL .='&show='.$data['show'];
@@ -127,16 +126,18 @@ class FrontendController extends Controller
             $priceRangeURL .='&price='.$data['price_range'];
         }
 
+        // dd($priceRangeURL);
+
         if(request()->is('benings.loc/product-grids')){
-            return redirect()->route('product-grids',$catURL.$brandURL.$priceRangeURL.$showURL.$sortByURL);
+            return redirect()->route('product-grids',$catURL.$priceRangeURL.$showURL.$sortByURL);
         }
         else{
-            return redirect()->route('product-lists',$catURL.$brandURL.$priceRangeURL.$showURL.$sortByURL);
+            return redirect()->route('product-lists',$catURL.$priceRangeURL.$showURL.$sortByURL);
         }
     }
 
     public function productGrids(){
-        $level = 0;
+        $level = 1;
         $user = auth()->user();
         if(!empty($user)) {
             $level = $user->level_id;
@@ -196,7 +197,7 @@ class FrontendController extends Controller
     }
 
     public function productLists(){
-        $level = 0;
+        $level = 1;
         $user = auth()->user();
         if(!empty($user)) {
             $level = $user->level_id;
@@ -216,7 +217,7 @@ class FrontendController extends Controller
             array_push($prices, $item->price);
         }
 
-        dd($prices);
+        // dd(max($prices));
         
         if(!empty($_GET['category'])){
             $slug = explode(',',$_GET['category']);
@@ -236,12 +237,12 @@ class FrontendController extends Controller
         }
 
         if(!empty($_GET['price'])){
-            $price=explode('-',$_GET['price']);
-            // return $price;
+            $price = explode('-',$_GET['price']);
             // if(isset($price[0]) && is_numeric($price[0])) $price[0]=floor(Helper::base_amount($price[0]));
             // if(isset($price[1]) && is_numeric($price[1])) $price[1]=ceil(Helper::base_amount($price[1]));
             
             $products->whereBetween('price',$price);
+            // dd($price);
         }
 
         $recent_products = PriceLevel::where('level_id', $level)->with('product')->whereHas('product', function($s){
@@ -257,7 +258,7 @@ class FrontendController extends Controller
             $products=$products->where('status',1)->paginate($_GET['show']);
         }
         else{
-            $products=$products->where('status',1)->paginate(6);
+            // $products = $products->where('status',1)->paginate(6);
         }
         // Sort by name , price, category
 
