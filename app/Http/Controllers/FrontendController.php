@@ -267,15 +267,40 @@ class FrontendController extends Controller
     }
 
     public function productSearch(Request $request){
-        $recent_products=Product::where('status',1)->orderBy('id','DESC')->limit(3)->get();
-        $products=Product::orwhere('title','like','%'.$request->search.'%')
+        $search = $request->search;
+        $level = 1;
+        $user = auth()->user();
+        if(!empty($user)) {
+            $level = $user->level_id;
+        }
+        
+        $recent_products = Product::where('status',1)->orderBy('id','DESC')->limit(3)->get();
+        $raw_products = Product::orwhere('name','like','%'.$request->search.'%')
                     ->orwhere('slug','like','%'.$request->search.'%')
                     ->orwhere('description','like','%'.$request->search.'%')
                     ->orwhere('summary','like','%'.$request->search.'%')
-                    ->orwhere('price','like','%'.$request->search.'%')
-                    ->orderBy('id','DESC')
-                    ->paginate('9');
-        return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products);
+                    ->orderBy('id','DESC')->get();
+
+        // dd($raw_products);
+
+        $products = [];
+        foreach ($raw_products as $product) {
+            $product = PriceLevel::where('level_id', $level)->where('product_id', $product->id)->with('product', 'product.stock')->whereHas('product', function($s){
+                return $s->where('status',1)->orderBy('id','DESC');
+            })->get()->map(function($p){
+                $product = $p->product;
+                $product->price = $p->price;
+                $product->stock = !empty($product->stock) ? (int) $product->stock->stock : 0;
+                return $product;
+            })->sortByDesc('stock');
+
+            array_push($products, $product[0]);
+        }
+
+        // dd($products);
+        // dd($products);
+
+        return view('frontend.pages.product-grids', compact('recent_products', 'products'));
     }
 
     public function productCat(Request $request){

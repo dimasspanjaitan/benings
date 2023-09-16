@@ -130,7 +130,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            {{-- {{$products}} --}}
+                            {{-- {{ dd($products) }} --}}
                             @if(count($products)>0)
                                 @foreach($products as $product)
                                     <div class="col-lg-4 col-md-6 col-12">
