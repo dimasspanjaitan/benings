@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jun 23, 2023 at 05:17 AM
--- Server version: 5.7.31
--- PHP Version: 7.3.21
+-- Host: localhost
+-- Generation Time: May 15, 2025 at 01:10 AM
+-- Server version: 11.7.2-MariaDB
+-- PHP Version: 8.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,19 +27,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `banners`
 --
 
-DROP TABLE IF EXISTS `banners`;
-CREATE TABLE IF NOT EXISTS `banners` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+CREATE TABLE `banners` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `title` varchar(191) NOT NULL,
+  `slug` varchar(191) NOT NULL,
+  `photo` varchar(191) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `banners_slug_unique` (`slug`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `banners`
@@ -56,9 +53,8 @@ INSERT INTO `banners` (`id`, `status`, `title`, `slug`, `photo`, `description`, 
 -- Table structure for table `carts`
 --
 
-DROP TABLE IF EXISTS `carts`;
-CREATE TABLE IF NOT EXISTS `carts` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `carts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `product_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `sale_id` int(11) DEFAULT NULL,
@@ -66,39 +62,8 @@ CREATE TABLE IF NOT EXISTS `carts` (
   `qty` int(11) NOT NULL,
   `amount` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `carts_product_id_index` (`product_id`),
-  KEY `carts_user_id_index` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `carts`
---
-
-INSERT INTO `carts` (`id`, `product_id`, `user_id`, `sale_id`, `price`, `qty`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 1, 10, 1, 280000, 10, 2800000, '2023-06-15 21:56:24', '2023-06-15 22:01:33'),
-(2, 2, 10, 1, 280000, 10, 2800000, '2023-06-15 21:56:32', '2023-06-15 22:01:33'),
-(3, 3, 10, 1, 305000, 10, 3050000, '2023-06-15 21:56:39', '2023-06-15 22:01:33'),
-(4, 19, 10, 1, 65000, 10, 650000, '2023-06-15 21:57:33', '2023-06-15 22:01:33'),
-(5, 9, 10, 1, 165000, 1, 165000, '2023-06-15 21:57:43', '2023-06-15 22:01:33'),
-(6, 26, 10, 2, 128000, 5, 640000, '2023-06-15 22:04:13', '2023-06-15 22:28:05'),
-(7, 9, 10, 2, 165000, 3, 495000, '2023-06-15 22:23:34', '2023-06-15 22:28:05'),
-(8, 22, 10, 2, 61000, 3, 183000, '2023-06-15 22:24:43', '2023-06-15 22:28:05'),
-(9, 5, 10, 2, 320000, 2, 640000, '2023-06-15 22:26:38', '2023-06-15 22:28:05'),
-(10, 6, 10, 2, 320000, 2, 640000, '2023-06-15 22:26:53', '2023-06-15 22:28:05'),
-(11, 23, 10, 2, 86000, 10, 860000, '2023-06-15 22:27:02', '2023-06-15 22:28:05'),
-(12, 11, 12, 3, 200000, 5, 1000000, '2023-06-15 22:50:55', '2023-06-15 23:07:23'),
-(13, 3, 12, 3, 315000, 5, 1575000, '2023-06-15 23:05:50', '2023-06-15 23:07:23'),
-(14, 2, 12, 3, 290000, 5, 1450000, '2023-06-15 23:06:09', '2023-06-15 23:07:23'),
-(15, 1, 12, 3, 290000, 5, 1450000, '2023-06-15 23:06:23', '2023-06-15 23:07:23'),
-(16, 9, 12, 4, 175000, 3, 525000, '2023-06-15 23:07:57', '2023-06-15 23:43:59'),
-(17, 9, 15, 5, 185000, 8, 1480000, '2023-06-15 23:47:46', '2023-06-15 23:49:39'),
-(18, 3, 15, 5, 325000, 10, 3250000, '2023-06-15 23:48:14', '2023-06-15 23:49:39'),
-(19, 7, 15, 5, 130000, 2, 260000, '2023-06-15 23:48:43', '2023-06-15 23:49:39'),
-(20, 8, 15, 5, 210000, 2, 420000, '2023-06-15 23:48:48', '2023-06-15 23:49:39'),
-(21, 2, 10, 6, 280000, 3, 840000, '2023-06-16 01:48:09', '2023-06-16 01:50:35'),
-(22, 28, 10, 6, 142000, 4, 568000, '2023-06-16 01:48:15', '2023-06-16 01:50:35');
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -106,15 +71,13 @@ INSERT INTO `carts` (`id`, `product_id`, `user_id`, `sale_id`, `price`, `qty`, `
 -- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE IF NOT EXISTS `categories` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `title` varchar(191) NOT NULL,
+  `slug` varchar(191) NOT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
@@ -133,17 +96,14 @@ INSERT INTO `categories` (`id`, `status`, `title`, `slug`, `description`) VALUES
 -- Table structure for table `failed_jobs`
 --
 
-DROP TABLE IF EXISTS `failed_jobs`;
-CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(191) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -152,15 +112,13 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 -- Table structure for table `levels`
 --
 
-DROP TABLE IF EXISTS `levels`;
-CREATE TABLE IF NOT EXISTS `levels` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` int(11) NOT NULL DEFAULT '2',
-  `description` text COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `levels` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `name` varchar(191) NOT NULL,
+  `type` int(11) NOT NULL DEFAULT 2,
+  `description` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `levels`
@@ -184,13 +142,11 @@ INSERT INTO `levels` (`id`, `status`, `name`, `type`, `description`) VALUES
 -- Table structure for table `migrations`
 --
 
-DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -226,12 +182,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `password_resets`
 --
 
-DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE IF NOT EXISTS `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`)
+CREATE TABLE `password_resets` (
+  `email` varchar(191) NOT NULL,
+  `token` varchar(191) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -240,20 +194,16 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- Table structure for table `personal_access_tokens`
 --
 
-DROP TABLE IF EXISTS `personal_access_tokens`;
-CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tokenable_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(191) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `name` varchar(191) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -262,15 +212,12 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 -- Table structure for table `price_levels`
 --
 
-DROP TABLE IF EXISTS `price_levels`;
-CREATE TABLE IF NOT EXISTS `price_levels` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `price_levels` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `level_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `price_levels_product_id_index` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=451 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `price` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `price_levels`
@@ -327,16 +274,16 @@ INSERT INTO `price_levels` (`id`, `level_id`, `product_id`, `price`) VALUES
 (48, 8, 5, 305000),
 (49, 9, 5, 295000),
 (50, 10, 5, 285000),
-(51, 1, 6, 375000),
-(52, 2, 6, 335000),
-(53, 3, 6, 330000),
-(54, 4, 6, 325000),
-(55, 5, 6, 320000),
-(56, 6, 6, 315000),
-(57, 7, 6, 310000),
-(58, 8, 6, 305000),
-(59, 9, 6, 295000),
-(60, 10, 6, 285000),
+(460, 10, 6, 290000),
+(459, 9, 6, 295000),
+(458, 8, 6, 305000),
+(457, 7, 6, 310000),
+(456, 6, 6, 315000),
+(455, 5, 6, 320000),
+(454, 4, 6, 325000),
+(453, 3, 6, 330000),
+(452, 2, 6, 335000),
+(451, 1, 6, 375000),
 (110, 10, 7, 0),
 (109, 9, 7, 0),
 (108, 8, 7, 90000),
@@ -417,16 +364,16 @@ INSERT INTO `price_levels` (`id`, `level_id`, `product_id`, `price`) VALUES
 (323, 3, 14, 89000),
 (322, 2, 14, 97000),
 (321, 1, 14, 105000),
-(331, 1, 18, 79000),
-(332, 2, 18, 74000),
-(333, 3, 18, 71000),
-(334, 4, 18, 68000),
-(335, 5, 18, 65000),
-(336, 6, 18, 62000),
-(337, 7, 18, 57000),
-(338, 8, 18, 53000),
-(339, 9, 18, 49000),
-(340, 10, 18, 45000),
+(480, 1, 18, 79000),
+(479, 2, 18, 74000),
+(478, 3, 18, 71000),
+(477, 4, 18, 68000),
+(476, 5, 18, 65000),
+(475, 6, 18, 62000),
+(474, 7, 18, 57000),
+(473, 8, 18, 53000),
+(472, 9, 18, 49000),
+(471, 10, 18, 45000),
 (341, 1, 17, 79000),
 (342, 2, 17, 74000),
 (343, 3, 17, 71000),
@@ -544,22 +491,19 @@ INSERT INTO `price_levels` (`id`, `level_id`, `product_id`, `price`) VALUES
 -- Table structure for table `products`
 --
 
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE IF NOT EXISTS `products` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `summary` longtext COLLATE utf8mb4_unicode_ci,
-  `photo` longtext COLLATE utf8mb4_unicode_ci,
-  `product_type` tinyint(4) NOT NULL DEFAULT '1',
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `name` varchar(191) NOT NULL,
+  `slug` varchar(191) NOT NULL,
+  `summary` longtext DEFAULT NULL,
+  `photo` longtext DEFAULT NULL,
+  `product_type` tinyint(4) NOT NULL DEFAULT 1,
   `category_id` tinyint(4) NOT NULL,
-  `min_order` int(11) NOT NULL DEFAULT '1',
+  `min_order` int(11) NOT NULL DEFAULT 1,
   `weight` int(11) DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`id`),
-  KEY `products_category_id_index` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `description` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
@@ -601,14 +545,11 @@ INSERT INTO `products` (`id`, `status`, `name`, `slug`, `summary`, `photo`, `pro
 -- Table structure for table `product_details`
 --
 
-DROP TABLE IF EXISTS `product_details`;
-CREATE TABLE IF NOT EXISTS `product_details` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `product_id` int(11) NOT NULL,
-  `unit` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
-  `qty` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `product_details_product_id_index` (`product_id`)
+  `unit` varchar(191) NOT NULL DEFAULT '1',
+  `qty` int(11) NOT NULL DEFAULT 1
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -617,16 +558,13 @@ CREATE TABLE IF NOT EXISTS `product_details` (
 -- Table structure for table `product_images`
 --
 
-DROP TABLE IF EXISTS `product_images`;
-CREATE TABLE IF NOT EXISTS `product_images` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `product_id` int(11) NOT NULL,
-  `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `thumbnail` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(191) NOT NULL,
+  `thumbnail` varchar(191) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_images_product_id_index` (`product_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -635,20 +573,17 @@ CREATE TABLE IF NOT EXISTS `product_images` (
 -- Table structure for table `purchases`
 --
 
-DROP TABLE IF EXISTS `purchases`;
-CREATE TABLE IF NOT EXISTS `purchases` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `purchases` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `supplier_id` int(11) NOT NULL,
   `purchase_date` datetime NOT NULL,
-  `recipient` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `recipient` varchar(191) NOT NULL,
   `amount` double NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `code` varchar(191) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `purchases_supplier_id_index` (`supplier_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `purchases`
@@ -688,18 +623,14 @@ INSERT INTO `purchases` (`id`, `supplier_id`, `purchase_date`, `recipient`, `amo
 -- Table structure for table `purchase_details`
 --
 
-DROP TABLE IF EXISTS `purchase_details`;
-CREATE TABLE IF NOT EXISTS `purchase_details` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `purchase_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `purchase_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `unit` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pcs',
+  `unit` varchar(191) NOT NULL DEFAULT 'pcs',
   `qty` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `purchase_details_purchase_id_index` (`purchase_id`),
-  KEY `purchase_details_product_id_index` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `price` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `purchase_details`
@@ -739,14 +670,12 @@ INSERT INTO `purchase_details` (`id`, `purchase_id`, `product_id`, `unit`, `qty`
 -- Table structure for table `regions`
 --
 
-DROP TABLE IF EXISTS `regions`;
-CREATE TABLE IF NOT EXISTS `regions` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `regions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `name` varchar(191) NOT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `regions`
@@ -796,36 +725,21 @@ INSERT INTO `regions` (`id`, `status`, `name`, `description`) VALUES
 -- Table structure for table `sales`
 --
 
-DROP TABLE IF EXISTS `sales`;
-CREATE TABLE IF NOT EXISTS `sales` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sales` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
-  `status` int(11) NOT NULL DEFAULT '1',
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
   `total` int(11) NOT NULL,
   `sale_date` datetime NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `code` varchar(191) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sales_user_id_index` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `sales`
---
-
-INSERT INTO `sales` (`id`, `user_id`, `name`, `email`, `phone`, `address`, `status`, `total`, `sale_date`, `code`, `description`, `created_at`, `updated_at`) VALUES
-(1, 10, 'Josua Sihaloho', 'jsamsudinsihaloho@gmail.com', '085276260333', 'Jln srewangi No. 7, Kel. Nagahuta', 4, 9465000, '2023-06-16 05:01:33', 'BNGDISTMDN-1686866493', NULL, '2023-06-15 22:01:33', '2023-06-15 22:28:24'),
-(2, 10, 'Josua Sihaloho', 'jsamsudinsihaloho@gmail.com', '085276260333', 'Jln srewangi No. 7, Kel. Nagahuta', 2, 3458000, '2023-06-16 05:28:05', 'BNGDISTMDN-1686868085', NULL, '2023-06-15 22:28:05', '2023-06-15 22:28:26'),
-(3, 12, 'Rini Marlina', 'marlinar207@gmail.com', '085368739555', 'Jl. Lingkar Selatan Lorong Teratai RT 07', 2, 5475000, '2023-06-16 06:07:23', 'BNGDISTMDN-1686870443', NULL, '2023-06-15 23:07:23', '2023-06-15 23:44:23'),
-(4, 12, 'Rini Marlina', 'marlinar207@gmail.com', '085368739555', 'Jl. Lingkar Selatan Lorong Teratai RT 07', 3, 525000, '2023-06-16 06:43:59', 'BNGDISTMDN-1686872639', NULL, '2023-06-15 23:43:59', '2023-06-15 23:44:25'),
-(5, 15, 'Fitri Rahayu Sinaga', 'shifakosmetikrantau@gmail.com', '085372346912', 'Lingk. Perlayuan Baroh, Kel. Padang Tinggi', 1, 5410000, '2023-06-16 06:49:39', 'BNGDISTMDN-1686872979', NULL, '2023-06-15 23:49:39', '2023-06-15 23:49:39'),
-(6, 10, 'Josua Sihaloho', 'jsamsudinsihaloho@gmail.com', '085276260333', 'Jln srewangi No. 7, Kel. Nagahuta', 1, 1408000, '2023-06-16 08:50:35', 'BNGDISTMDN-1686880235', NULL, '2023-06-16 01:50:35', '2023-06-16 01:50:35');
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -833,46 +747,14 @@ INSERT INTO `sales` (`id`, `user_id`, `name`, `email`, `phone`, `address`, `stat
 -- Table structure for table `sale_details`
 --
 
-DROP TABLE IF EXISTS `sale_details`;
-CREATE TABLE IF NOT EXISTS `sale_details` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sale_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `sale_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `unit` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pcs',
+  `unit` varchar(191) NOT NULL DEFAULT 'pcs',
   `qty` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sale_details_purchase_id_index` (`sale_id`),
-  KEY `sale_details_product_id_index` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `sale_details`
---
-
-INSERT INTO `sale_details` (`id`, `sale_id`, `product_id`, `unit`, `qty`, `price`) VALUES
-(1, 1, 1, 'pcs', 10, 280000),
-(2, 1, 2, 'pcs', 10, 280000),
-(3, 1, 3, 'pcs', 10, 305000),
-(4, 1, 19, 'pcs', 10, 65000),
-(5, 1, 9, 'pcs', 1, 165000),
-(6, 2, 26, 'pcs', 5, 128000),
-(7, 2, 9, 'pcs', 3, 165000),
-(8, 2, 22, 'pcs', 3, 61000),
-(9, 2, 5, 'pcs', 2, 320000),
-(10, 2, 6, 'pcs', 2, 320000),
-(11, 2, 23, 'pcs', 10, 86000),
-(12, 3, 11, 'pcs', 5, 200000),
-(13, 3, 3, 'pcs', 5, 315000),
-(14, 3, 2, 'pcs', 5, 290000),
-(15, 3, 1, 'pcs', 5, 290000),
-(16, 4, 9, 'pcs', 3, 175000),
-(17, 5, 9, 'pcs', 8, 185000),
-(18, 5, 3, 'pcs', 10, 325000),
-(19, 5, 7, 'pcs', 2, 130000),
-(20, 5, 8, 'pcs', 2, 210000),
-(21, 6, 2, 'pcs', 3, 280000),
-(22, 6, 28, 'pcs', 4, 142000);
+  `price` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -880,22 +762,20 @@ INSERT INTO `sale_details` (`id`, `sale_id`, `product_id`, `unit`, `qty`, `price
 -- Table structure for table `settings`
 --
 
-DROP TABLE IF EXISTS `settings`;
-CREATE TABLE IF NOT EXISTS `settings` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `short_des` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logo_admin` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `favicon` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `description` longtext NOT NULL,
+  `short_des` text NOT NULL,
+  `logo` varchar(191) NOT NULL,
+  `logo_admin` varchar(191) DEFAULT NULL,
+  `favicon` varchar(191) DEFAULT NULL,
+  `photo` varchar(191) NOT NULL,
+  `address` varchar(191) NOT NULL,
+  `phone` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `settings`
@@ -910,8 +790,7 @@ INSERT INTO `settings` (`id`, `description`, `short_des`, `logo`, `logo_admin`, 
 -- Stand-in structure for view `stock_views`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `stock_views`;
-CREATE TABLE IF NOT EXISTS `stock_views` (
+CREATE TABLE `stock_views` (
 `id` bigint(20) unsigned
 ,`name` varchar(191)
 ,`stock` decimal(33,0)
@@ -923,19 +802,16 @@ CREATE TABLE IF NOT EXISTS `stock_views` (
 -- Table structure for table `suppliers`
 --
 
-DROP TABLE IF EXISTS `suppliers`;
-CREATE TABLE IF NOT EXISTS `suppliers` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `suppliers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `name` varchar(191) NOT NULL,
   `level_id` int(11) NOT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`id`),
-  KEY `suppliers_level_id_index` (`level_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `phone` varchar(191) DEFAULT NULL,
+  `email` varchar(191) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `suppliers`
@@ -952,40 +828,35 @@ INSERT INTO `suppliers` (`id`, `status`, `name`, `level_id`, `phone`, `email`, `
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `name` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(191) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `upline` int(11) DEFAULT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `instagram` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `birth_place` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(191) NOT NULL,
+  `instagram` varchar(191) DEFAULT NULL,
+  `birth_place` varchar(191) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
-  `gender` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sub_district` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
-  `bank_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bank_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `level_id` int(11) DEFAULT '1',
+  `gender` varchar(191) DEFAULT NULL,
+  `sub_district` varchar(191) DEFAULT NULL,
+  `city` varchar(191) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `bank_name` varchar(191) DEFAULT NULL,
+  `bank_number` varchar(191) DEFAULT NULL,
+  `level_id` int(11) DEFAULT 1,
   `region_id` int(11) DEFAULT NULL,
-  `photo` text COLLATE utf8mb4_unicode_ci,
-  `id_card_photo` text COLLATE utf8mb4_unicode_ci,
-  `id_card_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` text DEFAULT NULL,
+  `id_card_photo` text DEFAULT NULL,
+  `id_card_number` varchar(191) DEFAULT NULL,
   `another_partner` tinyint(1) DEFAULT NULL,
-  `role` int(11) NOT NULL DEFAULT '2',
+  `role` int(11) NOT NULL DEFAULT 2,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`),
-  KEY `users_level_id_index` (`level_id`),
-  KEY `users_region_id_index` (`region_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -993,21 +864,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `status`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `upline`, `phone`, `instagram`, `birth_place`, `birth_date`, `gender`, `sub_district`, `city`, `address`, `bank_name`, `bank_number`, `level_id`, `region_id`, `photo`, `id_card_photo`, `id_card_number`, `another_partner`, `role`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$TYjj.hKIa2Asty.j0wVfg.4PzccSzPreHgAM.paXV434QisHvSmTy', NULL, NULL, '081212121212', NULL, 'Medan', '2001-10-23', 'Laki-laki', 'Medan Timur', 'Medan', 'Jl. Selamat No. 41 Durian', NULL, NULL, 1, NULL, 'http://127.0.0.1:8000/uploads/users/1684677829_Fotor_AI.png', NULL, NULL, NULL, 1, NULL, '2023-06-15 20:33:54'),
-(9, 1, 'Jhon Panjaitan', 'adejhonpanjaitan@gmail.com', NULL, '$2y$10$ZXto7mHJSq2/VGBqj4kET.aJRaomojcNPfVSTvyZ1hMHK9ko2.Byy', NULL, NULL, '081916657999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1, '2023-06-15 20:31:34', '2023-06-15 20:31:34'),
-(10, 1, 'Josua Sihaloho', 'jsamsudinsihaloho@gmail.com', NULL, '$2y$10$.up9LXeiexkFAk76NNu/V.2C.l.vCBJHGNuxHZe0Ky/gH1yA4hfZ6', NULL, NULL, '085276260333', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, 2, '2023-06-15 20:37:49', '2023-06-15 20:37:49'),
-(11, 1, 'Junfrenti Manurung', 'junfrenti80@yahoo.com', NULL, '$2y$10$bdHLr/PmUp5kQyBesOPqceITXZZHKJlhkr2VH7.85lfK20hdqZRni', NULL, NULL, '085275611618', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 3, NULL, NULL, NULL, NULL, 2, '2023-06-15 20:38:47', '2023-06-15 20:38:47'),
-(12, 1, 'Rini Marlina', 'marlinar207@gmail.com', NULL, '$2y$10$soT5Fq/KmpPwxm1hCF1U2eSCeUKHGBAnJTURGrnQ/CmIqOnJAaSgq', NULL, NULL, '085368739555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 4, NULL, NULL, NULL, NULL, 2, '2023-06-15 20:40:26', '2023-06-15 20:40:26'),
-(13, 1, 'Arthur Kriston Panjaitan', 'yettitheresa@gmail.com', NULL, '$2y$10$RR0MYPbFDr4TKSgLCXWyy.hcfd09Y1t1vDnRi8QJpaNGb/kmoR.76', NULL, NULL, '082168257719', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 5, NULL, NULL, NULL, NULL, 2, '2023-06-15 20:41:12', '2023-06-15 20:41:12'),
-(14, 1, 'Mike Donna Rohmi Berutu', 'jowendomuriel@gmail.com', NULL, '$2y$10$v9hJVzwDSpDLhUi94oqip.cgtcIaTpn3nmcvjKO3MgLFesmW/NpOG', NULL, NULL, '081269886653', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 6, NULL, NULL, NULL, NULL, 2, '2023-06-15 20:52:48', '2023-06-15 20:52:48'),
-(15, 1, 'Fitri Rahayu Sinaga', 'shifakosmetikrantau@gmail.com', NULL, '$2y$10$Xas9oEuigKqsTDPjo53DCOEw9Mhj27a.8Ols6ssuk7UdZuX/tQ1fu', NULL, NULL, '085372346912', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 8, NULL, NULL, NULL, NULL, 2, '2023-06-15 20:53:46', '2023-06-15 21:26:09'),
-(16, 1, 'Tiurma Mariani Butarbutar', 'tiurmamariani123@gmail.com', NULL, '$2y$10$NuGjB9Z4OzrX1TMI95WQ9equqRdUzEVhpOgIjXysOegyqiduKjFOK', NULL, NULL, '08126369595', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 9, NULL, NULL, NULL, NULL, 2, '2023-06-15 21:27:17', '2023-06-15 21:27:17'),
-(17, 1, 'Ade Maysyarah Masry', 'Imay202010@gmail.com', NULL, '$2y$10$oaDrQM7kF/mlXu.6QRdymeif7j82GjnxrZLjviOpJywwk1hIBCxaG', NULL, NULL, '08126439203', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 10, NULL, NULL, NULL, NULL, 2, '2023-06-15 21:28:24', '2023-06-15 21:28:24'),
-(18, 1, 'Marini Harnatalia S Jawak', 'rinisaragih983@gmail.com', NULL, '$2y$10$HQ8OgIN.Hsard75jD3GfkeJ2Cjmi2L/c5siVbyy.TDE8GBB4mRSZ2', NULL, NULL, '081264148999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 11, NULL, NULL, NULL, NULL, 2, '2023-06-15 21:29:31', '2023-06-15 21:29:31'),
-(19, 1, 'Yuli Widyastuti', 'yuliwidya016@gmail.com', NULL, '$2y$10$f/gdpy7WMsGF.hL.y8sKBeMxg.mlndCaQQAepDSioKzC5aTIHjlVi', NULL, NULL, '082167627953', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 12, NULL, NULL, NULL, NULL, 2, '2023-06-15 21:30:23', '2023-06-15 21:30:23'),
-(20, 1, 'Lasni Apoi Rohana Siregar', 'lasniapoi22@gmail.com', NULL, '$2y$10$wYjRSP90rJNlx133NjE0be82JHhhLyF/Re7kTEXuHvSk7.mn2F/iu', NULL, NULL, '081375804836', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 13, NULL, NULL, NULL, NULL, 2, '2023-06-15 21:31:09', '2023-06-15 21:31:09'),
-(21, 1, 'Rani Panjaitan', 'ranipanjaitan777@gmail.com', NULL, '$2y$10$rXuRmaCYkqBxUPCRFTcF/e47IsmbyVKQg6t4gMpjTB9qMg2J2JN1C', NULL, NULL, '082369899777', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 14, NULL, NULL, NULL, NULL, 2, '2023-06-15 21:32:08', '2023-06-15 21:32:08'),
-(22, 1, 'Lidia Verawaty Malau', 'lidiamalau92@gmail.com', NULL, '$2y$10$srli7ibzl9mTpTt806k2nulH1VtBSAe6oge/NMqOppy8BZDTBJHpS', NULL, NULL, '085814934866', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 15, NULL, NULL, NULL, NULL, 2, '2023-06-15 21:32:51', '2023-06-15 21:32:51'),
-(23, 1, 'Kiky Amalya Purba', 'kikyamalya30@gmail.com', NULL, '$2y$10$dwBQcrXe6ylUAuCz4h8Q8OXMPkIiF0rG0v/REFeoPymNuWFK6/8Va', NULL, NULL, '081264148685', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 16, NULL, NULL, NULL, NULL, 2, '2023-06-15 21:33:38', '2023-06-15 21:33:38');
+(24, 1, 'User Test', 'user@gmail.com', NULL, '$2y$10$oTm7qSOOU6Md/M2FGeathOlM5.8/PHuaeV5lYikawlaf/VRWxoUrO', NULL, NULL, '081344445555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 7, NULL, NULL, NULL, NULL, 2, '2025-05-14 18:04:49', '2025-05-14 18:04:49');
 
 -- --------------------------------------------------------
 
@@ -1015,9 +872,8 @@ INSERT INTO `users` (`id`, `status`, `name`, `email`, `email_verified_at`, `pass
 -- Table structure for table `wishlists`
 --
 
-DROP TABLE IF EXISTS `wishlists`;
-CREATE TABLE IF NOT EXISTS `wishlists` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wishlists` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `product_id` int(11) NOT NULL,
   `cart_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
@@ -1025,31 +881,285 @@ CREATE TABLE IF NOT EXISTS `wishlists` (
   `qty` int(11) NOT NULL,
   `amount` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `wishlists_product_id_index` (`product_id`),
-  KEY `wishlists_cart_id_index` (`cart_id`),
-  KEY `wishlists_user_id_index` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wishlists`
+-- Indexes for dumped tables
 --
 
-INSERT INTO `wishlists` (`id`, `product_id`, `cart_id`, `user_id`, `price`, `qty`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 26, 6, 10, 128000, 1, 128000, '2023-06-15 22:02:22', '2023-06-15 22:04:13'),
-(2, 23, 6, 10, 86000, 1, 86000, '2023-06-15 22:02:32', '2023-06-15 22:04:13'),
-(3, 7, 6, 10, 115000, 1, 115000, '2023-06-15 22:02:40', '2023-06-15 22:04:13'),
-(4, 8, 6, 10, 190000, 1, 190000, '2023-06-15 22:02:53', '2023-06-15 22:04:13'),
-(10, 5, 9, 10, 320000, 1, 320000, '2023-06-15 22:26:26', '2023-06-15 22:26:38'),
-(6, 23, 11, 10, 86000, 1, 86000, '2023-06-15 22:11:30', '2023-06-15 22:27:02'),
-(11, 2, 21, 10, 280000, 1, 280000, '2023-06-15 22:27:14', '2023-06-16 01:48:09'),
-(12, 28, 22, 10, 142000, 1, 142000, '2023-06-15 22:27:21', '2023-06-16 01:48:15'),
-(13, 11, 12, 12, 200000, 1, 200000, '2023-06-15 22:32:05', '2023-06-15 23:04:49'),
-(14, 1, 15, 12, 290000, 1, 290000, '2023-06-15 23:05:44', '2023-06-15 23:06:23'),
-(15, 9, 16, 12, 175000, 1, 175000, '2023-06-15 23:08:06', '2023-06-15 23:43:16'),
-(16, 7, 19, 15, 130000, 1, 130000, '2023-06-15 23:48:26', '2023-06-15 23:48:43'),
-(17, 8, 20, 15, 210000, 1, 210000, '2023-06-15 23:48:33', '2023-06-15 23:48:48');
+--
+-- Indexes for table `banners`
+--
+ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `banners_slug_unique` (`slug`);
+
+--
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `carts_product_id_index` (`product_id`),
+  ADD KEY `carts_user_id_index` (`user_id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `levels`
+--
+ALTER TABLE `levels`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `price_levels`
+--
+ALTER TABLE `price_levels`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `price_levels_product_id_index` (`product_id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_category_id_index` (`category_id`);
+
+--
+-- Indexes for table `product_details`
+--
+ALTER TABLE `product_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_details_product_id_index` (`product_id`);
+
+--
+-- Indexes for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_images_product_id_index` (`product_id`);
+
+--
+-- Indexes for table `purchases`
+--
+ALTER TABLE `purchases`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchases_supplier_id_index` (`supplier_id`);
+
+--
+-- Indexes for table `purchase_details`
+--
+ALTER TABLE `purchase_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_details_purchase_id_index` (`purchase_id`),
+  ADD KEY `purchase_details_product_id_index` (`product_id`);
+
+--
+-- Indexes for table `regions`
+--
+ALTER TABLE `regions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sales_user_id_index` (`user_id`);
+
+--
+-- Indexes for table `sale_details`
+--
+ALTER TABLE `sale_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sale_details_purchase_id_index` (`sale_id`),
+  ADD KEY `sale_details_product_id_index` (`product_id`);
+
+--
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `suppliers_level_id_index` (`level_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `users_level_id_index` (`level_id`),
+  ADD KEY `users_region_id_index` (`region_id`);
+
+--
+-- Indexes for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `wishlists_product_id_index` (`product_id`),
+  ADD KEY `wishlists_cart_id_index` (`cart_id`),
+  ADD KEY `wishlists_user_id_index` (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `levels`
+--
+ALTER TABLE `levels`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+
+--
+-- AUTO_INCREMENT for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `price_levels`
+--
+ALTER TABLE `price_levels`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=481;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `product_details`
+--
+ALTER TABLE `product_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_images`
+--
+ALTER TABLE `product_images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `purchases`
+--
+ALTER TABLE `purchases`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `purchase_details`
+--
+ALTER TABLE `purchase_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `regions`
+--
+ALTER TABLE `regions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `sale_details`
+--
+ALTER TABLE `sale_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 -- --------------------------------------------------------
 
@@ -1058,8 +1168,7 @@ INSERT INTO `wishlists` (`id`, `product_id`, `cart_id`, `user_id`, `price`, `qty
 --
 DROP TABLE IF EXISTS `stock_views`;
 
-DROP VIEW IF EXISTS `stock_views`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `stock_views`  AS  select `p`.`id` AS `id`,`p`.`name` AS `name`,((select sum(`purchase_details`.`qty`) from `purchase_details` where (`purchase_details`.`product_id` = `pd`.`product_id`)) - coalesce((select sum(`sale_details`.`qty`) from `sale_details` where (`sale_details`.`product_id` = `pd`.`product_id`)),0)) AS `stock` from (`products` `p` join `purchase_details` `pd` on((`pd`.`product_id` = `p`.`id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `stock_views`  AS SELECT `p`.`id` AS `id`, `p`.`name` AS `name`, (select sum(`purchase_details`.`qty`) from `purchase_details` where `purchase_details`.`product_id` = `pd`.`product_id`) - coalesce((select sum(`sale_details`.`qty`) from `sale_details` where `sale_details`.`product_id` = `pd`.`product_id`),0) AS `stock` FROM (`products` `p` join `purchase_details` `pd` on(`pd`.`product_id` = `p`.`id`)) ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
