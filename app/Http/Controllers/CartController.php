@@ -43,10 +43,9 @@ class CartController extends Controller
         }
 
         $already_cart = Cart::with('product')->where('user_id', $user_id)->where('sale_id',null)->where('product_id', $product->product_id)->first();
-        // dd($already_cart);
+        
         if($already_cart) {
             $already_cart->qty = $already_cart->qty + 1;
-            // dd($product->price);
             $already_cart->amount = $product->price + $already_cart->amount;
             if ($product->stock < $already_cart->qty || $product->stock <= 0) return back()->with('error','Stock not sufficient!.');
             $already_cart->save();
@@ -102,7 +101,6 @@ class CartController extends Controller
 
         if($already_cart) {
             $already_cart->qty = $already_cart->qty + $request->qty[1];
-            // dd($product->price);
             $already_cart->amount = ($product->price * $request->qty[1]) + $already_cart->amount;
             if ($product->stock < $already_cart->qty || $product->stock <= 0) return back()->with('error','Stock not sufficient!.');
             $already_cart->save();
@@ -152,7 +150,6 @@ class CartController extends Controller
             foreach ($qty as $k=>$qty) {
                 $id = $qty_id[$k];
                 $cart = Cart::find($id);
-                // dd($cart);
                 
                 $product = PriceLevel::where('level_id', $level)->with('product', 'product.stock')->whereHas('product', function($p) use ($cart){
                     return $p->where('status',1)->where('product_id', $cart->product_id);
@@ -170,7 +167,6 @@ class CartController extends Controller
                     if ($product->stock <=0) continue;
                     $after_price = $product->price;
                     $cart->amount = $after_price * $qty;
-                    // dd($cart->amount);
                     $cart->save();
                     $success = 'Cart successfully updated!';
                 }else{

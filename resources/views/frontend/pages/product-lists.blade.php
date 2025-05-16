@@ -72,7 +72,6 @@
                                 <!-- Single Widget -->
                                 <div class="single-widget recent-post">
                                     <h3 class="title">Recent post</h3>
-                                    {{-- {{dd($recent_products)}} --}}
                                     @foreach($recent_products as $product)
                                         <!-- Single Post -->
                                         @php 

@@ -182,7 +182,6 @@ class UsersController extends Controller
             $data['password'] = Hash::make($data['password']);
 
             $old_image = explode('/', $user->photo)[count(explode('/',$user->photo)) -1];
-            // dd($old_image);
             if (isset($data['photo'])) {
                 if (!empty($user->photo)) {
                     if(file_exists(public_path('uploads/users').DIRECTORY_SEPARATOR.$old_image)){
@@ -222,12 +221,14 @@ class UsersController extends Controller
     {
         $delete=User::findorFail($id);
         $status=$delete->delete();
+
         if($status){
             request()->session()->flash('success','User Successfully deleted');
         }
         else{
             request()->session()->flash('error','There is an error while deleting users');
         }
+        
         return redirect()->route('users.index');
     }
 }

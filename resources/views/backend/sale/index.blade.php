@@ -3,7 +3,6 @@
 @section('title',"Bening's || Sale Page")
 @section('main-content')
 
-{{-- {{ dd($pagination) }} --}}
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
      <div class="row">

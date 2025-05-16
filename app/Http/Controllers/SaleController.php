@@ -32,9 +32,7 @@ class SaleController extends Controller
     }
 
     public function changeStatus(Request $request){
-        // dd($request->all());
         $data = $request->all();
-        // dd(isset($data['id']));
         if(!isset($data['id'])) return $this->response400('ID tidak boleh kosong');
         if(!isset($data['status'])) return $this->response400('Status tidak boleh kosong');
 
@@ -62,8 +60,10 @@ class SaleController extends Controller
             'phone'=>'numeric|required',
             'email'=>'string|required'
         ]);
+        
         $query = ['user_id' => $user->id,'sale_id' => null];
         $carts = Cart::where($query)->get();
+
         if(count($carts) <= 0){
             request()->session()->flash('error','Cart is Empty !');
             return back();
@@ -118,7 +118,6 @@ class SaleController extends Controller
     public function shipping(Request $request){
         $user = auth()->user();
         $sales = Sale::with('details', 'details.product')->where('user_id', $user->id)->orderBy('id', 'desc')->get();
-        // dd($sales);
         $confirms = [];
         $processeds = [];
         $shippeds = [];
@@ -132,7 +131,6 @@ class SaleController extends Controller
             if($sale->status == 4) array_push($succeeds, $sale);
             if($sale->status == 5) array_push($canceleds, $sale);
         }
-        // dd($processeds);
 
         return view('frontend.pages.shipping', compact('sales', 'confirms', 'processeds', 'shippeds', 'succeeds', 'canceleds'));
     }
@@ -154,8 +152,6 @@ class SaleController extends Controller
         });
         $sale->status = config('benings.sale_types')[$sale->status];
         $sale->terbilang = ucwords(SpellNumber::generate($sale->total));
-        
-        // dd($sale);
 
         return view('frontend.pages.invoice', compact('sale', 'setting'));
     }

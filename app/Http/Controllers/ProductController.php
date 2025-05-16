@@ -51,7 +51,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
         $this->validate($request,[
             'status'=>'required|in:1,0',
             'name'=>'required',
@@ -69,7 +68,6 @@ class ProductController extends Controller
             'exists' => 'This :attribute not exists in database'
         ]);
 
-        // dd($request->file('photo'));
         $data=$request->all();
         $slug=Str::slug($request->name);
         $count=Product::where('slug',$slug)->count();
@@ -96,8 +94,8 @@ class ProductController extends Controller
         else{
             request()->session()->flash('error','Please try again!!');
         }
-        return redirect()->route('product.index');
 
+        return redirect()->route('product.index');
     }
 
     /**
@@ -123,7 +121,6 @@ class ProductController extends Controller
         $product->photo = explode('/', $product->photo)[count(explode('/',$product->photo)) -1];
         $categories = Category::get();
         $items = Product::where('id',$id)->get();
-        // return $items;
         return view('backend.product.edit', compact('product', 'categories', 'items'));
     }
 

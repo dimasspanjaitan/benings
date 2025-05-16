@@ -72,7 +72,6 @@
                                 <!-- Single Widget -->
                                 <div class="single-widget recent-post">
                                     <h3 class="title">Recent post</h3>
-                                    {{-- {{dd($recent_products)}} --}}
                                     @foreach($recent_products as $product)
                                         <!-- Single Post -->
                                         @php
@@ -130,7 +129,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            {{-- {{ dd($products) }} --}}
                             @if(count($products)>0)
                                 @foreach($products as $product)
                                     <div class="col-lg-4 col-md-6 col-12">

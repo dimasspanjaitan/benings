@@ -22,23 +22,27 @@ class SettingSeeder extends Seeder
         $setting = array( 
             [
                 'id' => 1,
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit iste eos, nam molestias quas ipsum? Ab iusto alias, voluptates quisquam earum quod. Itaque commodi quae voluptate inventore tenetur alias? Ab.
-                Eaque ad dolore quia repellat nisi id nam, ea aliquam eius enim debitis molestias nesciunt labore beatae facere error soluta ipsam aut a animi, inventore sed explicabo doloremque ullam. Pariatur.
-                Dolore, nostrum ratione iusto odit consequuntur debitis quos blanditiis corrupti placeat delectus nisi mollitia dignissimos, ipsa quia ipsam voluptatum eligendi minima nihil magnam impedit nam. Facilis veniam voluptatibus commodi sapiente?
-                Aut, exercitationem nisi. Pariatur distinctio ipsum reiciendis deserunt ex voluptas sint mollitia iste necessitatibus eos accusamus error cum exercitationem aliquid, rem voluptatum modi praesentium quas officiis sequi, molestiae autem odio.
-                Pariatur esse autem aperiam consequatur accusamus consectetur quam veritatis minima dolore maxime magni ut deleniti ab suscipit, nostrum animi, omnis enim ex repellendus iusto atque aspernatur, earum temporibus! Omnis, quia.
-                Quibusdam iure facilis fugit suscipit assumenda eos ad deleniti voluptatum. Voluptates a ab sunt quia ut eius nulla dolorum amet repudiandae, ipsa, omnis nisi quisquam optio vitae! Ipsam, corporis nisi?
-                Blanditiis provident, similique nisi incidunt, aliquid quod voluptatibus non aperiam perferendis aliquam illo, sed ipsum! Vero dolorem repellendus nostrum! Deserunt laudantium excepturi inventore error ab ipsam, totam sed delectus ea.
-                Beatae excepturi ullam quia molestiae cum tempora. Fuga dolorum modi, repellat nemo molestias, odio quisquam eligendi iusto omnis totam voluptate amet! Harum illo ipsam temporibus eaque eius? Iusto, voluptatem eius.
-                Natus repellendus sequi corporis cumque labore. Consectetur iste aut temporibus! Minima, architecto delectus quibusdam, nobis incidunt non ullam repellat voluptatem soluta vero quasi dolore itaque dolorum expedita, distinctio eligendi laborum!
-                Rem aliquam error porro temporibus eum corrupti necessitatibus illum, nisi exercitationem eveniet hic excepturi, voluptatibus, similique nostrum! Architecto eveniet sapiente placeat nesciunt cupiditate perspiciatis dolor, debitis asperiores velit inventore beatae?',
-                
-                'short_des' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum a, autem natus cum minima qui. Blanditiis rerum fugit quae non! Officia architecto hic explicabo fugiat eligendi aut qui quas enim.',
-                'logo' => 'backend/img/logo-benings-ms.png',
-                'photo' => 'backend/img/background.jpg',
-                'address' => 'Jl. Selamat No. 41 Durian, Medan Timur',
-                'phone' => '081381174410',
-                'email' => 'devdikey@gmail.com'
+                'description' => "PT. Bening’s Indonesia merupakan perusahaan yang bergerak di bidang penjualan produk skincare maupun bodycare dan kebutuhan untuk perawatan kulit dan kecantikan lainnya dengan nama brand  Bening’s Indonesia yang didirikan pada awal tahun 2021 oleh seorang dokter kecantikan yaitu dr. Oky Pratama. PT. Bening’s Indonesia ini telah memiliki mitra di hampir seluruh Indonesia, terutama di Sumatera Utara. Di Sumatera Utara sendiri telah ada mitra PT. Bening’s Indonesia yaitu Distributor Bening’s Medan SUMUT yang sudah memiliki 40 lebih mitra yang tersebar di Provinsi Sumatera Utara bahkan ke provinsi lainnya mulai dari Kota Medan, Siantar Simalungun, Tapanuli Utara, Aceh, Jambi bahkan ke pulau Nias dan daerah lainnya.  Bening's Distributor Medan SUMUT sendiri dibawah naungan TEAM BRILIANT dari Distributor Karawang.
+
+Bening's Distributor Medan SUMUT ini sendiri sudah menjadi mitra dari PT. Bening’s Indonesia sejak akhir tahun 2021 dan saat ini sudah mempunyai 44 mitra yang tersebar di daerah Sumatera Utara bahkan hingga ke Provinsi Jambi dan Aceh.
+
+Bening's Distributor Medan SUMUT ini dibawah manajemen Digna Simbolon (ibu Geraldine) dan suaminya Ade Jhon Panjaitan (bapak Geraldine).
+
+Untuk produk segera cek di menu produk dan segera Order.
+Untuk info lebih lanjut mengenai kemitraan, langsung hubungi ke No. WA yang ada di menu Contact Us.
+
+Bening's Indonesia:
+1. Sudah terdaftar BPOM
+2. Skincare Halal
+3. Tidak membuat ketergantungan
+4. Memiliki produk khusus yang aman bagi ibu hamil dan menyusui
+5. Sudah dipercaya jutaan masyarakat Indonesia",
+                'short_des' => "Bening's Distributor Medan SUMUT adalah distributor resmi terdaftar di PT. Bening's Indonesia yang mencakup area Medan Sumatera Utara dan sekitarnya.",
+                'logo' => 'http://127.0.0.1:8000/uploads/settings/logo.jpg',
+                'photo' => 'http://127.0.0.1:8000/uploads/settings/benings-dist-medan-sumut.jpg',
+                'address' => 'Jl. Madio Santoso Gg. Tello No. 6 Pulo Brayan I, Kec. Medan Timur',
+                'phone' => '081916657999',
+                'email' => 'beningsdistributormedansumut@gmail.com'
             ],
         );
 

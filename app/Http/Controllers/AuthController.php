@@ -35,7 +35,6 @@ class AuthController extends Controller
 
     public function redirect($provider)
     {
-        // dd($provider);
      return Socialite::driver($provider)->redirect();
     }
  
@@ -43,7 +42,7 @@ class AuthController extends Controller
     {
         $userSocial =   Socialite::driver($provider)->stateless()->user();
         $users      =   User::where(['email' => $userSocial->getEmail()])->first();
-        // dd($users);
+        
         if($users){
             Auth::login($users);
             return redirect('/')->with('success','You are login from '.$provider);

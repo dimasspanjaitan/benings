@@ -48,7 +48,6 @@
 												<ul class="slides">
 													@php 
 														$photo=explode(',',$product_detail->product->photo);
-													// dd($photo);
 													@endphp
 													@foreach($photo as $data)
 														<li data-thumb="{{ $data }}" rel="adjustX:10, adjustY:">

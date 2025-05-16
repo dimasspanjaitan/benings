@@ -172,7 +172,6 @@
                                 <a href="#">
                                     @php
                                         $photo=explode(',',$product->photo);
-                                    // dd($photo);
                                     @endphp
                                     <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                     <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
@@ -275,7 +274,6 @@
                                             <div class="quickview-slider-active">
                                                 @php
                                                     // $photo=explode(',',$product->photo);
-                                                // dd($photo);
                                                 @endphp
                                                 {{-- @foreach($photo as $data)
                                                     <div class="single-slider">

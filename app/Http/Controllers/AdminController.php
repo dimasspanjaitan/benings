@@ -27,7 +27,6 @@ class AdminController extends Controller
         }
 
         return view('backend.index')->with('users', json_encode($array));
-        // return view('backend.index', compact('users'));
     }
 
     public function profile(){
@@ -37,7 +36,6 @@ class AdminController extends Controller
     }
 
     public function profileUpdate(Request $request,$id){
-        // return $request->all();
         $user = User::findOrFail($id);
         $data = $request->all();
         $status = $user->fill($data)->save();
@@ -185,10 +183,4 @@ class AdminController extends Controller
         
         return view('backend.index')->with('course', json_encode($array));
     }
-
-    // public function activity(){
-    //     return Activity::all();
-    //     $activity= Activity::all();
-    //     return view('backend.layouts.activity')->with('activities',$activity);
-    // }
 }

@@ -9,7 +9,6 @@
     <form method="post" enctype="multipart/form-data" action="{{ route('settings.update') }}">
         @csrf 
         {{-- @method('PATCH') --}}
-        {{-- {{dd($data)}} --}}
         <div class="form-group">
           <label for="short_des" class="col-form-label">Short Description <span class="text-danger">*</span></label>
           <textarea class="form-control" id="quote" name="short_des">{{ $data->short_des }}</textarea>

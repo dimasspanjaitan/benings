@@ -58,7 +58,6 @@ class PriceSeeder extends Seeder
             ]);
         }
 
-        // dd(count($price_levels));
         PriceLevel::insert($price_levels);
         PriceLevel::insert($price_level_customers);
     }

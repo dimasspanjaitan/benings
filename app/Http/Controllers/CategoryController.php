@@ -43,7 +43,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
         $this->validate($request,[
             'status'=>'required|in:1,0',
             'title'=>'required|string|max:50',
@@ -60,8 +59,6 @@ class CategoryController extends Controller
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
         }
         $data['slug']=$slug;
-
-        // dd($data);
 
         $status=Category::create($data);
         if($status){

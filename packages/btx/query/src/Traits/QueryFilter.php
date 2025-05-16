@@ -55,9 +55,11 @@ trait QueryFilter {
         $requests = request()->all(); 
         $page = 1;
         $limit = 10;
+
         foreach($requests as $key => $value){
             $relation = explode('__', $key);
             $table = [];
+
             if(count($relation) >= 2) {
                 $key = $relation[count($relation) -1];
                 unset($relation[count($relation)-1]);
@@ -69,8 +71,8 @@ trait QueryFilter {
             $_filter_name = $_filter[count($_filter)-1];
             unset($_filter[count($_filter)-1]);
             $column = implode("_",$_filter);
-            // dd($_filter_name);
             $operators= Operator::$OPERATOR;
+
             if(isset($operators[$_filter_name])){
                 $params = [
                     'table' => $table,
@@ -111,6 +113,7 @@ trait QueryFilter {
         $value = $params['value'];
         $op = $params['operator'];
         $filter = $params['filter'];
+
         if(count($tables) > 0) {
             $model->whereHas($tables[0], function($query) use ($column,$value,$tables,$op,$filter) {
                 if(isset($tables[1])){
@@ -135,6 +138,7 @@ trait QueryFilter {
             $_values = array_map('intval',$_values);
             $value = $_values;
         }
+        
         if(empty($value) && $value != 0) {
             $query->{$op['q']}($column);
         }

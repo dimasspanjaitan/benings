@@ -20,7 +20,6 @@
 
 	<!-- Shopping Cart -->
 	<div class="shopping-cart section">
-		{{-- {{ dd(count(Helper::getAllProductFromCart())) }} --}}
 		@if (count(Helper::getAllProductFromCart())>0)
 			<div class="container">
 				<div class="row">

@@ -60,7 +60,6 @@ class PriceController extends Controller
        
         $data = $request->all();
         $data_levels = Level::select('id')->where('status',1)->get();
-        // dd($data_levels);
         $fields = [
             'product_id'=>'required',
         ];
@@ -75,7 +74,7 @@ class PriceController extends Controller
         DB::beginTransaction();
 
         /**
-         * Hapus dulus semua price level product
+         * Hapus dulu semua price level product
          */
 
          $priceLevels = [];
@@ -160,7 +159,7 @@ class PriceController extends Controller
         DB::beginTransaction();
 
         /**
-         * Hapus dulus semua price level product
+         * Hapus dulu semua price level product
          */
 
          $priceLevels = [];
@@ -182,20 +181,6 @@ class PriceController extends Controller
             DB::rollback();
             request()->session()->flash('error','Please try again!!');
         }
-
-        // if(!isset($request['_page'])) $request['_page'] = 1;
-        // if(!isset($request['_limit'])) $request['_limit'] = 10;
-        // $raw_products = PriceLevel::with('product', 'level')->orderBy('level_id', 'ASC')->get()->groupBy('product_id');
-        // $products = $raw_products->slice(((int)$request['_page'] * (int)$request['_limit']) - 10, (int)$request['_limit']);
-
-        // $customer_prices = PriceLevel::has('level')->whereHas('level', function($l){
-        //     return $l->where('type',1);
-        // })->get();
-
-        // $total = $raw_products->count();
-        // $pagination = $this->pagination($total);
-
-        // return view('backend.price.index', compact('products', 'customer_prices', 'pagination'));
         return redirect()->route('price.index');
     }
 

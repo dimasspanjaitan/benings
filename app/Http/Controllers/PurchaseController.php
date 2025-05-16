@@ -20,15 +20,7 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
-        
-        // if(!isset($request['_page'])) $request['_page'] = 0;
         $purchases = PurchaseDetail::with('purchase', 'product', 'purchase.supplier')->orderBy('id', 'DESC')->get();
-        // dd($purchases);
-        // $purchases = $this->filter($products)->get();
-
-        // $total = PurchaseDetail::select('id');
-        // $total = $this->filter($total,false)->count();
-        // $pagination = $this->pagination($total);
 
         return view('backend.purchase.index', compact('purchases'));
     }

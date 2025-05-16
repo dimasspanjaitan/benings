@@ -49,7 +49,6 @@
         </div>
         @php 
         $roles=DB::table('users')->select('role')->where('id',$user->id)->get();
-        // dd($roles);
         @endphp
         <div class="form-group">
             <label for="role" class="col-form-label">Role</label>
